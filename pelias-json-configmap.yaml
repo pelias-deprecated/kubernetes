@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pelias-json-configmap
+data:
+  pelias.json: |
+    {
+      "esclient": {
+        "apiVersion": "2.3",
+        "hosts": [{
+          "host": "elasticsearch"
+        }]
+      },
+      "acceptance-tests": {
+        "endpoints": {
+          "local": "http://pelias-api:3100/v1/"
+        }
+      },
+      "schema": {
+        "indexName": "pelias"
+      },
+      "logger": {
+        "level": "debug",
+        "timestamp": true
+      },
+      "imports": {
+        "geonames": {
+          "datapath": "/data/geonames",
+          "countryCode": "mx"
+        },
+        "openaddresses": {
+          "datapath": "/data/openaddresses",
+          "files": ["us/ny/city_of_new_york.csv"]
+        },
+        "openstreetmap": {
+          "datapath": "/data/osm",
+          "import": [{
+            "filename": "helsinki_finland.osm.pbf"
+          }, {
+            "filename": "san-francisco-bay_california.osm.pbf"
+          }, {
+            "filename": "seoul_south-korea.osm.pbf"
+          }, {
+            "filename": "tokyo_japan.osm.pbf"
+          } ]
+        },
+        "polyline": {
+          "datapath": "/data/polyline",
+          "files": ["planet.polylines"]
+        },
+        "whosonfirst": {
+          "importVenues": false,
+          "datapath": "/data/wof/"
+        }
+      }
+    }
