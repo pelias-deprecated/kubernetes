@@ -23,3 +23,4 @@ kubectl create --namespace=pelias-dev -f pelias-api.yaml
 kubectl create --namespace=pelias-dev -f schema-create-job.yaml
 
 # run importers
+kubectl create --namespace=pelias-dev -f openaddresses-import-job.yaml
