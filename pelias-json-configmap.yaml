@@ -30,7 +30,7 @@ data:
         },
         "openaddresses": {
           "datapath": "/data/openaddresses",
-          "files": ["us/ma/cityo_of_boston.csv"]
+          "files": ["us/ma/city_of_boston.csv"]
         },
         "openstreetmap": {
           "datapath": "/data/osm",
