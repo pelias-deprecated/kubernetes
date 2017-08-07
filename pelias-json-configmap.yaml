@@ -8,7 +8,7 @@ data:
       "esclient": {
         "apiVersion": "2.3",
         "hosts": [{
-          "host": "elasticsearch"
+          "host": "elasticsearch-service"
         }]
       },
       "acceptance-tests": {
