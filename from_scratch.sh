@@ -24,3 +24,6 @@ kubectl create --namespace=pelias-dev -f schema-create-job.yaml
 
 # run importers
 kubectl create --namespace=pelias-dev -f openaddresses-import-job.yaml
+
+# find api service IP address
+minikube service -n pelias-dev --url pelias-api-service
