@@ -19,6 +19,11 @@ spec:
             add:
             - IPC_LOCK
         image: pelias/elasticsearch
+        resources:
+          limits:
+            memory: 3Gi
+          requests:
+            memory: 2Gi
         ports:
         - containerPort: 9200
           name: http

@@ -18,6 +18,11 @@ spec:
           env:
             - name: PELIAS_CONFIG
               value: "/etc/config/pelias.json"
+          resources:
+            limits:
+              memory: 4Gi
+            requests:
+              memory: 3Gi
       volumes:
         - name: config-volume
           configMap:
@@ -36,4 +41,4 @@ spec:
     ports:
         - protocol: TCP
           port: 3100
-    type: NodePort
+    type: LoadBalancer
