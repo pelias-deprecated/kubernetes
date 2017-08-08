@@ -50,7 +50,7 @@ data:
         },
         "whosonfirst": {
           "importVenues": false,
-          "importPlace": 404476573,
+          "importPlace": "404476573",
           "api_key": "mapzen-NvJYGeT",
           "datapath": "/data/wof/"
         }
