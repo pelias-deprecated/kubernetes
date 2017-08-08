@@ -17,6 +17,13 @@ spec:
         env:
           - name: PELIAS_CONFIG
             value: "/etc/config/pelias.json"
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: 0.1
+          requests:
+            memory: 1Gi
+            cpu: 0.1
       restartPolicy: Never
       volumes:
         - name: config-volume
