@@ -11,6 +11,13 @@ data:
           "host": "elasticsearch-service"
         }]
       },
+      "api": {
+        "services": {
+          "pip": {
+            "url": "http://pip-service:3102/"
+          }
+        }
+      },
       "acceptance-tests": {
         "endpoints": {
           "local": "http://pelias-api:3100/v1/"
