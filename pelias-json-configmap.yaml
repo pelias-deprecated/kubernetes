@@ -14,13 +14,13 @@ data:
       "api": {
         "services": {
           "pip": {
-            "url": "http://pip-service:3102/"
+            "url": "http://pelias-pip-service:3102/"
           }
         }
       },
       "acceptance-tests": {
         "endpoints": {
-          "local": "http://pelias-api:3100/v1/"
+          "local": "http://pelias-api-service:3100/v1/"
         }
       },
       "schema": {
