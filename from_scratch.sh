@@ -6,7 +6,7 @@ CMD=${1:-'create'}
 NAMESPACE=${2:-'pelias-dev'}
 
 # create namespace
-kubectl ${CMD} -f namespace.yaml
+# kubectl ${CMD} -f namespace.yaml
 
 # use namespace for all subsequent requests
 kubectl config set-context $(kubectl config current-context) --namespace=${NAMESPACE}
