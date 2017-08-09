@@ -54,7 +54,7 @@ data:
         },
         "whosonfirst": {
           "importVenues": false,
-          "datapath": "/data/wof/"
+          "datapath": "/data/whosonfirst/"
         }
       }
     }
