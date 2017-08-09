@@ -57,4 +57,4 @@ spec:
     ports:
         - protocol: TCP
           port: 3102
-    type: LoadBalancer
+    type: ClusterIP
