@@ -30,9 +30,11 @@ spec:
               value: "/data/placeholder/"
           resources:
             limits:
-              memory: 3Gi
+              memory: 1Gi
+              cpu: 2
             requests:
-              memory: 2Gi
+              memory: 512Mi
+              cpu: 1
       volumes:
         - name: data-volume
           emptyDir: {}
