@@ -24,9 +24,6 @@ data:
         "timestamp": true
       },
       "imports": {
-        "adminLookup": {
-          "enabled": false
-        },
         "geonames": {
           "datapath": "/data/geonames",
           "countryCode": "mx"
