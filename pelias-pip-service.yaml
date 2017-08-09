@@ -37,6 +37,11 @@ spec:
               memory: 8Gi
             requests:
               memory: 6Gi
+          readinessProbe:
+            httpGet:
+              path: /12/12
+              port: 3102
+            initialDelaySeconds: 60 #PIP service takes a long time to start up
       volumes:
         - name: config-volume
           configMap:
