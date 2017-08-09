@@ -34,9 +34,9 @@ spec:
               value: "/etc/config/pelias.json"
           resources:
             limits:
-              memory: 4Gi
+              memory: 6Gi
             requests:
-              memory: 3Gi
+              memory: 4Gi
       volumes:
         - name: config-volume
           configMap:
