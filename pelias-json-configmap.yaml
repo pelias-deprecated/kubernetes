@@ -11,9 +11,16 @@ data:
           "host": "elasticsearch-service"
         }]
       },
+      "api": {
+        "services": {
+          "pip": {
+            "url": "http://pelias-pip-service:3102/"
+          }
+        }
+      },
       "acceptance-tests": {
         "endpoints": {
-          "local": "http://pelias-api:3100/v1/"
+          "local": "http://pelias-api-service:3100/v1/"
         }
       },
       "schema": {
@@ -47,9 +54,7 @@ data:
         },
         "whosonfirst": {
           "importVenues": false,
-          "importPlace": "404476573",
-          "api_key": "mapzen-NvJYGeT",
-          "datapath": "/data/wof/"
+          "datapath": "/data/whosonfirst/"
         }
       }
     }
