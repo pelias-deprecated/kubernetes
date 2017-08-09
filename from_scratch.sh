@@ -24,6 +24,9 @@ kubectl ${CMD} -f elasticsearch-replicationcontroller.yaml
 # api
 kubectl ${CMD} -f pelias-api.yaml
 
+# pip service
+kubectl ${CMD} -f pelias-pip-service.yaml
+
 # set up schema (just runs a job)
 kubectl ${CMD} -f schema-create-job.yaml
 
