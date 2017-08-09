@@ -2,28 +2,39 @@
 
 #This script will set up Pelias on Kubernetse from scratch
 # it doesn't yet handle updating an existing config
+CMD=${1:-'create'}
+NAMESPACE=${2:-'pelias-dev'}
 
-#namespace
-kubectl create -f namespace.yaml
+# create namespace
+kubectl ${CMD} -f namespace.yaml
 
-#configuration
-kubectl create --namespace=pelias-dev -f pelias-json-configmap.yaml
+# use namespace for all subsequent requests
+kubectl config set-context $(kubectl config current-context) --namespace=${NAMESPACE}
+
+# configuration
+kubectl ${CMD} -f pelias-json-configmap.yaml
 
 # service accounts
-kubectl create --namespace=pelias-dev -f elasticsearch-serviceaccount.yaml
+kubectl ${CMD} -f elasticsearch-serviceaccount.yaml
 
 # elasticsearch
-kubectl create --namespace=pelias-dev -f elasticsearch-service.yaml
-kubectl create --namespace=pelias-dev -f elasticsearch-replicationcontroller.yaml
+kubectl ${CMD} -f elasticsearch-service.yaml
+kubectl ${CMD} -f elasticsearch-replicationcontroller.yaml
 
 # api
-kubectl create --namespace=pelias-dev -f pelias-api.yaml
+kubectl ${CMD} -f pelias-api.yaml
 
 # set up schema (just runs a job)
-kubectl create --namespace=pelias-dev -f schema-create-job.yaml
+kubectl ${CMD} -f schema-create-job.yaml
 
 # run importers
-kubectl create --namespace=pelias-dev -f openaddresses-import-job.yaml
+kubectl ${CMD} -f openaddresses-import-job.yaml
+
+# run importers
+kubectl ${CMD} -f openstreetmap-import-job.yaml
+
+# open dashboard in your browser
+# minikube dashboard
 
 # find api service IP address
-minikube service -n pelias-dev --url pelias-api-service
+# minikube service --url pelias-api-service
