@@ -28,7 +28,7 @@ kubectl ${CMD} -f pelias-api.yaml
 kubectl ${CMD} -f pelias-pip-service.yaml
 
 # placeholder
-kubectl ${CMD} -f pelias-placeholder.yaml
+kubectl ${CMD} -f pelias-placeholder-service.yaml
 
 # set up schema (just runs a job)
 kubectl ${CMD} -f schema-create-job.yaml
