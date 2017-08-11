@@ -14,4 +14,3 @@ resource "aws_iam_instance_profile" "elasticsearch" {
   path = "/"
   role = "${aws_iam_role.elasticsearch.name}"
 }
-
