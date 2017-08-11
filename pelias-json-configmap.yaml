@@ -6,7 +6,6 @@ data:
   pelias.json: |
     {
       "esclient": {
-        "apiVersion": "2.4",
         "hosts": [{
           "host": "elasticsearch-service"
         }]
