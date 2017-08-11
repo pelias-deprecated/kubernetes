@@ -44,11 +44,11 @@ spec:
             value: "/etc/config/pelias.json"
         resources:
           limits:
-            memory: 3Gi
-            cpu: 2
+            memory: 10Gi
+            cpu: 3
           requests:
-            memory: 2Gi
-            cpu: 1.5
+            memory: 8Gi
+            cpu: 2
       restartPolicy: Never
       volumes:
         - name: config-volume
