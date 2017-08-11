@@ -1,37 +1,60 @@
 # Pelias Kubernetes Configuration
 
-These are _extremely_ early stage Kubernetes configuration files for Pelias.
+Here live Kubernetes configuration files to create a production ready instance of Pelias.
 
-# minikube
+This configuration is meant to be run on Kubernetes using real hardware or full sized virtual
+machines in the cloud. Technically it could work on a personal computer with
+[minikube](https://github.com/kubernetes/minikube) but it would require a machine with lots of RAM:
+24GB or more.
 
-by default minikube doesn't use all available CPUs and RAM, if you get messages such as `Insufficient memory` then you may need to restart minikube with higher resource limits:
+**Note:** These are very early stage, and are being rapidly changed and improved. We welcome
+feedback from anyone who has used them.
 
-```bash
-$ minikube stop
-$ minikube delete
+## Setup
 
-# use all available CPU/RAM
-#$ minikube start --cpus `nproc --all` --memory `free -m | awk '/^Mem:/{print $2}'`
+First, set up a Kubernetes cluster however works best for you. A popular choice is to use
+[kops](https://github.com/kubernetes/kops) on AWS. The [Getting Started on AWS Guide](https://github.com/kubernetes/kops/blob/master/docs/aws.md) is a good starting point.
 
-# or select your own limits
-$ minikube start --cpus 6 --memory 8192
-```
+### Sizing the Kubernetes cluster
 
-see: https://github.com/kubernetes/minikube/issues/567
+A working Pelias cluster contains the following services:
+* Pelias API (requires about 3GB of RAM) (**required**)
+* Placeholder Service (Requires 512MB of RAM) (**recommended**)
+* Point in Polygon (PIP) Service (Requires 6GB of RAM) (**recommended if reverse geocoding is
+  important**)
+* Interpolation Service (not implemented yet)
 
-# jobs
+Some of the following importers will additionally have to be run to initially populate data
+* Who's on First (requires about 1GB of RAM, not implemented yet)
+* OpenStretMap (requires 6GB of RAM)
+* OpenAddresses (requires 6GB of RAM)
+* Geonames (requires 6GB of RAM, not implemented yet)
+* Polylines (requires 6GB of RAM, not implemented yet)
 
-if a job shows as `Status: Failed`, you can get more information by inspecting the pod:
+Use the[data sources](https://mapzen.com/documentation/search/data-sources/) documentation to decide
+which importers to be run.
 
-```bash
-$ kubectl get pods -n pelias-dev
-NAME                         READY     STATUS     RESTARTS   AGE
-elasticsearch-f69v2          1/1       Running    0          52m
-openstreetmap-import-zwrwv   0/1       Init:0/1   0          1s
-pelias-api-587096593-8f6rc   1/1       Running    0          52m
+Importers can be run in any order, in parallel or one at a time.
 
-$ kubectl describe pod -n pelias-dev openstreetmap-import-zwrwv
-```
+These configuration files have two pods for each service to ensure redundancy. This means around
+20GB of RAM is required to bring up all these services, and up to another 30GB of RAM is needed to
+run all the importers at once. 3 instances with 8GB of RAM each is a good starting point just for
+the services.
+
+If using kops, it defaults to `t2.small` instances, which are far too small (they only have 2GB of ram).
+
+You can edit the instance types using `kops edit ig nodes` before starting your cluster. `m4.large` is a good choice to start.
+
+## Elasticsearch
+
+Elasticsearch is used as the primary datastore for Pelias data. As a powerful database with built in
+scalability and replication abilities, it is not well suited for running in Kubernetes.
+
+Instead, it's preferable to create "regular" instances in your cloud provider or on your own
+hardware. To help with this, the `elasticsearch/` directory in this repository contains tools for
+setting up a production ready, Pelias compatible Elasticsearch cluster. It uses
+[Terraform](http://terraform.io/) and [Packer](http://packer.io/) to do this. See the directory
+[README](./elasticsearch/README.md) for more details.
 
 # debuging 'init containers'
 
