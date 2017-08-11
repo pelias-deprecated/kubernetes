@@ -1,170 +1,94 @@
-### MANDATORY ###
-variable "role_tag" {
-  description = "Role of the ec2 instance, defaults to <SERVICE>"
-  default = "SERVICE"
+## AWS Gobal settings
+
+variable "ssh_key_name" {
+  description = "Name of AWS key pair"
 }
 
-variable "environment_tag" {
-  description = "Role of the ec2 instance, defaults to <DEV>"
-  default = "DEV"
+variable "aws_access_key" {
+  description = "The access key for the terraform user"
 }
 
-variable "costcenter_tag" {
-  description = "Role of the ec2 instance, defaults to <DEV>"
-  default = "DEV"
-}
-
-# group our resources
-variable "stream_tag" {
-  default = "default"
-}
-
-variable "environment" {
-  default = "default"
-}
-
-variable "es_environment" {
-  default = "elasticsearch"
-}
-
-variable "es_cluster" {
-  description = "Name of the elasticsearch cluster, used in node discovery"
-  default = "elasticsearch"
-}
-
-###################################################################
-# AWS configuration below
-###################################################################
-variable "key_name" {
-  description = "Name of the SSH keypair to use in AWS."
-  default = "elastic"
-}
-
-### MANDATORY ###
-variable "iam_profile" {
-  description = "Elasticsearch IAM profile"
+variable "aws_secret_key" {
+  description = "The secret key for the terraform user"
 }
 
 variable "aws_region" {
-  description = "AWS region to launch servers."
-  default = "ap-southeast-2"
+  description = "The AWS region to create things in."
+  default     = "us-east-1"
 }
 
 variable "availability_zones" {
   description = "AWS region to launch servers."
-  default = "ap-southeast-2a,ap-southeast-2b"
+  default     = "us-east-1a,us-east-1b,us-east-1c,us-east-1d,us-east-1e"
 }
 
-variable "security_group_name" {
-  description = "Name of security group to use in AWS."
-  default = "elasticsearch"
+variable "aws_vpc_id" {
+  description = "These templates assume a VPC already exists"
 }
 
-###################################################################
-# Vpc configuration below
-###################################################################
+# Autoscaling Group Settings
 
-### MANDATORY ###
-variable "vpc_id" {
-  description = "VPC id"
-}
-
-variable "internal_cidr_blocks"{
-  default = "0.0.0.0/0"
-}
-
-###################################################################
-# Subnet configuration below
-###################################################################
-
-### MANDATORY ###
-variable "subnets" {
-  description = "subnets to deploy into"
-}
-
-###################################################################
-# Elasticsearch configuration below
-###################################################################
-
-### MANDATORY ###
-# Amazon Linux elasticsearch ami built by packer
-# See https://github.com/nadnerb/packer-elastic-search
-variable "ami" {
-}
-
-variable "instance_type" {
+# r3.xlarge is a good economic default for full planet builds
+# for more performance, use c4.4xlarge or similar. High throughput
+# geocoders really love having lots of CPU available
+variable "elasticsearch_instance_type" {
   description = "Elasticsearch instance type."
-  default = "t2.medium"
+  default = "r3.xlarge"
 }
 
-### MANDATORY ###
-variable "es_environment" {
-  description = "Elastic environment tag for auto discovery"
-}
-
-# total number of nodes
-variable "instances" {
+# Elasticsearch ASG instance counts
+# a minimum of 5 r3.xlarge instances is needed for a full planet build
+variable "elasticsearch_min_instances" {
   description = "total instances"
-  default = "2"
+  default = "5"
 }
 
-#DEPRECATED
-# number of nodes in zone a
-variable "subnet_a_num_nodes" {
-  description = "Elastic nodes in a"
-  default = "1"
+variable "elasticsearch_desired_instances" {
+  description = "total instances"
+  default = "5"
+}
+variable "elasticsearch_max_instances" {
+  description = "total instances"
+  default = "5"
 }
 
-#DEPRECATED
-# number of nodes in zone b
-variable "subnet_b_num_nodes" {
-  description = "Elastic nodes in b"
-  default = "1"
+## Launch Configuration settings
+
+variable "elasticsearch_root_volume_size" {
+  default = "8"
 }
 
-# the ability to add additional existing security groups. In our case
-# we have consul running as agents on the box
-variable "additional_security_groups" {
-  default = ""
+variable "elasticsearch_data_volume_size" {
+  default = "200"
 }
 
-variable "volume_name" {
-  default = "/dev/sdh"
+variable "elasticsearch_log_volume_size" {
+  default = "5"
 }
 
-variable "volume_size" {
-  default = "10"
+variable "elasticsearch_data_volume_name" {
+  default = "/dev/xvdb"
 }
 
-variable "volume_encryption" {
-  default = true
+variable "elasticsearch_log_volume_name" {
+  default = "/dev/xvdc"
 }
 
-variable "elasticsearch_data" {
-  default = "/opt/elasticsearch/data"
+variable "elasticsearch_data_dir" {
+  default = "/usr/local/var/data/elasticsearch"
 }
 
-# default elasticsearch heap size
-variable "heap_size" {
-  default = "256m"
+variable "elasticsearch_log_dir" {
+  default = "/usr/local/var/log/elasticsearch"
 }
 
-###################################################################
-# Consul configuration below
-###################################################################
-
-### MANDATORY ###
-variable "dns_server" {
+# General settings
+variable "service_name" {
+  description = "Used as a prefix for all instances in case you are running several distinct services"
+  default = "pelias"
 }
 
-variable "consul_dc" {
+variable "environment" {
+  description = "Which environment (dev, staging, prod, etc) this group of machines is for"
   default = "dev"
-}
-
-variable "atlas" {
-  default = "example/atlas"
-}
-
-### MANDATORY ###
-variable "encrypted_atlas_token" {
 }

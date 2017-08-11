@@ -5,6 +5,8 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update
 sudo apt-get upgrade -y
 
+sudo apt-get install htop
+
 echo "elasticsearch soft nofile 128000\n
 elasticsearch hard nofile 128000\n
 root soft nofile 128000\n

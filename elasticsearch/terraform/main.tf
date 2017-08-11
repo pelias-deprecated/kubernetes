@@ -1,98 +1,70 @@
 provider "aws" {
   region = "${var.aws_region}"
+  access_key = "${var.aws_access_key}"
+  secret_key = "${var.aws_secret_key}"
 }
 
-##############################################################################
-# Elasticsearch
-##############################################################################
-
-resource "template_file" "user_data" {
+data "template_file" "user_data" {
   template = "${file("${path.root}/templates/user-data.tpl")}"
 
   vars {
-    dns_server              = "${var.dns_server}"
-    consul_dc               = "${var.consul_dc}"
-    atlas                   = "${var.atlas}"
-    encrypted_atlas_token   = "${var.encrypted_atlas_token}"
-    volume_name             = "${var.volume_name}"
-    elasticsearch_data_dir  = "${var.elasticsearch_data}"
-    heap_size               = "${var.heap_size}"
-    es_cluster              = "${var.es_cluster}"
-    es_environment          = "${var.es_environment}"
-    security_groups         = "${aws_security_group.elasticsearch.id}"
+    data_volume_name        = "${var.elasticsearch_data_volume_name}"
+    log_volume_name         = "${var.elasticsearch_log_volume_name}"
+    elasticsearch_data_dir  = "${var.elasticsearch_data_dir}"
+    elasticsearch_log_dir   = "${var.elasticsearch_log_dir}"
+    es_cluster_name         = "${var.service_name}-${var.environment}-elasticsearch"
+    aws_security_group      = "${aws_security_group.elasticsearch.id}"
     aws_region              = "${var.aws_region}"
-    availability_zones      = "${var.availability_zones}"
-  }
-
-  lifecycle {
-    create_before_destroy = true
   }
 }
 
 resource "aws_launch_configuration" "elasticsearch" {
-  image_id = "${var.ami}"
-  instance_type = "${var.instance_type}"
-  security_groups = ["${split(",", replace(concat(aws_security_group.elasticsearch.id, ",", var.additional_security_groups), "/,\\s?$/", ""))}"]
-  associate_public_ip_address = false
-  ebs_optimized = false
-  key_name = "${var.key_name}"
-  iam_instance_profile = "${var.iam_profile}"
-  user_data = "${template_file.user_data.rendered}"
+  name_prefix = "${var.service_name}-${var.environment}-elasticsearch-"
+  image_id = "${data.aws_ami.elasticsearch_ami.id}"
+  instance_type = "${var.elasticsearch_instance_type}"
+  security_groups = ["${aws_security_group.elasticsearch.id}"]
+  associate_public_ip_address = true
+  ebs_optimized = true
+  key_name = "${var.ssh_key_name}"
+  user_data = "${data.template_file.user_data.rendered}"
+  iam_instance_profile = "${aws_iam_instance_profile.elasticsearch.arn}"
 
   lifecycle {
     create_before_destroy = true
   }
 
-  ebs_block_device {
-    device_name = "${var.volume_name}"
-    volume_size = "${var.volume_size}"
-    encrypted = "${var.volume_encryption}"
+  root_block_device {
+    volume_size = "${var.elasticsearch_root_volume_size}"
+    volume_type = "gp2"
   }
+
+  # ebs volumes appear on the instance as /dev/xvdX, but must be specified
+  # in the launch configuration as /dev/sdX. this is annoying, there must be a better way
+  ebs_block_device = [{
+    device_name = "${replace(var.elasticsearch_data_volume_name,"/xvd/","sd")}"
+    volume_size = "${var.elasticsearch_data_volume_size}"
+    volume_type = "gp2"
+  }, {
+    device_name = "${replace(var.elasticsearch_log_volume_name,"/xvd/","sd")}"
+    volume_size = "${var.elasticsearch_log_volume_size}"
+    volume_type = "gp2"
+  }]
 }
 
 resource "aws_autoscaling_group" "elasticsearch" {
-  availability_zones = ["${split(",", var.availability_zones)}"]
-  vpc_zone_identifier = ["${split(",", var.subnets)}"]
-  max_size = "${var.instances}"
-  min_size = "${var.instances}"
-  desired_capacity = "${var.instances}"
+  name                 = "${aws_launch_configuration.elasticsearch.name}"
+  max_size = "${var.elasticsearch_max_instances}"
+  min_size = "${var.elasticsearch_min_instances}"
+  desired_capacity = "${var.elasticsearch_desired_instances}"
   default_cooldown = 30
   force_delete = true
   launch_configuration = "${aws_launch_configuration.elasticsearch.id}"
+  vpc_zone_identifier = ["${data.aws_subnet_ids.all_subnets.ids}"]
+  load_balancers = ["${aws_elb.elasticsearch_elb.id}"]
 
   tag {
-    key = "Name"
-    value = "${format("%s-elasticsearch", var.es_cluster)}"
-    propagate_at_launch = true
-  }
-  tag {
-    key = "Stream"
-    value = "${var.stream_tag}"
-    propagate_at_launch = true
-  }
-  tag {
-    key = "ServerRole"
-    value = "Elasticsearch"
-    propagate_at_launch = true
-  }
-  tag {
-    key = "Cost Center"
-    value = "${var.costcenter_tag}"
-    propagate_at_launch = true
-  }
-  tag {
-    key = "Environment"
-    value = "${var.environment_tag}"
-    propagate_at_launch = true
-  }
-  tag {
-    key = "consul"
-    value = "agent"
-    propagate_at_launch = true
-  }
-  tag {
-    key = "es_env"
-    value = "${var.es_environment}"
+    key                 = "Name"
+    value               = "${var.service_name}-${var.environment}-elasticsearch"
     propagate_at_launch = true
   }
 
