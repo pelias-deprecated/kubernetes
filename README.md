@@ -32,3 +32,13 @@ pelias-api-587096593-8f6rc   1/1       Running    0          52m
 
 $ kubectl describe pod -n pelias-dev openstreetmap-import-zwrwv
 ```
+
+## Using the Dockerfile
+
+A Dockerfile is included that sets up all tools required for this repository. It can be used as a
+helper for creating an environment to run these scripts. It will mount your local copy of the
+pelias/kubernetes repository, your `~/.kube` directory for `kubectl` configuration, and your local
+`~/.aws` directory for AWS configuration.
+
+By running: `docker-compose run kubernetes bash`, you will get a shell that has all tools involved,
+and knows about your configuration.
