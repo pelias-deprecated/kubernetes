@@ -1,0 +1,10 @@
+version: '2'
+services:
+  kubernetes:
+    image: pelias/kubernetes
+    container_name: pelias_kubernetes
+    build: .
+    volumes:
+      - "~/.aws:/root/.aws"
+      - "./:/root/kubernetes"
+      - "~/.kube:/root/.kube"
