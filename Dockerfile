@@ -29,12 +29,12 @@ RUN wget https://github.com/kubernetes/kops/releases/download/1.7.0/kops-linux-a
 # download packer
 RUN wget https://releases.hashicorp.com/packer/1.0.4/packer_1.0.4_linux_amd64.zip && \
     unzip packer_1.0.4_linux_amd64.zip && chmod u+x packer && \
-	mv packer ~/.local/bin/
+	mv packer ~/.local/bin/ && rm packer_1.0.4_linux_amd64.zip
 
 # download terraform
 RUN wget https://releases.hashicorp.com/terraform/0.10.0/terraform_0.10.0_linux_amd64.zip && \
     unzip terraform_0.10.0_linux_amd64.zip && chmod u+x terraform && \
-	mv terraform ~/.local/bin/
+	mv terraform ~/.local/bin/ && rm terraform_0.10.0_linux_amd64.zip
 
 # download pelias kubernetes scripts
 RUN git clone https://github.com/pelias/kubernetes.git pelias-kubernetes
