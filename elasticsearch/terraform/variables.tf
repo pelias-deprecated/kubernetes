@@ -28,16 +28,16 @@ variable "aws_vpc_id" {
 
 # Autoscaling Group Settings
 
-# r3.xlarge is a good economic default for full planet builds
+# r4.xlarge is a good economic default for full planet builds
 # for more performance, use c4.4xlarge or similar. High throughput
 # geocoders really love having lots of CPU available
 variable "elasticsearch_instance_type" {
   description = "Elasticsearch instance type."
-  default = "r3.xlarge"
+  default = "r4.xlarge"
 }
 
 # Elasticsearch ASG instance counts
-# a minimum of 5 r3.xlarge instances is needed for a full planet build
+# a minimum of 5 r4.xlarge instances is needed for a full planet build
 variable "elasticsearch_min_instances" {
   description = "total instances"
   default = "5"
