@@ -23,7 +23,7 @@ EOF
 memory_in_bytes=`awk '/MemTotal/ {print $2}' /proc/meminfo`
 heap_memory=$(( memory_in_bytes * 6 / 10 / 1024 )) # take 60% of system memory, and convert to MB
 sudo sed -i 's/#MAX_LOCKED_MEMORY=unlimited/MAX_LOCKED_MEMORY=unlimited/' /etc/init.d/elasticsearch
-sudo sed -i "s/#ES_HEAP_SIZE=.*$/ES_HEAP_SIZE=$heap_memory/" /etc/init.d/elasticsearch
+sudo sed -i "s/#ES_HEAP_SIZE=.*$/ES_HEAP_SIZE=${heap_memory}m/" /etc/default/elasticsearch
 
 # data volume
 sudo mkfs -t ext4 ${data_volume_name}
