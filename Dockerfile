@@ -36,9 +36,6 @@ RUN wget https://releases.hashicorp.com/terraform/0.10.0/terraform_0.10.0_linux_
     unzip terraform_0.10.0_linux_amd64.zip && chmod u+x terraform && \
 	mv terraform ~/.local/bin/ && rm terraform_0.10.0_linux_amd64.zip
 
-# download pelias kubernetes scripts
-RUN git clone https://github.com/pelias/kubernetes.git pelias-kubernetes
-
 # include local bin directory in path
 RUN echo "export PATH=\"\$HOME/.local/bin:\$PATH\"">> .bashrc
 
