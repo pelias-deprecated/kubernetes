@@ -17,6 +17,7 @@ network.host: _ec2:privateIpv4_
 discovery.type: ec2
 cloud.aws.region: ${aws_region}
 cloud.aws.groups: ${aws_security_group}
+repositories.url.allowed_urls: ["${es_allowed_urls}"]
 EOF
 
 # heap size

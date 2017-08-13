@@ -74,12 +74,19 @@ variable "elasticsearch_log_volume_name" {
   default = "/dev/xvdc"
 }
 
+# elasticsearch.yml settings
+
 variable "elasticsearch_data_dir" {
   default = "/usr/local/var/data/elasticsearch"
 }
 
 variable "elasticsearch_log_dir" {
   default = "/usr/local/var/log/elasticsearch"
+}
+
+variable "es_allowed_urls" {
+  description = "List of URLs to allow creating snapshot repositories from"
+  default = ""
 }
 
 # General settings
