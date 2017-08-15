@@ -30,6 +30,9 @@ kubectl ${CMD} -f pelias-pip-service.yaml
 # placeholder
 kubectl ${CMD} -f pelias-placeholder-service.yaml
 
+# interpolation
+kubectl ${CMD} -f pelias-interpolation-service.yaml
+
 # set up schema (just runs a job)
 kubectl ${CMD} -f schema-create-job.yaml
 
