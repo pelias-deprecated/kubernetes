@@ -39,6 +39,9 @@ kubectl ${CMD} -f openaddresses-import-job.yaml
 # run importers
 kubectl ${CMD} -f openstreetmap-import-job.yaml
 
+# run importers
+kubectl ${CMD} -f geonames-import-job.yaml
+
 # open dashboard in your browser
 # minikube dashboard
 
