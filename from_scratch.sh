@@ -39,6 +39,9 @@ kubectl ${CMD} -f openaddresses-import-job.yaml
 # run openstreetmap importer
 kubectl ${CMD} -f openstreetmap-import-job.yaml
 
+# run whosonfirst importer
+kubectl ${CMD} -f whosonfirst-import-job.yaml
+
 # open dashboard in your browser
 # minikube dashboard
 
