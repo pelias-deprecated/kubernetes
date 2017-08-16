@@ -33,10 +33,10 @@ kubectl ${CMD} -f pelias-placeholder-service.yaml
 # set up schema (just runs a job)
 kubectl ${CMD} -f schema-create-job.yaml
 
-# run importers
+# run openaddresses importer
 kubectl ${CMD} -f openaddresses-import-job.yaml
 
-# run importers
+# run openstreetmap importer
 kubectl ${CMD} -f openstreetmap-import-job.yaml
 
 # open dashboard in your browser

@@ -5,7 +5,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: openaddreses-import-pod
+      name: openaddresses-import-pod
     spec:
       initContainers:
         - name: openaddresses-download
