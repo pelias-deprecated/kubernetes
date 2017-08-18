@@ -42,6 +42,15 @@ sometimes an 'init container' fails to start, you can view the init logs:
 kubectl logs geonames-import-4vgq3 -c geonames-download
 ```
 
+# opening a bash prompt in a running container
+
+it can be useful to open a shell inside a running container for debugging:
+
+```bash
+# kubectl exec -it {{pod_name}} -- {{command}}
+kubectl exec -it pelias-pip-3625698757-dtzmd -- /bin/bash
+```
+
 ## Using the Dockerfile
 
 A Dockerfile is included that sets up all tools required for this repository. It can be used as a
