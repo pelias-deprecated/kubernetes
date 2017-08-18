@@ -30,17 +30,23 @@ kubectl ${CMD} -f pelias-pip-service.yaml
 # placeholder
 kubectl ${CMD} -f pelias-placeholder-service.yaml
 
+# interpolation
+kubectl ${CMD} -f pelias-interpolation-service.yaml
+
 # set up schema (just runs a job)
 kubectl ${CMD} -f schema-create-job.yaml
 
-# run importers
+# run openaddresses importer
 kubectl ${CMD} -f openaddresses-import-job.yaml
 
-# run importers
+# run openstreetmap importer
 kubectl ${CMD} -f openstreetmap-import-job.yaml
 
-# run importers
+# run geonames importer
 kubectl ${CMD} -f geonames-import-job.yaml
+
+# run whosonfirst importer
+kubectl ${CMD} -f whosonfirst-import-job.yaml
 
 # open dashboard in your browser
 # minikube dashboard

@@ -6,7 +6,7 @@ data:
   pelias.json: |
     {
       "esclient": {
-        "apiVersion": "2.3",
+        "apiVersion": "2.4",
         "hosts": [{
           "host": "elasticsearch-service"
         }]
@@ -43,14 +43,14 @@ data:
           "download": [{
               "sourceURL": "https://s3.amazonaws.com/metro-extracts.mapzen.com/boston_massachusetts.osm.pbf"
           }],
-          "datapath": "/data/osm",
+          "datapath": "/data/openstreetmap",
           "import": [{
             "filename": "boston_massachusetts.osm.pbf"
           }]
         },
         "polyline": {
-          "datapath": "/data/polyline",
-          "files": ["planet.polylines"]
+          "datapath": "/data/polylines",
+          "files": ["extract.0sv"]
         },
         "whosonfirst": {
           "importVenues": false,

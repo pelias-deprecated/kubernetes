@@ -1,15 +1,21 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: openaddresses-import
+  name: polylines-import
 spec:
   template:
     metadata:
-      name: openaddresses-import-pod
+      name: polylines-import-pod
     spec:
       initContainers:
-        - name: openaddresses-download
-          image: pelias/openaddresses
+        - name: create-directories
+          image: busybox
+          command: ["sh", "-c", "mkdir -p /data/polylines"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+        - name: openstreetmap-download
+          image: pelias/openstreetmap
           command: ["npm", "run", "download"]
           volumeMounts:
             - name: config-volume
@@ -19,6 +25,13 @@ spec:
           env:
             - name: PELIAS_CONFIG
               value: "/etc/config/pelias.json"
+        - name: polyline-extract
+          image: pelias/polylines
+          command: ["bash"]
+          args: ["docker_extract.sh"]
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
         - name: wof-download
           image: pelias/whosonfirst
           command: ["npm", "run", "download"]
@@ -31,8 +44,8 @@ spec:
             - name: PELIAS_CONFIG
               value: "/etc/config/pelias.json"
       containers:
-      - name: openaddresses-import-container
-        image: pelias/openaddresses
+      - name: polylines-import-container
+        image: pelias/polylines
         command: ["npm", "start"]
         volumeMounts:
           - name: config-volume
@@ -44,11 +57,9 @@ spec:
             value: "/etc/config/pelias.json"
         resources:
           limits:
-            memory: 3Gi
-            cpu: 2
+            memory: 8Gi
           requests:
-            memory: 2Gi
-            cpu: 1.5
+            memory: 6Gi
       restartPolicy: Never
       volumes:
         - name: config-volume

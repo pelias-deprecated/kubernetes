@@ -33,6 +33,15 @@ pelias-api-587096593-8f6rc   1/1       Running    0          52m
 $ kubectl describe pod -n pelias-dev openstreetmap-import-zwrwv
 ```
 
+# debuging 'init containers'
+
+sometimes an 'init container' fails to start, you can view the init logs:
+
+```bash
+# kubectl logs {{pod_name}} -c {{init_container_name}}
+kubectl logs geonames-import-4vgq3 -c geonames-download
+```
+
 ## Using the Dockerfile
 
 A Dockerfile is included that sets up all tools required for this repository. It can be used as a
