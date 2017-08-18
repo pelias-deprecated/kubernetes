@@ -42,6 +42,9 @@ kubectl ${CMD} -f openaddresses-import-job.yaml
 # run openstreetmap importer
 kubectl ${CMD} -f openstreetmap-import-job.yaml
 
+# run geonames importer
+kubectl ${CMD} -f geonames-import-job.yaml
+
 # run whosonfirst importer
 kubectl ${CMD} -f whosonfirst-import-job.yaml
 
