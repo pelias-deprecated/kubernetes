@@ -33,23 +33,24 @@ variable "aws_vpc_id" {
 # geocoders really love having lots of CPU available
 variable "elasticsearch_instance_type" {
   description = "Elasticsearch instance type."
-  default = "r4.xlarge"
+  default     = "r4.xlarge"
 }
 
 # Elasticsearch ASG instance counts
 # a minimum of 5 r4.xlarge instances is needed for a full planet build
 variable "elasticsearch_min_instances" {
   description = "total instances"
-  default = "5"
+  default     = "5"
 }
 
 variable "elasticsearch_desired_instances" {
   description = "total instances"
-  default = "5"
+  default     = "5"
 }
+
 variable "elasticsearch_max_instances" {
   description = "total instances"
-  default = "5"
+  default     = "5"
 }
 
 ## Launch Configuration settings
@@ -86,16 +87,16 @@ variable "elasticsearch_log_dir" {
 
 variable "es_allowed_urls" {
   description = "List of URLs to allow creating snapshot repositories from"
-  default = ""
+  default     = ""
 }
 
 # General settings
 variable "service_name" {
   description = "Used as a prefix for all instances in case you are running several distinct services"
-  default = "pelias"
+  default     = "pelias"
 }
 
 variable "environment" {
   description = "Which environment (dev, staging, prod, etc) this group of machines is for"
-  default = "dev"
+  default     = "dev"
 }

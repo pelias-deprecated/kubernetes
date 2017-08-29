@@ -4,9 +4,9 @@ resource "aws_iam_role" "elasticsearch" {
 }
 
 resource "aws_iam_role_policy" "elasticsearch" {
-  name     = "${var.service_name}-${var.environment}-elasticsearch-discovery-policy"
-  policy   = "${file("policies/policy.json")}"
-  role     = "${aws_iam_role.elasticsearch.id}"
+  name   = "${var.service_name}-${var.environment}-elasticsearch-discovery-policy"
+  policy = "${file("policies/policy.json")}"
+  role   = "${aws_iam_role.elasticsearch.id}"
 }
 
 resource "aws_iam_instance_profile" "elasticsearch" {

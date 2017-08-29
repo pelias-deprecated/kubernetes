@@ -1,16 +1,16 @@
 resource "aws_elb" "elasticsearch_elb" {
-  name = "${var.service_name}-${var.environment}-elasticsearch-elb"
-  security_groups = ["${aws_security_group.elasticsearch_elb.id}"]
-  subnets = ["${data.aws_subnet_ids.all_subnets.ids}"]
+  name                      = "${var.service_name}-${var.environment}-elasticsearch-elb"
+  security_groups           = ["${aws_security_group.elasticsearch_elb.id}"]
+  subnets                   = ["${data.aws_subnet_ids.all_subnets.ids}"]
   cross_zone_load_balancing = true
-  connection_draining = true
-  internal = true
+  connection_draining       = true
+  internal                  = true
 
   listener {
-    instance_port      = 9200
-    instance_protocol  = "tcp"
-    lb_port            = 9200
-    lb_protocol        = "tcp"
+    instance_port     = 9200
+    instance_protocol = "tcp"
+    lb_port           = 9200
+    lb_protocol       = "tcp"
   }
 
   health_check {
@@ -21,4 +21,3 @@ resource "aws_elb" "elasticsearch_elb" {
     timeout             = 5
   }
 }
-
