@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-interpolation
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
