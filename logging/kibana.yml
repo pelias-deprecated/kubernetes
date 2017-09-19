@@ -1,0 +1,50 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: kibana-deployment
+  namespace: logging
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: kibana:4.6.6
+        ports:
+        - containerPort: 5601
+        env:
+        - name: ES_VERSION
+          value: 2.4.6
+        volumeMounts:
+          - name: config-volume
+            mountPath: /opt/kibana/config
+        resources:
+          limits:
+            cpu:    1.0
+            memory: 500Mi
+          requests:
+            cpu:    0.5
+            memory: 300Mi
+      volumes:
+      -  name: config-volume
+         configMap:
+           name: logging-configmap
+           items:
+             - key: kibana.yml
+               path: kibana.yml
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: kibana-service
+  namespace: logging
+spec:
+  selector:
+    app: kibana
+  ports:
+  - protocol: TCP
+    port: 5601
+  type: LoadBalancer
