@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: slackbot
-        image: mapzen/slack-search-app:docker-julian
+        image: pelias/slack-search-app:master-2017-09-22-1a949a1dd18a24866198d4fcbb6fea7affb8ef62
         ports:
         - containerPort: 3000
         readinessProbe:
