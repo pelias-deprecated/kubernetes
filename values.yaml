@@ -1,0 +1,6 @@
+# override this to use external elasticsearch
+elasticsearchHost: "elasticsearch-service"
+
+# Whether the API service should be externally accessible
+# Set this to true if you want to, for example on AWS, set up an ELB for the API
+externalAPIService: false
