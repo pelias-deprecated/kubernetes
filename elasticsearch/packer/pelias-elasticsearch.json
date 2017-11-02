@@ -1,6 +1,6 @@
 {
   "variables": {
-    "elasticsearch_version": "",
+    "elasticsearch_version": "2.4.6",
     "aws_access_key": "",
     "aws_secret_key": ""
   },
