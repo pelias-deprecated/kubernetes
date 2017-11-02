@@ -27,6 +27,15 @@ data:
         "timestamp": true
       },
       "imports": {
+        "adminLookup": {
+            "enabled": true,
+            "maxConcurrentReqs": 20
+        },
+        "services": {
+          "pip": {
+            "url": "http://pelias-pip-service:3102"
+          }
+        },
         "geonames": {
           "datapath": "/data/geonames",
           "countryCode": "us"
