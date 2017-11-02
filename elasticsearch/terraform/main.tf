@@ -1,11 +1,5 @@
-provider "aws" {
-  region     = "${var.aws_region}"
-  access_key = "${var.aws_access_key}"
-  secret_key = "${var.aws_secret_key}"
-}
-
 data "template_file" "user_data" {
-  template = "${file("${path.root}/templates/user-data.tpl")}"
+  template = "${file("${path.module}/templates/user-data.tpl")}"
 
   vars {
     data_volume_name       = "${var.elasticsearch_data_volume_name}"
