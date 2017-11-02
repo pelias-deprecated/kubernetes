@@ -1,5 +1,5 @@
 resource "aws_elb" "elasticsearch_elb" {
-  name                      = "${var.service_name}-${var.environment}-elasticsearch-elb"
+  name                      = "${var.service_name}-${var.environment}-es-elb"
   security_groups           = ["${aws_security_group.elasticsearch_elb.id}"]
   subnets                   = ["${data.aws_subnet_ids.all_subnets.ids}"]
   cross_zone_load_balancing = true
