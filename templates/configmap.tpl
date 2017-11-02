@@ -59,6 +59,8 @@ data:
         },
         "whosonfirst": {
           "importVenues": false,
+          "importPlace": " 85950361",
+          "api_key": "{{ .Values.apiKey }}",
           "datapath": "/data/whosonfirst/"
         }
       }
