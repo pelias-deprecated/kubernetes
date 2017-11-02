@@ -23,7 +23,7 @@ spec:
               value: "/etc/config/pelias.json"
       containers:
         - name: pelias-pip
-          image: pelias/pip
+          image: pelias/pip-service:master
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
