@@ -36,7 +36,7 @@ spec:
             limits:
               memory: 8Gi
             requests:
-              memory: 6Gi
+              memory: 4Gi
           readinessProbe:
             httpGet:
               path: /12/12
