@@ -15,8 +15,9 @@ path.logs: ${elasticsearch_log_dir}
 bootstrap.mlockall: true
 network.host: _ec2:privateIpv4_
 discovery.type: ec2
+discovery.ec2.groups: ${aws_security_group}
+
 cloud.aws.region: ${aws_region}
-cloud.aws.groups: ${aws_security_group}
 repositories.url.allowed_urls: ["${es_allowed_urls}"]
 EOF
 
