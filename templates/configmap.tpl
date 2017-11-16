@@ -12,6 +12,15 @@ data:
       },
       "api": {
         "services": {
+          "placeholder": {
+            "url": "http://pelias-placeholder-service:3102/"
+          },
+          "language": {
+            "url": "http://pelias-placeholder-service:3102/"
+          },
+          "interpolation": {
+            "url": "http://pelias-interpolation-service:3102/"
+          },
           "pip": {
             "url": "http://pelias-pip-service:3102/"
           }
