@@ -15,10 +15,14 @@ path.logs: ${elasticsearch_log_dir}
 bootstrap.mlockall: true
 network.host: _ec2:privateIpv4_
 discovery.type: ec2
+discovery.zen.minimum_master_nodes: ${minimum_master_nodes}
 discovery.ec2.groups: ${aws_security_group}
 
 cloud.aws.region: ${aws_region}
 repositories.url.allowed_urls: ["${es_allowed_urls}"]
+
+gateway.recover_after_time: 5m
+gateway.expected_nodes: ${expected_nodes}
 EOF
 
 # heap size
