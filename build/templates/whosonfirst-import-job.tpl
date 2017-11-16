@@ -5,7 +5,7 @@ metadata:
 spec:
   template:
     metadata:
-      name: whosonfirst-import-pod
+      name: whosonfirst-import
     spec:
       initContainers:
         - name: wof-download
@@ -34,10 +34,10 @@ spec:
         resources:
           limits:
             memory: 2Gi
-            cpu: 2
+            cpu: 1.5
           requests:
             memory: 1Gi
-            cpu: 1.5
+            cpu: 1
       restartPolicy: Never
       volumes:
         - name: config-volume
@@ -47,4 +47,5 @@ spec:
               - key: pelias.json
                 path: pelias.json
         - name: data-volume
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: pelias-build-pvc

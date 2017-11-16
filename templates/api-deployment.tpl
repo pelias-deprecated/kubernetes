@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-api
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -30,15 +30,3 @@ spec:
             items:
               - key: pelias.json
                 path: pelias.json
----
-apiVersion: v1
-kind: Service
-metadata:
-    name: pelias-api-service
-spec:
-    selector:
-        app: pelias-api
-    ports:
-        - protocol: TCP
-          port: 3100
-    type: LoadBalancer

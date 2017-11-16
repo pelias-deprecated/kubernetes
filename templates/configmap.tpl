@@ -7,7 +7,7 @@ data:
     {
       "esclient": {
         "hosts": [{
-          "host": "elasticsearch-service"
+          "host": "{{ .Values.elasticsearchHost }}"
         }]
       },
       "api": {
@@ -22,17 +22,23 @@ data:
           "local": "http://pelias-api-service:3100/v1/"
         }
       },
-      "schema": {
-        "indexName": "pelias"
-      },
       "logger": {
         "level": "debug",
         "timestamp": true
       },
       "imports": {
+        "adminLookup": {
+            "enabled": true,
+            "maxConcurrentReqs": 20
+        },
+        "services": {
+          "pip": {
+            "url": "http://pelias-pip-service:3102"
+          }
+        },
         "geonames": {
           "datapath": "/data/geonames",
-          "countryCode": "mx"
+          "countryCode": "us"
         },
         "openaddresses": {
           "datapath": "/data/openaddresses",
@@ -53,6 +59,8 @@ data:
         },
         "whosonfirst": {
           "importVenues": false,
+          "importPlace": " 85950361",
+          "api_key": "{{ .Values.apiKey }}",
           "datapath": "/data/whosonfirst/"
         }
       }

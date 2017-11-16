@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-pip
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -23,7 +23,7 @@ spec:
               value: "/etc/config/pelias.json"
       containers:
         - name: pelias-pip
-          image: pelias/pip
+          image: pelias/pip-service:master
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
@@ -36,7 +36,7 @@ spec:
             limits:
               memory: 8Gi
             requests:
-              memory: 6Gi
+              memory: 4Gi
           readinessProbe:
             httpGet:
               path: /12/12
@@ -51,15 +51,3 @@ spec:
                 path: pelias.json
         - name: data-volume
           emptyDir: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-    name: pelias-pip-service
-spec:
-    selector:
-        app: pelias-pip
-    ports:
-        - protocol: TCP
-          port: 3102
-    type: ClusterIP
