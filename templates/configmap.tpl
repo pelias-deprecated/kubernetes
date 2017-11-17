@@ -13,10 +13,7 @@ data:
       "api": {
         "services": {
           "placeholder": {
-            "url": "http://pelias-placeholder-service:3102/"
-          },
-          "language": {
-            "url": "http://pelias-placeholder-service:3102/"
+            "url": "http://pelias-placeholder-service:3000/"
           },
           "interpolation": {
             "url": "http://pelias-interpolation-service:3102/"
