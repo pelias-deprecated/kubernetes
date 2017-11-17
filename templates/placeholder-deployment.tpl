@@ -21,7 +21,7 @@ spec:
               mountPath: /data
       containers:
         - name: pelias-placeholder
-          image: pelias/placeholder
+          image: pelias/placeholder:{{ .Values.placeholderDockerTag | default "production" }}
           volumeMounts:
             - name: data-volume
               mountPath: /data

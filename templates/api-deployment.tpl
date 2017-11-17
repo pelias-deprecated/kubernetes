@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: pelias-api
-          image: pelias/api
+          image: pelias/api:{{ .Values.apiDockerTag | default "production" }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
