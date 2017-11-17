@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-api
 spec:
-  replicas: 1
+  replicas: {{ .Values.apiReplicas | default 1 }}
   template:
     metadata:
       labels:

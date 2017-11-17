@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-pip
 spec:
-  replicas: 1
+  replicas: {{ .Values.pipReplicas | default 1 }}
   template:
     metadata:
       labels:

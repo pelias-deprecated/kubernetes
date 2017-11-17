@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-interpolation
 spec:
-  replicas: 1
+  replicas: {{ .Values.interpolationReplicas | default 1 }}
   template:
     metadata:
       labels:
