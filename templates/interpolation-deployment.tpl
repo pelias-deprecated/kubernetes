@@ -27,9 +27,11 @@ spec:
               mountPath: /data
           resources:
             limits:
-              memory: 4Gi
-            requests:
               memory: 3Gi
+              cpu: 2
+            requests:
+              memory: 2Gi
+              cpu: 1
       volumes:
         - name: data-volume
           emptyDir: {}

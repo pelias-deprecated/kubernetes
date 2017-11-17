@@ -21,6 +21,13 @@ spec:
           env:
             - name: PELIAS_CONFIG
               value: "/etc/config/pelias.json"
+          resources:
+            limits:
+              memory: 3Gi
+              cpu: 4
+            requests:
+              memory: 1Gi
+              cpu: 2
       containers:
         - name: pelias-pip
           image: pelias/pip-service:{{ .Values.pipDockerTag | default "production" }}
@@ -34,14 +41,16 @@ spec:
               value: "/etc/config/pelias.json"
           resources:
             limits:
-              memory: 8Gi
+              memory: 9Gi
+              cpu: 3
             requests:
-              memory: 4Gi
+              memory: 7Gi
+              cpu: 1.5
           readinessProbe:
             httpGet:
               path: /12/12
               port: 3102
-            initialDelaySeconds: 60 #PIP service takes a long time to start up
+            initialDelaySeconds: 120 #PIP service takes a long time to start up
       volumes:
         - name: config-volume
           configMap:

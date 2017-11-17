@@ -19,6 +19,13 @@ spec:
           volumeMounts:
             - name: data-volume
               mountPath: /data
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 2
+            requests:
+              memory: 512Mi
+              cpu: 1
       containers:
         - name: pelias-placeholder
           image: pelias/placeholder:{{ .Values.placeholderDockerTag | default "production" }}
