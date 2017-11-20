@@ -24,7 +24,7 @@ spec:
           requests:
             memory: 1Gi
             cpu: 0.1
-      restartPolicy: Never
+      restartPolicy: OnFailure
       volumes:
         - name: config-volume
           configMap:
