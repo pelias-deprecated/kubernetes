@@ -28,7 +28,7 @@ spec:
               cpu: 1
       containers:
         - name: pelias-placeholder
-          image: pelias/placeholder:{{ .Values.placeholderDockerTag | default "production" }}
+          image: pelias/placeholder:{{ .Values.placeholderDockerTag | default "latest" }}
           volumeMounts:
             - name: data-volume
               mountPath: /data

@@ -21,7 +21,7 @@ spec:
               mountPath: /data
       containers:
         - name: pelias-interpolation
-          image: pelias/interpolation:{{ .Values.interpolationDockerTag | default "production" }}
+          image: pelias/interpolation:{{ .Values.interpolationDockerTag | default "latest" }}
           volumeMounts:
             - name: data-volume
               mountPath: /data

@@ -11,7 +11,7 @@ spec:
     spec:
       initContainers:
         - name: wof-download
-          image: pelias/pip-service:{{ .Values.pipDockerTag | default "production" }}
+          image: pelias/pip-service:{{ .Values.pipDockerTag | default "latest" }}
           command: ["npm", "run", "download"]
           volumeMounts:
             - name: config-volume
@@ -30,7 +30,7 @@ spec:
               cpu: 2
       containers:
         - name: pelias-pip
-          image: pelias/pip-service:{{ .Values.pipDockerTag | default "production" }}
+          image: pelias/pip-service:{{ .Values.pipDockerTag | default "latest" }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
