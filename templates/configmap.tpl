@@ -44,19 +44,19 @@ data:
         },
         "geonames": {
           "datapath": "/data/geonames",
-          "countryCode": "us"
+          "countryCode": "ALL"
         },
         "openaddresses": {
           "datapath": "/data/openaddresses",
-          "files": ["us/ma/city_of_boston.csv"]
+          "files": []
         },
         "openstreetmap": {
           "download": [{
-              "sourceURL": "https://s3.amazonaws.com/metro-extracts.mapzen.com/boston_massachusetts.osm.pbf"
+              "sourceURL": "http://planet.us-east-1.mapzen.com/planet-latest.osm.pbf"
           }],
           "datapath": "/data/openstreetmap",
           "import": [{
-            "filename": "boston_massachusetts.osm.pbf"
+            "filename": "planet-latest.osm.pbf"
           }]
         },
         "polyline": {
@@ -65,9 +65,7 @@ data:
         },
         "whosonfirst": {
           "importVenues": false,
-          "importPlace": " 85950361",
-          "api_key": "{{ .Values.apiKey }}",
-          "datapath": "/data/whosonfirst/"
+          "datapath": "/data/whosonfirst"
         }
       }
     }
