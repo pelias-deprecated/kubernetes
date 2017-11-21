@@ -29,7 +29,7 @@ data:
         }
       },
       "logger": {
-        "level": "debug",
+        "level": "info",
         "timestamp": true
       },
       "imports": {
