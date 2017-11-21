@@ -9,7 +9,7 @@ spec:
     spec:
       initContainers:
       - name: openaddresses-download
-        image: pelias/openaddresses:master
+        image: pelias/openaddresses:{{ .Values.openaddressesDockerTag | default "latest" }}
         command: ["npm", "run", "download"]
         volumeMounts:
           - name: config-volume
@@ -28,7 +28,7 @@ spec:
             cpu: 0.5
       containers:
       - name: openaddresses-import-container
-        image: pelias/openaddresses:master
+        image: pelias/openaddresses:{{ .Values.openaddressesDockerTag | default "latest" }}
         command: ["npm", "start"]
         volumeMounts:
           - name: config-volume

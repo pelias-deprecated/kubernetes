@@ -9,7 +9,7 @@ spec:
     spec:
       initContainers:
       - name: openstreetmap-download
-        image: pelias/openstreetmap:master
+        image: pelias/openstreetmap:{{ .Values.openstreetmapDockerTag | default "latest"}}
         command: ["npm", "run", "download"]
         volumeMounts:
           - name: config-volume
@@ -28,7 +28,7 @@ spec:
             cpu: 0.5
       containers:
       - name: openstreetmap-import-container
-        image: pelias/openstreetmap:master
+        image: pelias/openstreetmap:{{ .Values.openstreetmapDockerTag | default "latest"}}
         command: ["npm", "start"]
         volumeMounts:
           - name: config-volume
