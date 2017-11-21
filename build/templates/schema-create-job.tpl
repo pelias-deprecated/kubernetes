@@ -22,7 +22,7 @@ spec:
             memory: 1Gi
             cpu: 0.1
           requests:
-            memory: 1Gi
+            memory: 256Mi
             cpu: 0.1
       restartPolicy: OnFailure
       volumes:
