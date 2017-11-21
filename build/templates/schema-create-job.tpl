@@ -7,6 +7,18 @@ spec:
     metadata:
       name: schema-create
     spec:
+      {{ if .Values.schemaDrop | default false }}
+      initContainers:
+      - name: schema-drop
+        image: pelias/schema
+        command: ["npm", "run", "drop_index", "--", "-f"]
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/config
+        env:
+          - name: PELIAS_CONFIG
+            value: "/etc/config/pelias.json"
+      {{ end }}
       containers:
       - name: schema-create
         image: pelias/schema
