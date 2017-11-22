@@ -17,7 +17,7 @@ spec:
               mountPath: /data
       containers:
       - name: polylines-import-container
-        image: pelias/polylines:latest #{{ .Values.polylinesDockerTag | default "latest" }}
+        image: pelias/polylines:{{ .Values.polylinesDockerTag | default "latest" }}
         command: ["npm", "start"]
         volumeMounts:
           - name: config-volume

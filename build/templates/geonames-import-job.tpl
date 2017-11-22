@@ -9,7 +9,7 @@ spec:
     spec:
       initContainers:
         - name: geonames-download
-          image: pelias/geonames:{{ .Values.geonamesDockerTag | default "latests" }}
+          image: pelias/geonames:{{ .Values.geonamesDockerTag | default "latest" }}
           command: ["npm", "run", "download"]
           volumeMounts:
           - name: config-volume
@@ -28,7 +28,7 @@ spec:
               cpu: 1
       containers:
       - name: geonames-import-container
-        image: pelias/geonames:{{ .Values.geonamesDockerTag | default "latests" }}
+        image: pelias/geonames:{{ .Values.geonamesDockerTag | default "latest" }}
         command: ["npm", "start"]
         volumeMounts:
           - name: config-volume
