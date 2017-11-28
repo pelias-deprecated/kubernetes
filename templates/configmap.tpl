@@ -42,7 +42,8 @@ data:
         },
         "services": {
           "pip": {
-            "url": "http://pelias-pip-service:3102"
+            "url": "http://pelias-pip-service:3102",
+            "timeout": 5000
           }
         },
         "geonames": {
