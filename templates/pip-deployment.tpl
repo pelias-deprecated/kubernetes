@@ -41,10 +41,10 @@ spec:
               value: "/etc/config/pelias.json"
           resources:
             limits:
-              memory: 9Gi
+              memory: 10Gi
               cpu: 3
             requests:
-              memory: 7Gi
+              memory: 9Gi
               cpu: 1.5
           readinessProbe:
             httpGet:
