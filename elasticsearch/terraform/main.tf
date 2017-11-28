@@ -67,6 +67,12 @@ resource "aws_autoscaling_group" "elasticsearch" {
     propagate_at_launch = true
   }
 
+  tag {
+    key                 = "team"
+    value               = "${var.service_name}"
+    propagate_at_launch = true
+  }
+
   lifecycle {
     create_before_destroy = true
   }
