@@ -20,6 +20,10 @@ data:
             "url": "http://pelias-interpolation-service:3102/",
             "timeout": 5000
           },
+          "libpostal": {
+            "url": "http://pelias-libpostal-service:8080/",
+            "timeout": 5000
+          },
           "pip": {
             "url": "http://pelias-pip-service:3102/",
             "timeout": 5000
