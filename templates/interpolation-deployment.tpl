@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-interpolation
 spec:
-  replicas: 1
+  replicas: {{ .Values.interpolationReplicas | default 1 }}
   template:
     metadata:
       labels:
@@ -21,15 +21,17 @@ spec:
               mountPath: /data
       containers:
         - name: pelias-interpolation
-          image: pelias/interpolation
+          image: pelias/interpolation:{{ .Values.interpolationDockerTag | default "latest" }}
           volumeMounts:
             - name: data-volume
               mountPath: /data
           resources:
             limits:
-              memory: 4Gi
-            requests:
               memory: 3Gi
+              cpu: 2
+            requests:
+              memory: 2Gi
+              cpu: 1
       volumes:
         - name: data-volume
           emptyDir: {}

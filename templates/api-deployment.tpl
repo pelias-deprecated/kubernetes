@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-api
 spec:
-  replicas: 1
+  replicas: {{ .Values.apiReplicas | default 1 }}
   template:
     metadata:
       labels:
@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: pelias-api
-          image: pelias/api
+          image: pelias/api:{{ .Values.apiDockerTag | default "latest" }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
@@ -20,9 +20,11 @@ spec:
               value: "/etc/config/pelias.json"
           resources:
             limits:
-              memory: 4Gi
-            requests:
               memory: 3Gi
+              cpu: 1.5
+            requests:
+              memory: 2Gi
+              cpu: 0.5
       volumes:
         - name: config-volume
           configMap:

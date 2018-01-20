@@ -8,20 +8,27 @@ spec:
       name: whosonfirst-import
     spec:
       initContainers:
-        - name: wof-download
-          image: pelias/whosonfirst
-          command: ["npm", "run", "download"]
-          volumeMounts:
-            - name: config-volume
-              mountPath: /etc/config
-            - name: data-volume
-              mountPath: /data
-          env:
-            - name: PELIAS_CONFIG
-              value: "/etc/config/pelias.json"
+      - name: wof-download
+        image: pelias/whosonfirst:{{ .Values.whosonfirstDockerTag | default "latest" }}
+        command: ["npm", "run", "download"]
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/config
+          - name: data-volume
+            mountPath: /data
+        env:
+          - name: PELIAS_CONFIG
+            value: "/etc/config/pelias.json"
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: 4
+          requests:
+            memory: 512Mi
+            cpu: 1.5
       containers:
       - name: whosonfirst-import-container
-        image: pelias/whosonfirst
+        image: pelias/whosonfirst:{{ .Values.whosonfirstDockerTag | default "latest" }}
         command: ["npm", "start"]
         volumeMounts:
           - name: config-volume
@@ -38,7 +45,7 @@ spec:
           requests:
             memory: 1Gi
             cpu: 1
-      restartPolicy: Never
+      restartPolicy: OnFailure
       volumes:
         - name: config-volume
           configMap:
@@ -47,5 +54,4 @@ spec:
               - key: pelias.json
                 path: pelias.json
         - name: data-volume
-          persistentVolumeClaim:
-            claimName: pelias-build-pvc
+          emptyDir: {}

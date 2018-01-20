@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-pip
 spec:
-  replicas: 1
+  replicas: {{ .Values.pipReplicas | default 1 }}
   template:
     metadata:
       labels:
@@ -11,19 +11,8 @@ spec:
     spec:
       initContainers:
         - name: wof-download
-          image: pelias/whosonfirst
+          image: pelias/pip-service:{{ .Values.pipDockerTag | default "latest" }}
           command: ["npm", "run", "download"]
-          volumeMounts:
-            - name: config-volume
-              mountPath: /etc/config
-            - name: data-volume
-              mountPath: /data
-          env:
-            - name: PELIAS_CONFIG
-              value: "/etc/config/pelias.json"
-      containers:
-        - name: pelias-pip
-          image: pelias/pip-service:master
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
@@ -34,14 +23,34 @@ spec:
               value: "/etc/config/pelias.json"
           resources:
             limits:
-              memory: 8Gi
+              memory: 3Gi
+              cpu: 4
             requests:
-              memory: 4Gi
+              memory: 1Gi
+              cpu: 2
+      containers:
+        - name: pelias-pip
+          image: pelias/pip-service:{{ .Values.pipDockerTag | default "latest" }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+            - name: data-volume
+              mountPath: /data
+          env:
+            - name: PELIAS_CONFIG
+              value: "/etc/config/pelias.json"
+          resources:
+            limits:
+              memory: 10Gi
+              cpu: 3
+            requests:
+              memory: 9Gi
+              cpu: 1.5
           readinessProbe:
             httpGet:
               path: /12/12
               port: 3102
-            initialDelaySeconds: 60 #PIP service takes a long time to start up
+            initialDelaySeconds: 120 #PIP service takes a long time to start up
       volumes:
         - name: config-volume
           configMap:

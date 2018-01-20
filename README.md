@@ -1,6 +1,6 @@
 # Pelias Kubernetes Configuration
 
-Here live Kubernetes configuration files to create a production ready instance of Pelias.
+This repository contains Kubernetes configuration files to create a production ready instance of Pelias.
 
 This configuration is meant to be run on Kubernetes using real hardware or full sized virtual
 machines in the cloud. Technically it could work on a personal computer with
@@ -18,27 +18,27 @@ First, set up a Kubernetes cluster however works best for you. A popular choice 
 ### Sizing the Kubernetes cluster
 
 A working Pelias cluster contains the following services:
-* Pelias API (requires about 3GB of RAM) (**required**)
-* Placeholder Service (Requires 512MB of RAM) (**recommended**)
-* Point in Polygon (PIP) Service (Requires 6GB of RAM) (**recommended if reverse geocoding is
-  important**)
-* Interpolation Service (not implemented yet)
+* Pelias API (requires about 2GB of RAM) (**required**)
+* Placeholder Service (Requires 512MB of RAM) (**strongly recommended**)
+* Point in Polygon (PIP) Service (Requires 6GB of RAM) (**required for reverse geocoding**)
+* Interpolation Service (requires ~2GB of RAM)
 
 Some of the following importers will additionally have to be run to initially populate data
-* Who's on First (requires about 1GB of RAM, not implemented yet)
-* OpenStretMap (requires 6GB of RAM)
+* Who's on First (requires about 1GB of RAM)
+* OpenStretMap (requires ~0.25GB of RAM)
 * OpenAddresses (requires 6GB of RAM)
-* Geonames (requires 6GB of RAM, not implemented yet)
-* Polylines (requires 6GB of RAM, not implemented yet)
+* Geonames (requires ~0.5GB of RAM)
+* Polylines (requires 6GB of RAM for now)
+
+Finally, the importers require the PIP service to be running)
 
 Use the[data sources](https://mapzen.com/documentation/search/data-sources/) documentation to decide
 which importers to be run.
 
 Importers can be run in any order, in parallel or one at a time.
 
-These configuration files have two pods for each service to ensure redundancy. This means around
-20GB of RAM is required to bring up all these services, and up to another 30GB of RAM is needed to
-run all the importers at once. 3 instances with 8GB of RAM each is a good starting point just for
+This means around 10GB of RAM is required to bring up all the services, and up to another 15GB of RAM is needed to
+run all the importers at once. 2 instances with 8GB of RAM each is a good starting point just for
 the services.
 
 If using kops, it defaults to `t2.small` instances, which are far too small (they only have 2GB of ram).
@@ -73,13 +73,3 @@ it can be useful to open a shell inside a running container for debugging:
 # kubectl exec -it {{pod_name}} -- {{command}}
 kubectl exec -it pelias-pip-3625698757-dtzmd -- /bin/bash
 ```
-
-## Using the Dockerfile
-
-A Dockerfile is included that sets up all tools required for this repository. It can be used as a
-helper for creating an environment to run these scripts. It will mount your local copy of the
-pelias/kubernetes repository, your `~/.kube` directory for `kubectl` configuration, and your local
-`~/.aws` directory for AWS configuration.
-
-By running: `docker-compose run kubernetes bash`, you will get a shell that has all tools involved,
-and knows about your configuration.
