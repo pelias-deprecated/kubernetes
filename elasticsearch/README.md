@@ -72,6 +72,7 @@ Within the packer directory, create a file called `variables.json` and fill it i
   "aws_access_key": "<terraform user access key here>",
   "aws_secret_key": "<terraform user secret key here>"
 }
+```
 
 Then, run packer using the following command:
 ```
