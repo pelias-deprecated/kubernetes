@@ -4,6 +4,6 @@ data "aws_subnet_ids" "all_subnets" {
   vpc_id = "${var.aws_vpc_id}"
 
   tags {
-	  Name = "NonProd"
+	  Name = "Elasticsearch"
   }
 }
