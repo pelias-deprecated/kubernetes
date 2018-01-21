@@ -17,6 +17,7 @@ network.host: _ec2:privateIpv4_
 discovery.type: ec2
 discovery.zen.minimum_master_nodes: ${minimum_master_nodes}
 discovery.ec2.groups: ${aws_security_group}
+discovery.ec2.availability_zones: ["us-east-1a", "us-east-1b", "us-east-1c"]
 
 cloud.aws.region: ${aws_region}
 repositories.url.allowed_urls: ["${es_allowed_urls}"]
