@@ -20,7 +20,7 @@ data "template_file" "s3_policy" {
   template = "${file("${path.module}/templates/s3_policy.json.tpl")}"
 
   vars {
-    snapshot_s3_bucket_arn          = "${var.snapshot_s3_bucket_arn}"
+    snapshot_s3_bucket_arn = "${var.snapshot_s3_bucket_arn}"
   }
 }
 

@@ -2,16 +2,16 @@ data "template_file" "user_data" {
   template = "${file("${path.module}/templates/user-data.tpl")}"
 
   vars {
-    data_volume_name       = "${var.elasticsearch_data_volume_name}"
-    log_volume_name        = "${var.elasticsearch_log_volume_name}"
-    elasticsearch_data_dir = "${var.elasticsearch_data_dir}"
-    elasticsearch_log_dir  = "${var.elasticsearch_log_dir}"
-    es_cluster_name        = "${var.service_name}-${var.environment}-elasticsearch"
-    es_allowed_urls        = "${var.es_allowed_urls}"
-    aws_security_group     = "${aws_security_group.elasticsearch.id}"
-    aws_region             = "${var.aws_region}"
-    expected_nodes         = "${var.elasticsearch_desired_instances}"
-    minimum_master_nodes   = "${var.elasticsearch_desired_instances/2 + 1}"
+    data_volume_name                  = "${var.elasticsearch_data_volume_name}"
+    log_volume_name                   = "${var.elasticsearch_log_volume_name}"
+    elasticsearch_data_dir            = "${var.elasticsearch_data_dir}"
+    elasticsearch_log_dir             = "${var.elasticsearch_log_dir}"
+    es_cluster_name                   = "${var.service_name}-${var.environment}-elasticsearch"
+    es_allowed_urls                   = "${var.es_allowed_urls}"
+    aws_security_group                = "${aws_security_group.elasticsearch.id}"
+    aws_region                        = "${var.aws_region}"
+    expected_nodes                    = "${var.elasticsearch_desired_instances}"
+    minimum_master_nodes              = "${var.elasticsearch_desired_instances/2 + 1}"
     elasticsearch_heap_memory_percent = "${var.elasticsearch_heap_memory_percent}"
   }
 }

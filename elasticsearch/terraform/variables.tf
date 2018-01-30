@@ -53,8 +53,8 @@ variable "elasticsearch_max_instances" {
 # higher values here tune elasticsearch for use on smaller clusters
 # lower values give better performance if there is lots of RAM available
 variable "elasticsearch_heap_memory_percent" {
-	description = "Elasticsearch heap size as a percent of system RAM"
-	default     = "60"
+  description = "Elasticsearch heap size as a percent of system RAM"
+  default     = "60"
 }
 
 ## Launch Configuration settings
