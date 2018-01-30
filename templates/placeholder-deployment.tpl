@@ -43,7 +43,7 @@ spec:
               cpu: 2
             requests:
               memory: 512Mi
-              cpu: 1
+              cpu: 0.1
       volumes:
         - name: data-volume
           emptyDir: {}

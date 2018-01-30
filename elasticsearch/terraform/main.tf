@@ -12,6 +12,7 @@ data "template_file" "user_data" {
     aws_region             = "${var.aws_region}"
     expected_nodes         = "${var.elasticsearch_desired_instances}"
     minimum_master_nodes   = "${var.elasticsearch_desired_instances/2 + 1}"
+    elasticsearch_heap_memory_percent = "${var.elasticsearch_heap_memory_percent}"
   }
 }
 

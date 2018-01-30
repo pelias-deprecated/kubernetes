@@ -18,6 +18,11 @@ variable "aws_vpc_id" {
   description = "These templates assume a VPC already exists"
 }
 
+variable "subnet_name_filter" {
+  description = "Filter subnets within the VPC by using this name"
+  default     = "Elasticsearch"
+}
+
 # Autoscaling Group Settings
 
 # r4.xlarge is a good economic default for full planet builds
@@ -43,6 +48,13 @@ variable "elasticsearch_desired_instances" {
 variable "elasticsearch_max_instances" {
   description = "total instances"
   default     = "5"
+}
+
+# higher values here tune elasticsearch for use on smaller clusters
+# lower values give better performance if there is lots of RAM available
+variable "elasticsearch_heap_memory_percent" {
+	description = "Elasticsearch heap size as a percent of system RAM"
+	default     = "60"
 }
 
 ## Launch Configuration settings
@@ -80,6 +92,10 @@ variable "elasticsearch_log_dir" {
 variable "es_allowed_urls" {
   description = "List of URLs to allow creating snapshot repositories from"
   default     = ""
+}
+
+variable "snapshot_s3_bucket_arn" {
+  description = "The ARN where ES snapshots can be loaded from S3. This will be used to create an appropriate IAM role"
 }
 
 # General settings
