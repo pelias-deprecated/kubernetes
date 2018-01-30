@@ -94,6 +94,10 @@ variable "es_allowed_urls" {
   default     = ""
 }
 
+variable "snapshot_s3_bucket_arn" {
+  description = "The ARN where ES snapshots can be loaded from S3. This will be used to create an appropriate IAM role"
+}
+
 # General settings
 variable "service_name" {
   description = "Used as a prefix for all instances in case you are running several distinct services"
