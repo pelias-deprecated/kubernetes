@@ -18,9 +18,9 @@ variable "aws_vpc_id" {
   description = "These templates assume a VPC already exists"
 }
 
-variable "subnet_name_filter"
+variable "subnet_name_filter" {
   description = "Filter subnets within the VPC by using this name"
-	default     = "Elasticsearch"
+  default     = "Elasticsearch"
 }
 
 # Autoscaling Group Settings
@@ -48,6 +48,13 @@ variable "elasticsearch_desired_instances" {
 variable "elasticsearch_max_instances" {
   description = "total instances"
   default     = "5"
+}
+
+# higher values here tune elasticsearch for use on smaller clusters
+# lower values give better performance if there is lots of RAM available
+variable "elasticsearch_heap_memory_percent" {
+	description = "Elasticsearch heap size as a percent of system RAM"
+	default     = "60"
 }
 
 ## Launch Configuration settings

@@ -7,6 +7,7 @@ set -e
 
 cat <<'EOF' >/etc/elasticsearch/elasticsearch.yml
 cluster.name: ${es_cluster_name}
+#TODO: set node.name from hostname
 
 # our init.d script sets the default to this as well
 path.data: ${elasticsearch_data_dir}
@@ -28,7 +29,7 @@ EOF
 
 # heap size
 memory_in_bytes=`awk '/MemTotal/ {print $2}' /proc/meminfo`
-heap_memory=$(( memory_in_bytes * 6 / 10 / 1024 )) # take 60% of system memory, and convert to MB
+heap_memory=$(( memory_in_bytes * ${elasticsearch_heap_memory_percent} / 100 / 1024 )) # take percentage of system memory, and convert to MB
 sudo sed -i 's/#MAX_LOCKED_MEMORY=unlimited/MAX_LOCKED_MEMORY=unlimited/' /etc/init.d/elasticsearch
 sudo sed -i "s/#ES_HEAP_SIZE=.*$/ES_HEAP_SIZE=$${heap_memory}m/" /etc/default/elasticsearch
 
