@@ -4,7 +4,7 @@ metadata:
   name: pelias-api
 spec:
   replicas: {{ .Values.apiReplicas | default 1 }}
-  minReadySeconds: 30
+  minReadySeconds: 30 #kubernetes operates so fast it can be nice to slow things down a little
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -25,11 +25,11 @@ spec:
               value: "/etc/config/pelias.json"
           resources:
             limits:
-              memory: 3Gi
+              memory: 0.5Gi
               cpu: 1.5
             requests:
-              memory: 2Gi
-              cpu: 0.5
+              memory: 0.5Gi
+              cpu: 0.25
       volumes:
         - name: config-volume
           configMap:

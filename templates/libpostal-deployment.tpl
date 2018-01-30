@@ -18,4 +18,4 @@ spec:
               cpu: 1.5
             requests:
               memory: 2Gi
-              cpu: 0.5
+              cpu: 0.1
