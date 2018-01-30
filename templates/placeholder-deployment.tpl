@@ -4,6 +4,7 @@ metadata:
   name: pelias-placeholder
 spec:
   replicas: {{ .Values.placeholderReplicas | default 1 }}
+  minReadySeconds: 30
   template:
     metadata:
       labels:
@@ -21,7 +22,7 @@ spec:
           resources:
             limits:
               memory: 1Gi
-              cpu: 2
+              cpu: 1.1
             requests:
               memory: 512Mi
               cpu: 1
@@ -34,6 +35,8 @@ spec:
           env:
             - name: PLACEHOLDER_DATA
               value: "/data/placeholder/"
+            - name: CPUS
+              value: "1"
           resources:
             limits:
               memory: 1Gi

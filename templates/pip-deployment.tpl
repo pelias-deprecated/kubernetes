@@ -4,6 +4,11 @@ metadata:
   name: pelias-pip
 spec:
   replicas: {{ .Values.pipReplicas | default 1 }}
+  minReadySeconds: 60
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
