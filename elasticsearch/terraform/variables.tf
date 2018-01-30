@@ -18,6 +18,11 @@ variable "aws_vpc_id" {
   description = "These templates assume a VPC already exists"
 }
 
+variable "subnet_name_filter"
+  description = "Filter subnets within the VPC by using this name"
+	default     = "Elasticsearch"
+}
+
 # Autoscaling Group Settings
 
 # r4.xlarge is a good economic default for full planet builds
