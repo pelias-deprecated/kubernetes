@@ -22,10 +22,12 @@ resource "aws_launch_configuration" "elasticsearch" {
   instance_type               = "${var.elasticsearch_instance_type}"
   security_groups             = ["${aws_security_group.elasticsearch.id}"]
   associate_public_ip_address = true
-  ebs_optimized               = true
-  key_name                    = "${var.ssh_key_name}"
-  user_data                   = "${data.template_file.user_data.rendered}"
-  iam_instance_profile        = "${aws_iam_instance_profile.elasticsearch.arn}"
+
+  # use EBS optimized instances unless launching at t2 instance
+  ebs_optimized        = "${format("%.1s", var.elasticsearch_instance_type) == "t" ? false : true}"
+  key_name             = "${var.ssh_key_name}"
+  user_data            = "${data.template_file.user_data.rendered}"
+  iam_instance_profile = "${aws_iam_instance_profile.elasticsearch.arn}"
 
   lifecycle {
     create_before_destroy = true
