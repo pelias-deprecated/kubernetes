@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pelias-dashboard
+spec:
+  replicas: {{ .Values.dashboardReplicas | default 1 }}
+  minReadySeconds: 30 #kubernetes operates so fast it can be nice to slow things down a little
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: pelias-dashboard
+    spec:
+      containers:
+        - name: pelias-adashboard
+          image: pelias/dashboard:{{ .Values.dashboardDockerTag | default "latest" }}
+          env:
+            - name: AUTH_TOKEN
+              value: "foo"
+            - name: ES_ENDPOINT
+              value: "http://{{ .Values.elasticsearchHost }}:9200/"
+          resources:
+            limits:
+              memory: 0.2Gi
+              cpu: 0.25
+            requests:
+              memory: 0.2Gi
+              cpu: 0.25
