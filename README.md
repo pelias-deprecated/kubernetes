@@ -18,7 +18,8 @@ First, set up a Kubernetes cluster however works best for you. A popular choice 
 ### Sizing the Kubernetes cluster
 
 A working Pelias cluster contains the following services:
-* Pelias API (requires about 2GB of RAM) (**required**)
+* Pelias API (requires about 256MB of RAM) (**required**)
+* Libpostal Service (requirs about 2GB of RAM) (**required**)
 * Placeholder Service (Requires 512MB of RAM) (**strongly recommended**)
 * Point in Polygon (PIP) Service (Requires 6GB of RAM) (**required for reverse geocoding**)
 * Interpolation Service (requires ~2GB of RAM)
