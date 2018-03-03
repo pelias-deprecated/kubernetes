@@ -13,19 +13,21 @@ data:
       "api": {
         "services": {
           "placeholder": {
-            "url": "http://pelias-placeholder-service:3000/",
+            "url": "{{ .Values.placeholderHost }}",
             "timeout": 5000
           },
+          {{ if ne .Values.interpolationReplicas "0" }}
           "interpolation": {
-            "url": "http://pelias-interpolation-service:3102/",
+            "url": "{{ .Values.interpolationHost }}",
             "timeout": 5000
           },
+          {{ end }}
           "libpostal": {
-            "url": "http://pelias-libpostal-service:8080/",
+            "url": "{{ .Values.libpostalHost }}",
             "timeout": 5000
           },
           "pip": {
-            "url": "http://pelias-pip-service:3102/",
+            "url": "{{ .Values.pipHost }}",
             "timeout": 5000
           }
         }

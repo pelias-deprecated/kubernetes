@@ -7,3 +7,8 @@ externalAPIService: false
 
 # Whether the dashboard should be set up
 dashboardEnabled: false
+
+placeholderHost: "http://pelias-placeholder-service:3000/"
+interpolationHost: "http://pelias-interpolation-service:3102/"
+libpostalHost: "http://pelias-libpostal-service:8080/"
+pipHost: "http://pelias-pip-service:3102/"
