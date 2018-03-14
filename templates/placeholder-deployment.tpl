@@ -15,7 +15,7 @@ spec:
           image: busybox
           command: ["sh", "-c",
             "mkdir -p /data/placeholder/ &&\n
-             wget -O- http://pelias-data.s3.amazonaws.com/placeholder/store.sqlite3.gz | gunzip > /data/placeholder/store.sqlite3" ]
+             wget -O- {{ .Values.placeholderStoreURL }} | gunzip > /data/placeholder/store.sqlite3" ]
           volumeMounts:
             - name: data-volume
               mountPath: /data
