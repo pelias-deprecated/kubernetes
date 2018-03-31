@@ -79,6 +79,12 @@ variable "elasticsearch_log_volume_name" {
   default = "/dev/xvdc"
 }
 
+# AMI Settings
+
+variable "ami_env_tag_filter" {
+  default = "production"
+}
+
 # elasticsearch.yml settings
 
 variable "elasticsearch_data_dir" {
