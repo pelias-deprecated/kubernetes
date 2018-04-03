@@ -11,7 +11,7 @@ spec:
         - name: polylines-download
           image: busybox
           command: ["sh", "-c"]
-          args: ["mkdir -p /data/polylines && wget -O- https://s3.amazonaws.com/pelias-data.nextzen.org/polylines/road-network.gz | gunzip > /data/polylines/extract.0sv"]
+          args: ["mkdir -p /data/polylines && wget -O- {{ .Values.polylinesDownloadURL }} | gunzip > /data/polylines/extract.0sv"]
           volumeMounts:
             - name: data-volume
               mountPath: /data

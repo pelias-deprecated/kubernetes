@@ -1,3 +1,1 @@
-# Default values for build.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+polylinesDownloadURL: "https://s3.us-east-2.amazonaws.com/pelias-data.nextzen.org/poylines/road_network.gz"
