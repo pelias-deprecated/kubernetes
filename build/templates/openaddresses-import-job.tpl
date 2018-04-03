@@ -8,6 +8,12 @@ spec:
       name: openaddresses-import-pod
     spec:
       initContainers:
+      - name: setup
+        image: busybox
+        command: ["mkdir", "-p", "/data/openaddresses"]
+        volumeMounts:
+        - name: data-volume
+          mountPath: /data
       - name: openaddresses-download
         image: pelias/openaddresses:{{ .Values.openaddressesDockerTag | default "latest" }}
         command: ["npm", "run", "download"]
