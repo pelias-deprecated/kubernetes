@@ -27,7 +27,7 @@ spec:
             value: "/etc/config/pelias.json"
         resources:
           limits:
-            memory: 1Gi
+            memory: 4Gi
             cpu: 1.5
           requests:
             memory: 256Mi
