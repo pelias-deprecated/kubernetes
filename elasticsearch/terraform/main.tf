@@ -10,6 +10,7 @@ data "template_file" "user_data" {
     es_allowed_urls                   = "${var.es_allowed_urls}"
     aws_security_group                = "${aws_security_group.elasticsearch.id}"
     aws_region                        = "${var.aws_region}"
+    availability_zones                = "${var.availability_zones}"
     expected_nodes                    = "${var.elasticsearch_desired_instances}"
     minimum_master_nodes              = "${var.elasticsearch_desired_instances/2 + 1}"
     elasticsearch_heap_memory_percent = "${var.elasticsearch_heap_memory_percent}"
