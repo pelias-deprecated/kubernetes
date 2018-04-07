@@ -25,7 +25,7 @@ spec:
               cpu: 1.1
             requests:
               memory: 512Mi
-              cpu: 1
+              cpu: 0.2
       containers:
         - name: pelias-placeholder
           image: pelias/placeholder:{{ .Values.placeholderDockerTag | default "latest" }}
