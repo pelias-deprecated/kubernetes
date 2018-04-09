@@ -114,9 +114,10 @@ aws_elb = internal-search-dev-elasticsearch-elb-XXXXXXXX.us-east-1.elb.amazonaws
 
 ### Add Elasticsearch Load Balancer to Kubernetes Cluster
 
-Copy the DNS name from the Terraform output, and use it to replace the elasticsearch host on line 13 of the `pelias-json-configmap.yaml` file.
+Copy the DNS name from the Terraform output, and use it to replace the elasticsearchHost value in the Kubernetes chart.
 
-Restart the API instances by deleting the existing pods. The new ones will come up with the correct configuration and should be able to access elasticsearch!
+Update the chart with `helm update pelias ./pelias/kubernetes -f yourValues.yaml` or similar, and new API instances with the correct settings will automatically be launched.
+
 
 ## Thanks
 

@@ -26,12 +26,12 @@ A working Pelias cluster contains the following services:
 
 Some of the following importers will additionally have to be run to initially populate data
 * Who's on First (requires about 1GB of RAM)
-* OpenStretMap (requires ~0.25GB of RAM)
-* OpenAddresses (requires 6GB of RAM)
+* OpenStreetMap (requires between 0.25GB and 6GB of RAM depending on import size)
+* OpenAddresses (requires 1GB of RAM)
 * Geonames (requires ~0.5GB of RAM)
-* Polylines (requires 6GB of RAM for now)
+* Polylines (requires 1GB of RAM)
 
-Finally, the importers require the PIP service to be running)
+Finally, the importers require the PIP service to be running
 
 Use the[data sources](https://mapzen.com/documentation/search/data-sources/) documentation to decide
 which importers to be run.
@@ -49,7 +49,7 @@ You can edit the instance types using `kops edit ig nodes` before starting your 
 ## Elasticsearch
 
 Elasticsearch is used as the primary datastore for Pelias data. As a powerful database with built in
-scalability and replication abilities, it is not well suited for running in Kubernetes.
+scalability and replication abilities, it is not currently well suited for running in Kubernetes.
 
 Instead, it's preferable to create "regular" instances in your cloud provider or on your own
 hardware. To help with this, the `elasticsearch/` directory in this repository contains tools for
