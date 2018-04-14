@@ -55,7 +55,7 @@ resource "aws_launch_configuration" "elasticsearch" {
 }
 
 resource "aws_autoscaling_group" "elasticsearch" {
-  name                 = "${aws_launch_configuration.elasticsearch.name}"
+  name                 = "${var.service_name}-${var.environment}-elasticsearch"
   max_size             = "${var.elasticsearch_max_instances}"
   min_size             = "${var.elasticsearch_min_instances}"
   desired_capacity     = "${var.elasticsearch_desired_instances}"
