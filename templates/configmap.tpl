@@ -13,10 +13,12 @@ data:
       "api": {
         "indexName": "{{ .Values.apiIndexName }}",
         "services": {
+         {{ if ne .Values.placeholderReplicas "0" }}
           "placeholder": {
             "url": "{{ .Values.placeholderHost }}",
             "timeout": 5000
           },
+         {{ end }}
           {{ if ne .Values.interpolationReplicas "0" }}
           "interpolation": {
             "url": "{{ .Values.interpolationHost }}",
