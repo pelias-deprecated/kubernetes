@@ -7,6 +7,9 @@ externalAPIService: false
 # whether this ELB should be internet facing or private (default private)
 privateAPILoadBalancer: true
 
+# the name of the Elasticsearch index to use
+apiIndexName: "pelias"
+
 # Whether the dashboard should be set up
 dashboardEnabled: false
 
