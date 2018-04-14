@@ -23,6 +23,12 @@ variable "subnet_name_filter" {
   default     = "Elasticsearch"
 }
 
+# security settings
+variable "ssh_ip_range" {
+  description = "Range of IPs able to SSH into the Elasticsearch nodes"
+  default = "0.0.0.0/0"
+}
+
 # Autoscaling Group Settings
 
 # r4.xlarge is a good economic default for full planet builds
