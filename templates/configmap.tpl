@@ -11,6 +11,7 @@ data:
         }]
       },
       "api": {
+        "indexName": "{{ .Values.apiIndexName }}",
         "services": {
           "placeholder": {
             "url": "{{ .Values.placeholderHost }}",
