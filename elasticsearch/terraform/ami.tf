@@ -7,6 +7,6 @@ data "aws_ami" "elasticsearch_ami" {
 
   filter {
     name   = "tag:env"
-    values = ["production"]
+    values = ["${var.ami_env_tag_filter}"]
   }
 }
