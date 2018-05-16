@@ -98,6 +98,13 @@ What's the VPC ID? Kops creates all instances for the Kubernetes cluster within 
 
 All that should be needed to create everything required for elasticsearch is to run the following:
 
+
+```
+terraform init
+```
+
+for setting up terraform, and then
+
 ```
 terraform apply
 ```
