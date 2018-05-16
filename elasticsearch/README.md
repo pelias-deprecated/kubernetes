@@ -68,7 +68,7 @@ Within the packer directory, create a file called `variables.json` and fill it i
 
 ```
 {
-  "elasticsearch_version": "2.4.6"
+  "elasticsearch_version": "2.4.6",
   "aws_access_key": "<terraform user access key here>",
   "aws_secret_key": "<terraform user secret key here>"
 }
