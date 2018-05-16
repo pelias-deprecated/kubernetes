@@ -48,6 +48,13 @@ EOF
 # heap size
 memory_in_bytes=`awk '/MemTotal/ {print $2}' /proc/meminfo`
 heap_memory=$(( memory_in_bytes * ${elasticsearch_heap_memory_percent} / 100 / 1024 )) # take percentage of system memory, and convert to MB
+
+# Make sure we're not over 31GB
+max_memory=31000
+if [[ "$heap_memory" -gt "$max_memory" ]]; then
+        heap_memory="$max_memory"
+fi
+
 sudo sed -i 's/#MAX_LOCKED_MEMORY=unlimited/MAX_LOCKED_MEMORY=unlimited/' /etc/init.d/elasticsearch
 sudo sed -i "s/#ES_HEAP_SIZE=.*$/ES_HEAP_SIZE=$${heap_memory}m/" /etc/default/elasticsearch
 

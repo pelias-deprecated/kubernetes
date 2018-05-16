@@ -68,7 +68,7 @@ Within the packer directory, create a file called `variables.json` and fill it i
 
 ```
 {
-  "elasticsearch_version": "2.4.6"
+  "elasticsearch_version": "2.4.6",
   "aws_access_key": "<terraform user access key here>",
   "aws_secret_key": "<terraform user secret key here>"
 }
@@ -97,6 +97,13 @@ What's the VPC ID? Kops creates all instances for the Kubernetes cluster within 
 ### Create Elasticsearch cluster with terraform
 
 All that should be needed to create everything required for elasticsearch is to run the following:
+
+
+```
+terraform init
+```
+
+for setting up terraform, and then
 
 ```
 terraform apply
