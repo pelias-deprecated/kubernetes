@@ -14,8 +14,8 @@ spec:
           image: busybox
           command: ["sh", "-c",
             "mkdir -p /data/interpolation/ &&\n
-             wget -O- http://pelias-data.s3.amazonaws.com/interpolation/current/street.db.gz | gunzip > /data/interpolation/street.db &\n
-             wget -O- http://pelias-data.s3.amazonaws.com/interpolation/current/address.db.gz | gunzip > /data/interpolation/address.db" ]
+             wget -O- https://s3.amazonaws.com/pelias-data.nextzen.org/interpolation/current/street.db.gz | gunzip > /data/interpolation/street.db &\n
+             wget -O- https://s3.amazonaws.com/pelias-data.nextzen.org/interpolation/current/address.db.gz | gunzip > /data/interpolation/address.db" ]
           volumeMounts:
             - name: data-volume
               mountPath: /data
