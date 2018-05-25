@@ -11,6 +11,7 @@ data:
         }]
       },
       "api": {
+        "attributionURL": "{{ .Values.apiAttributionURL }}",
         "indexName": "{{ .Values.apiIndexName }}",
         "services": {
          {{ if ne .Values.placeholderReplicas "0" }}

@@ -9,6 +9,7 @@ privateAPILoadBalancer: true
 
 # the name of the Elasticsearch index to use
 apiIndexName: "pelias"
+apiAttributionURL: "http://api.yourpelias.com/attribution"
 
 # Whether the dashboard should be set up
 dashboardEnabled: false
