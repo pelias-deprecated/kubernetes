@@ -77,14 +77,6 @@ variable "elasticsearch_log_volume_size" {
   default = "5"
 }
 
-variable "elasticsearch_data_volume_name" {
-  default = "/dev/xvdb"
-}
-
-variable "elasticsearch_log_volume_name" {
-  default = "/dev/xvdc"
-}
-
 # AMI Settings
 
 variable "ami_env_tag_filter" {

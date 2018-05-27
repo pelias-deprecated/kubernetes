@@ -2,8 +2,6 @@ data "template_file" "user_data" {
   template = "${file("${path.module}/templates/user-data.tpl")}"
 
   vars {
-    data_volume_name                  = "${var.elasticsearch_data_volume_name}"
-    log_volume_name                   = "${var.elasticsearch_log_volume_name}"
     elasticsearch_data_dir            = "${var.elasticsearch_data_dir}"
     elasticsearch_log_dir             = "${var.elasticsearch_log_dir}"
     es_cluster_name                   = "${var.service_name}-${var.environment}-elasticsearch"
@@ -39,15 +37,13 @@ resource "aws_launch_configuration" "elasticsearch" {
     volume_type = "gp2"
   }
 
-  # ebs volumes appear on the instance as /dev/xvdX, but must be specified
-  # in the launch configuration as /dev/sdX. this is annoying, there must be a better way
   ebs_block_device = [{
-    device_name = "${replace(var.elasticsearch_data_volume_name,"/xvd/","sd")}"
+    device_name = "/dev/sdb"
     volume_size = "${var.elasticsearch_data_volume_size}"
     volume_type = "gp2"
   },
     {
-      device_name = "${replace(var.elasticsearch_log_volume_name,"/xvd/","sd")}"
+      device_name = "/dev/sdc"
       volume_size = "${var.elasticsearch_log_volume_size}"
       volume_type = "gp2"
     },
