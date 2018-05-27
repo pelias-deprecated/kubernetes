@@ -29,20 +29,12 @@ gateway.expected_nodes: ${expected_nodes}
 ## slowlog settings for the query part of a search
 index.search.slowlog.threshold.query.warn: 5s
 index.search.slowlog.threshold.query.info: 1s
-index.search.slowlog.threshold.query.debug: 500ms
-index.search.slowlog.threshold.query.trace: 100ms
 
 ## slowlog settings for the fetch part of a search
 index.search.slowlog.threshold.fetch.warn: 5s
-index.search.slowlog.threshold.fetch.info: 1s
-index.search.slowlog.threshold.fetch.debug: 500ms
-index.search.slowlog.threshold.fetch.trace: 100ms
 
 ## index time slowlog settings
-index.indexing.slowlog.threshold.index.warn: 30s
 index.indexing.slowlog.threshold.index.info: 10s
-index.indexing.slowlog.threshold.index.debug: 5s
-index.indexing.slowlog.threshold.index.trace: 1s
 EOF
 
 # heap size
