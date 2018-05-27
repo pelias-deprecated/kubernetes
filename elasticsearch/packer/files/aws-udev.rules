@@ -1,0 +1,2 @@
+KERNEL=="xvd*", PROGRAM="/sbin/ec2udev-vbd %k", SYMLINK+="%c"
+KERNEL=="nvme[0-9]*n[0-9]*", ENV{DEVTYPE}=="disk", ATTRS{model}=="Amazon Elastic Block Store", PROGRAM="/sbin/ebsnvme-id -u /dev/%k", SYMLINK+="%c"

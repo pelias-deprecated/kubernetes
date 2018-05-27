@@ -25,6 +25,21 @@
     "ami_name": "pelias-elasticsearch-{{timestamp}}"
   }],
   "provisioners": [{
+      "type": "file",
+      "source": "./files/ebsnvme-id",
+      "destination": "/tmp/ebsnvme-id"
+    },
+    {
+      "type": "file",
+      "source": "./files/ec2udev-vbd",
+      "destination": "/tmp/ec2udev-vbd"
+    },
+    {
+      "type": "file",
+      "source": "./files/aws-udev.rules",
+      "destination": "/tmp/10-aws.rules"
+    },
+    {
       "type": "shell",
       "script": "scripts/default.sh"
     },
