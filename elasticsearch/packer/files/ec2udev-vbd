@@ -1,0 +1,15 @@
+#!/bin/bash
+# Maintain consistent naming scheme with current EC2 instances
+# by symlinking /dev/xvd* to /dev/sd*
+# This comes from AWS Amazon Linux
+
+if [ "$#" -ne 1 ] ; then
+  echo "$0 <device>" >&2
+  exit 1
+else
+  if echo "$1"|grep -qE 'xvd[a-z][0-9]?' ; then
+    echo "$1" | sed -e 's/xvd/sd/'
+  else
+    echo "$1"
+  fi
+fi
