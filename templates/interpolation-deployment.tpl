@@ -31,7 +31,7 @@ spec:
               cpu: 2
             requests:
               memory: 2Gi
-              cpu: 1
+              cpu: 0.1
       volumes:
         - name: data-volume
           emptyDir: {}
