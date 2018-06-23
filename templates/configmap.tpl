@@ -20,7 +20,7 @@ data:
             "timeout": 5000
           },
          {{ end }}
-          {{ if ne .Values.interpolationReplicas "0" }}
+          {{ if .Values.interpolationEnabled }}
           "interpolation": {
             "url": "{{ .Values.interpolationHost }}",
             "timeout": 5000
