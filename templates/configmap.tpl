@@ -26,19 +26,16 @@ data:
             "timeout": 5000
           },
           {{ end }}
-          {{ if .Values.libpostalEnabled }}
-          "libpostal": {
-            "url": "{{ .Values.libpostalHost }}",
-              "timeout": 5000
-          },
-            {{ end }}
           {{ if .Values.pipEnabled }}
           "pip": {
             "url": "{{ .Values.pipHost }}",
               "timeout": 5000
           },
           {{ end }}
-          { }
+          "libpostal": {
+            "url": "{{ .Values.libpostalHost }}",
+              "timeout": 5000
+          } # for now, as a hack, libpostal cannot be disabled because there needs to be no comma only on the LAST element of a JSON object
         }
       },
       "acceptance-tests": {
