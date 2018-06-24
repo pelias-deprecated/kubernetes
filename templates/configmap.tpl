@@ -14,7 +14,7 @@ data:
         "attributionURL": "{{ .Values.apiAttributionURL }}",
         "indexName": "{{ .Values.apiIndexName }}",
         "services": {
-         {{ if ne .Values.placeholderReplicas "0" }}
+         {{ if .Values.placeholderEnabled  }}
           "placeholder": {
             "url": "{{ .Values.placeholderHost }}",
             "timeout": 5000
@@ -26,14 +26,19 @@ data:
             "timeout": 5000
           },
           {{ end }}
+          {{ if .Values.libpostalEnabled }}
           "libpostal": {
             "url": "{{ .Values.libpostalHost }}",
-            "timeout": 5000
+              "timeout": 5000
           },
+            {{ end }}
+          {{ if .Values.pipEnabled }}
           "pip": {
             "url": "{{ .Values.pipHost }}",
-            "timeout": 5000
-          }
+              "timeout": 5000
+          },
+          {{ end }}
+          { }
         }
       },
       "acceptance-tests": {
