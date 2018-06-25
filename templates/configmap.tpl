@@ -39,7 +39,7 @@ data:
             "url": "{{ .Values.libpostalHost }}",
             "retries": {{ .Values.libpostalRetries | default 1 }},
             "timeout": {{ .Values.libpostalTimeout | default 5000 }}
-          } # for now, as a hack, libpostal cannot be disabled because there needs to be no comma only on the LAST element of a JSON object
+          }
         }
       },
       "acceptance-tests": {
