@@ -14,25 +14,31 @@ data:
         "attributionURL": "{{ .Values.apiAttributionURL }}",
         "indexName": "{{ .Values.apiIndexName }}",
         "services": {
-         {{ if ne .Values.placeholderReplicas "0" }}
+         {{ if .Values.placeholderEnabled  }}
           "placeholder": {
             "url": "{{ .Values.placeholderHost }}",
-            "timeout": 5000
+            "retries": {{ .Values.placeholderRetries | default 1 }},
+            "timeout": {{ .Values.placeholderTimeout | default 5000 }}
           },
          {{ end }}
-          {{ if ne .Values.interpolationReplicas "0" }}
+          {{ if .Values.interpolationEnabled }}
           "interpolation": {
             "url": "{{ .Values.interpolationHost }}",
-            "timeout": 5000
+            "retries": {{ .Values.interpolationRetries | default 1 }},
+            "timeout": {{ .Values.interpolationTimeout | default 5000 }}
+          },
+          {{ end }}
+          {{ if .Values.pipEnabled }}
+          "pip": {
+            "url": "{{ .Values.pipHost }}",
+            "retries": {{ .Values.pipRetries | default 1 }},
+            "timeout": {{ .Values.pipTimeout | default 5000 }}
           },
           {{ end }}
           "libpostal": {
             "url": "{{ .Values.libpostalHost }}",
-            "timeout": 5000
-          },
-          "pip": {
-            "url": "{{ .Values.pipHost }}",
-            "timeout": 5000
+            "retries": {{ .Values.libpostalRetries | default 1 }},
+            "timeout": {{ .Values.libpostalTimeout | default 5000 }}
           }
         }
       },
