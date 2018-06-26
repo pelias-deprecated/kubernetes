@@ -8,7 +8,7 @@ spec:
   strategy:
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 0
+      maxUnavailable: {{ .Values.pipMaxUnavailable | default 0 }}
   template:
     metadata:
       labels:
