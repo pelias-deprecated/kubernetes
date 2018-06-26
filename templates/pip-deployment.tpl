@@ -8,7 +8,7 @@ spec:
   strategy:
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 0
+      maxUnavailable: {{ .Values.pipMaxUnavailable | default 0 }}
   template:
     metadata:
       labels:
@@ -49,7 +49,7 @@ spec:
               memory: 10Gi
               cpu: 3
             requests:
-              memory: 7Gi
+              memory: 5Gi
               cpu: 0.1
           readinessProbe:
             httpGet:
