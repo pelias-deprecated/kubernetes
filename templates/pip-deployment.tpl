@@ -32,7 +32,7 @@ spec:
               cpu: 4
             requests:
               memory: 1Gi
-              cpu: 1
+              cpu: 0.1
       containers:
         - name: pelias-pip
           image: pelias/pip-service:{{ .Values.pipDockerTag | default "latest" }}
