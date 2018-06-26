@@ -49,7 +49,7 @@ spec:
               memory: 10Gi
               cpu: 3
             requests:
-              memory: 7Gi
+              memory: 5Gi
               cpu: 0.1
           readinessProbe:
             httpGet:
