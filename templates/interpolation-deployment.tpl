@@ -19,6 +19,13 @@ spec:
           volumeMounts:
             - name: data-volume
               mountPath: /data
+          resources:
+            limits:
+              memory: 3Gi
+              cpu: 2
+            requests:
+              memory: 512Mi
+              cpu: 0.1
       containers:
         - name: pelias-interpolation
           image: pelias/interpolation:{{ .Values.interpolationDockerTag | default "latest" }}
