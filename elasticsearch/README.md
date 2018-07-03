@@ -96,6 +96,16 @@ What's the VPC ID? Kops creates all instances for the Kubernetes cluster within 
 
 ### Create Elasticsearch cluster with terraform
 
+IMPORTANT: 
+Terraform looks up for the resources by tag names, so you have to tag your AMI and Subnet with the corresponding values specified in `variables.tf`:
+
+`ami` should be tagged as `env` with the value of `production`
+
+`subnet` resource name needs to be `Elasticsearch`
+
+Make sure to tag these resources before you run terraform.
+
+
 All that should be needed to create everything required for elasticsearch is to run the following:
 
 
