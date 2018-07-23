@@ -24,4 +24,4 @@ placeholderEnabled: true
 pipEnabled: true
 interpolationEnabled: false
 
-placeholderStoreURL: "https://s3.amazonaws.com/geocodeearth-pelias-data/placeholder/store.sqlite3.gz"
+placeholderStoreURL: "https://s3.amazonaws.com/pelias-data.nextzen.org/placeholder/store.sqlite3.gz"
