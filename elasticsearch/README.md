@@ -2,7 +2,7 @@
 
 Elasticsearch is a database that definitely should not live in Kubernetes, so we use Terraform and Packer to manage setting it up.
 
-Before doing anything in this directory, set up the Kubernetes cluster running the rest of the services you'll want.
+This directory contains a Terraform module that sets up an Elasticsearch cluster suitable for usage in a full-planet, production ready Pelias install. It can of course also be used for smaller installations.
 
 ## Setup instructions
 
@@ -56,7 +56,33 @@ For IAM permissions the `IAMFullAccess` policy can be used, or for more fine gra
 }
 ```
 
-#### Create an access key
+#### Suggested: Set up AWS credentials file
+
+Once the AWS user has credentials, they need to be usable.
+
+The easiest way to use AWS credentials is to put them in `~/.aws/credentials`. This file even supports several accounts which is quite nice:
+
+```
+cat ~/.aws/credentials
+[default]
+aws_access_key_id = defaultKey
+aws_secret_access_key = defaultSecret
+region = us-east-1
+output = json
+[site1]
+aws_access_key_id = key1
+aws_secret_access_key = secret1
+region = us-east-1
+output = json
+[site2]
+aws_access_key_id     = key2
+aws_secret_access_key = secret2
+region = us-east-1
+output = json
+```
+
+Now, different keys can be selected with `export AWS_PROFILE=site1`. Run that command before anything below and the credentials will be picked up automatically.
+
 
 Once the terraform user has been set up, create an access key and keep the credentials handy for the next section
 
@@ -68,9 +94,7 @@ Within the packer directory, create a file called `variables.json` and fill it i
 
 ```
 {
-  "elasticsearch_version": "2.4.6",
-  "aws_access_key": "<terraform user access key here>",
-  "aws_secret_key": "<terraform user secret key here>"
+  "elasticsearch_version": "2.4.6"
 }
 ```
 
@@ -81,29 +105,45 @@ packer build -var-file=variables.json pelias-elasticsearch.json
 
 In under 5 minutes Packer should have built an AMI. The Terraform scripts are automatically configured to find it, so we are now done with packer.
 
-### Set up Terraform
+### Set up Terraform Module configuration
 
-Terraform will require similar configuration before we start. Create a file in the terraform directory called `terraform.tfvars` and fill it using the following template
+While it can be run directly, this directory's code is best used as a [Terraform module](https://www.terraform.io/intro/getting-started/modules.html).
 
+Create a file, for example `elasticsearch.tf`, with contents like the following:
+
+```hcl
+module "elasticsearch-prod-a" {
+	source = "github.com/pelias/kubernetes//elasticsearch/terraform?ref=v1.5.2"
+
+	aws_vpc_id   = "vpc-1234" # the ID of an existing VPC in which to create the instances
+	ssh_key_name = "ssh-key-to-use"
+
+	environment                       = "dev" # or whatever unique environment you choose
+	snapshot_s3_bucket_arn            = "arn:aws:s3:::pelias-elasticsearch.nextzen.org"
+	elasticsearch_max_instances       = 4 # 4 r4.xlarge instances is suitable for a minimal full-planet production build with replicas
+	elasticsearch_min_instances       = 4
+	elasticsearch_desired_instances   = 4
+	elasticsearch_data_volume_size    = 300
+	elasticsearch_instance_type       = "r4.xlarge"
+	elasticsearch_heap_memory_percent = 50
+	ssh_ip_range                      = "172.20.0.0/16" # adjust this if you'd like SSH access to be limited, or remove if you don't want that
+	ami_env_tag_filter                = "prod" # this variable can be adjusted if you tag your AMIs differently
+	subnet_name_filter                = "us-east-*"
+}
 ```
-ssh_key_name = "<the name of the SSH key pair you have configured in AWS, so you can SSH into instances>"
-aws_access_key = "<terraform user access key>"
-aws_secret_key = "<terraform user secret key>"
-aws_vpc_id = "<Kubernetes cluster VPC id>"
-```
 
-What's the VPC ID? Kops creates all instances for the Kubernetes cluster within a [Virtual Private Cloud](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html) to isolate them from all other EC2 instances. We will need to tell terraform to create the Elasticsearch instances in the same VPC. It can be found by going to the [AWS VPC Dashboard](https://console.aws.amazon.com/vpc/home) and finding the VPC matching the Kubernetes cluster created by Kops.
+Adjust any variables for your use case.
+
 
 ### Create Elasticsearch cluster with terraform
 
 All that should be needed to create everything required for elasticsearch is to run the following:
 
-
 ```
 terraform init
 ```
 
-for setting up terraform, and then
+for initializig Terraform and fetching the module code, and then
 
 ```
 terraform apply
@@ -120,6 +160,8 @@ aws_elb = internal-search-dev-elasticsearch-elb-XXXXXXXX.us-east-1.elb.amazonaws
 
 
 ### Add Elasticsearch Load Balancer to Kubernetes Cluster
+
+If using this code with the Helm chart in this repository, this section is useful.
 
 Copy the DNS name from the Terraform output, and use it to replace the elasticsearchHost value in the Kubernetes chart.
 
