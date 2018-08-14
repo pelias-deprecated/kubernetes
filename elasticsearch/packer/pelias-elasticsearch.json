@@ -11,6 +11,8 @@
     "secret_key": "{{user `aws_secret_key`}}",
     "region": "us-east-1",
     "subnet_id": "{{user `subnet_id`}}",
+    "ami_groups": "all",
+    "ami_description": "AMI for launching Elasticsearch 2.x as used by the Pelias geocoder",
     "source_ami_filter": {
       "filters": {
         "virtualization-type": "hvm",
