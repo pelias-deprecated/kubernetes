@@ -35,7 +35,7 @@ spec:
       containers:
       - name: openaddresses-import-container
         image: pelias/openaddresses:{{ .Values.openaddressesDockerTag | default "latest" }}
-        command: ["npm", "start"]
+        command: ["npm", "run", "parallel", "2"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config
@@ -46,11 +46,11 @@ spec:
             value: "/etc/config/pelias.json"
         resources:
           limits:
+            memory: 4Gi
+            cpu: 2.5
+          requests:
             memory: 2Gi
             cpu: 2
-          requests:
-            memory: 512Mi
-            cpu: 1
       restartPolicy: OnFailure
       volumes:
         - name: config-volume
