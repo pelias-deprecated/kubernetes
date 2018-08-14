@@ -20,7 +20,7 @@ resource "aws_launch_configuration" "elasticsearch" {
   image_id                    = "${data.aws_ami.elasticsearch_ami.id}"
   instance_type               = "${var.elasticsearch_instance_type}"
   security_groups             = ["${aws_security_group.elasticsearch.id}"]
-  associate_public_ip_address = true
+  associate_public_ip_address = false
 
   # use EBS optimized instances unless launching at t2 instance
   ebs_optimized        = "${format("%.1s", var.elasticsearch_instance_type) == "t" ? false : true}"

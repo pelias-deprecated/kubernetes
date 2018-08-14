@@ -8,6 +8,12 @@ spec:
       name: openstreetmap-import
     spec:
       initContainers:
+      - name: setup
+        image: busybox
+        command: ["mkdir", "-p", "/data/openstreetmap"]
+        volumeMounts:
+        - name: data-volume
+          mountPath: /data
       - name: openstreetmap-download
         image: pelias/openstreetmap:{{ .Values.openstreetmapDockerTag | default "latest"}}
         command: ["npm", "run", "download"]

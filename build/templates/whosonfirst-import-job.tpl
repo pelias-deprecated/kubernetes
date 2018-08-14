@@ -21,7 +21,7 @@ spec:
             value: "/etc/config/pelias.json"
         resources:
           limits:
-            memory: 1Gi
+            memory: 3Gi
             cpu: 4
           requests:
             memory: 512Mi
@@ -40,10 +40,10 @@ spec:
             value: "/etc/config/pelias.json"
         resources:
           limits:
-            memory: 2Gi
+            memory: 3Gi
             cpu: 1.5
           requests:
-            memory: 1Gi
+            memory: 2Gi
             cpu: 1
       restartPolicy: OnFailure
       volumes:

@@ -8,6 +8,12 @@ spec:
       name: geonames-import-pod
     spec:
       initContainers:
+        - name: setup
+          image: busybox
+          command: ["mkdir", "-p", "/data/geonames"]
+          volumeMounts:
+          - name: data-volume
+            mountPath: /data
         - name: geonames-download
           image: pelias/geonames:{{ .Values.geonamesDockerTag | default "latest" }}
           command: ["npm", "run", "download"]

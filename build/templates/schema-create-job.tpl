@@ -11,7 +11,7 @@ spec:
       initContainers:
       - name: schema-drop
         image: pelias/schema
-        command: ["npm", "run", "drop_index", "--", "-f"]
+        command: ["npm", "run", "drop_index", "--", "-f", "||" , "true"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config
