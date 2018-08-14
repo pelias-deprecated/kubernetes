@@ -10,6 +10,15 @@ data:
           "host": "{{ .Values.elasticsearchHost }}"
         }]
       },
+      "elasticsearch": {
+        "settings": {
+          "index": {
+            "number_of_replicas": "0",
+            "number_of_shards": "12",
+            "refresh_interval": "1m"
+          }
+        }
+      },
       "api": {
         "attributionURL": "{{ .Values.apiAttributionURL }}",
         "indexName": "{{ .Values.apiIndexName }}",
