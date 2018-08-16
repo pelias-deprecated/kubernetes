@@ -10,7 +10,7 @@ spec:
       {{ if .Values.schemaDrop | default false }}
       initContainers:
       - name: schema-drop
-        image: pelias/schema
+        image: pelias/schema:{{ .Values.schemaDockerTag | default "latest" }}
         command: ["npm", "run", "drop_index", "--", "-f", "||" , "true"]
         volumeMounts:
           - name: config-volume
