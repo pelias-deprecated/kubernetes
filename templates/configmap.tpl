@@ -58,6 +58,7 @@ data:
       },
       "logger": {
         "level": "info",
+        "json": true,
         "timestamp": true
       },
       "imports": {
