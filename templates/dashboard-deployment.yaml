@@ -21,7 +21,11 @@ spec:
             - name: AUTH_TOKEN
               value: "foo"
             - name: ES_ENDPOINT
-              value: "http://{{ .Values.elasticsearchHost }}:9200/"
+              {{- if .Values.elasticsearch.auth }}
+              value: {{ .Values.elasticsearch.protocol }}://{{ .Values.elasticsearch.auth }}@{{ .Values.elasticsearch.host }}:{{ .Values.elasticsearch.port }}/
+              {{- else }}
+              value: {{ .Values.elasticsearch.protocol }}://{{ .Values.elasticsearch.host }}:{{ .Values.elasticsearch.port }}/
+              {{- end }}
           resources:
             limits:
               memory: 0.2Gi
