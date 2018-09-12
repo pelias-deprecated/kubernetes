@@ -7,7 +7,12 @@ data:
     {
       "esclient": {
         "hosts": [{
-          "host": "{{ .Values.elasticsearchHost }}"
+          "host": {{ .Values.elasticsearch.host | quote}},
+          "port": {{ .Values.elasticsearch.port }},
+          "protocol": {{ .Values.elasticsearch.protocol | quote }}
+          {{- if .Values.elasticsearch.auth }}
+          ,"auth": "{{ .Values.elasticsearch.auth }}"
+          {{- end }}
         }]
       },
       "elasticsearch": {
