@@ -1,3 +1,4 @@
+{{- if (or (.Values.pipEnabled) (.Values.pip.enabled)) }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -9,3 +10,4 @@ spec:
         - protocol: TCP
           port: 3102
     type: ClusterIP
+{{- end -}}

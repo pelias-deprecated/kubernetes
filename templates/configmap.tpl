@@ -31,27 +31,27 @@ data:
         "attributionURL": "{{ .Values.apiAttributionURL }}",
         "indexName": "{{ .Values.apiIndexName }}",
         "services": {
-         {{ if .Values.placeholderEnabled  }}
+          {{ if .Values.placeholderEnabled  }}
           "placeholder": {
             "url": "{{ .Values.placeholderHost }}",
             "retries": {{ .Values.placeholderRetries | default 1 }},
             "timeout": {{ .Values.placeholderTimeout | default 5000 }}
           },
-         {{ end }}
-          {{ if .Values.interpolationEnabled }}
+          {{- end }}
+          {{- if .Values.interpolationEnabled | default .Values.interpolation.enabled }}
           "interpolation": {
-            "url": "{{ .Values.interpolationHost }}",
+            "url": "{{ .Values.interpolationHost | default .Values.interpolation.host }}",
             "retries": {{ .Values.interpolationRetries | default 1 }},
             "timeout": {{ .Values.interpolationTimeout | default 5000 }}
           },
-          {{ end }}
-          {{ if .Values.pipEnabled }}
+          {{- end }}
+          {{- if .Values.pipEnabled | default .Values.pip.enabled }}
           "pip": {
-            "url": "{{ .Values.pipHost }}",
+            "url": "{{ .Values.pipHost | default .Values.pip.host}}",
             "retries": {{ .Values.pipRetries | default 1 }},
             "timeout": {{ .Values.pipTimeout | default 5000 }}
           },
-          {{ end }}
+          {{- end }}
           "libpostal": {
             "url": "{{ .Values.libpostalHost }}",
             "retries": {{ .Values.libpostalRetries | default 1 }},

@@ -1,3 +1,4 @@
+{{- if (or (.Values.interpolationEnabled) (.Values.interpolation.enabled))  }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -45,4 +46,10 @@ spec:
               cpu: 0.1
       volumes:
         - name: data-volume
+        {{- if .Values.interpolation.pvc.create }}
+          persistentVolumeClaim:
+          claimName: {{ .Values.interpolation.pvc.name }}
+        {{- else }}
           emptyDir: {}
+        {{- end }}
+{{- end -}}
