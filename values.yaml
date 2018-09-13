@@ -18,13 +18,39 @@ apiAttributionURL: "http://api.yourpelias.com/attribution"
 dashboardEnabled: false
 
 placeholderHost: "http://pelias-placeholder-service:3000/"
-interpolationHost: "http://pelias-interpolation-service:3000/"
 libpostalHost: "http://pelias-libpostal-service:8080/"
-pipHost: "http://pelias-pip-service:3102/"
 
 libpostalEnabled: true
 placeholderEnabled: true
-pipEnabled: true
-interpolationEnabled: false
 
 placeholderStoreURL: "https://s3.amazonaws.com/pelias-data.nextzen.org/placeholder/store.sqlite3.gz"
+
+interpolation:
+  enabled: false
+  host: "http://pelias-interpolation-service:3000/"
+  pvc: {}
+#    create: true
+#    name: interpolation-pvc
+#    storageClass: aws-efs
+#    accessModes: ReadWriteMany
+#    storage: 10Gi
+#    annotations: {}
+
+pip:
+  enabled: true
+  host: "http://pelias-pip-service:3102/"
+  pvc: {}
+#    create: true
+#    name: pip-pvc
+#    storageClass: aws-efs
+#    accessModes: ReadWriteMany
+#    storage: 10Gi
+#    annotations: {}
+
+
+# Deprecated fields
+# pipEnabled: true
+# pipHost: "http://pelias-pip-service:3102/"
+
+# interpolationEnabled: false
+# interpolationHost: "http://pelias-interpolation-service:3000/"

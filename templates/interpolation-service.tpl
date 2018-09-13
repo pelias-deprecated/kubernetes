@@ -1,3 +1,4 @@
+{{- if (or (.Values.interpolationEnabled) (.Values.interpolation.enabled))  }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -9,3 +10,4 @@ spec:
         - protocol: TCP
           port: 3000
     type: ClusterIP
+{{- end -}}

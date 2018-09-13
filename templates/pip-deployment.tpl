@@ -1,3 +1,4 @@
+{{- if (or (.Values.pipEnabled) (.Values.pip.enabled)) }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -64,4 +65,10 @@ spec:
               - key: pelias.json
                 path: pelias.json
         - name: data-volume
+          {{- if .Values.pip.pvc.create }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.pip.pvc.name }}
+          {{- else }}
           emptyDir: {}
+          {{- end }}
+{{- end -}}
