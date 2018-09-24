@@ -34,8 +34,15 @@ until test $(elastic_status) -eq 200; do
   sleep 2
 done
 
-# All commands below are idempotent, so even though every node on this cluster
-# will run all commands, it will work fine
+# check if this node is the master node
+cluster_url="http://localhost:9200"
+
+if $(curl -s "$cluster_url/_cat/master" | grep -q `hostname`); then
+  echo "this is the master node, loading snapshot"
+else
+  echo "this is not the master, aborting snapshot load"
+  exit 0
+fi
 
 ## 1. set proper settings
 echo "setting optimal index recovery settings for higher performance on $cluster_url"
