@@ -7,7 +7,7 @@ set -e
 
 cat <<'EOF' >/etc/elasticsearch/elasticsearch.yml
 cluster.name: ${es_cluster_name}
-node.name: $${HOSTNAME}
+node.name: $${HOSTNAME} # the $${HOSTNAME} var is filled in by Elasticsearch
 
 # our init.d script sets the default to this as well
 path.data: ${elasticsearch_data_dir}
