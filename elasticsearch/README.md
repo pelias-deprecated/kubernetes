@@ -119,7 +119,6 @@ module "elasticsearch-prod-a" {
   ssh_key_name = "ssh-key-to-use"
 
   environment                       = "dev" # or whatever unique environment you choose
-  snapshot_s3_bucket_arn            = "arn:aws:s3:::pelias-elasticsearch.nextzen.org"
   elasticsearch_max_instances       = 4 # 4 r4.xlarge instances is suitable for a minimal full-planet production build with replicas
   elasticsearch_min_instances       = 4
   elasticsearch_desired_instances   = 4
@@ -129,6 +128,13 @@ module "elasticsearch-prod-a" {
   ssh_ip_range                      = "172.20.0.0/16" # adjust this if you'd like SSH access to be limited, or remove if you don't want that
   ami_env_tag_filter                = "prod" # this variable can be adjusted if you tag your AMIs differently, or removed to use the latest AMI
   subnet_name_filter                = "us-east-*" # if you only want to launch Elasticsearch instances in some subnets, provide a filter to find the subnets. Remove if all subnets are ok
+
+  # the following section is all optional, and if configured, will load an existing snapshot from S3 on startup
+  snapshot_s3_bucket                = "pelias-elasticsearch.nextzen.org"
+  snapshot_name                     = "name-of-your-snapshot"  # required to load snapshot
+  snapshot_base_path                = "path/to/your/snapshot"  # required to load snapshot
+  snapshot_alias_name               = "pelias"                 # if you'd like an alias created, use this variable
+  snapshot_replica_count            = 1                        # 1 is the default, modify as desired
 }
 ```
 
