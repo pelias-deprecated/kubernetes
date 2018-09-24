@@ -113,22 +113,22 @@ Create a file, for example `elasticsearch.tf`, with contents like the following:
 
 ```hcl
 module "elasticsearch-prod-a" {
-	source = "github.com/pelias/kubernetes//elasticsearch/terraform?ref=v1.5.2"
+  source = "github.com/pelias/kubernetes//elasticsearch/terraform?ref=v1.5.2"
 
-	aws_vpc_id   = "vpc-1234" # the ID of an existing VPC in which to create the instances
-	ssh_key_name = "ssh-key-to-use"
+  aws_vpc_id   = "vpc-1234" # the ID of an existing VPC in which to create the instances
+  ssh_key_name = "ssh-key-to-use"
 
-	environment                       = "dev" # or whatever unique environment you choose
-	snapshot_s3_bucket_arn            = "arn:aws:s3:::pelias-elasticsearch.nextzen.org"
-	elasticsearch_max_instances       = 4 # 4 r4.xlarge instances is suitable for a minimal full-planet production build with replicas
-	elasticsearch_min_instances       = 4
-	elasticsearch_desired_instances   = 4
-	elasticsearch_data_volume_size    = 300
-	elasticsearch_instance_type       = "r4.xlarge"
-	elasticsearch_heap_memory_percent = 50
-	ssh_ip_range                      = "172.20.0.0/16" # adjust this if you'd like SSH access to be limited, or remove if you don't want that
-	ami_env_tag_filter                = "prod" # this variable can be adjusted if you tag your AMIs differently, or removed to use the latest AMI
-	subnet_name_filter                = "us-east-*" # if you only want to launch Elasticsearch instances in some subnets, provide a filter to find the subnets. Remove if all subnets are ok
+  environment                       = "dev" # or whatever unique environment you choose
+  snapshot_s3_bucket_arn            = "arn:aws:s3:::pelias-elasticsearch.nextzen.org"
+  elasticsearch_max_instances       = 4 # 4 r4.xlarge instances is suitable for a minimal full-planet production build with replicas
+  elasticsearch_min_instances       = 4
+  elasticsearch_desired_instances   = 4
+  elasticsearch_data_volume_size    = 300
+  elasticsearch_instance_type       = "r4.xlarge"
+  elasticsearch_heap_memory_percent = 50
+  ssh_ip_range                      = "172.20.0.0/16" # adjust this if you'd like SSH access to be limited, or remove if you don't want that
+  ami_env_tag_filter                = "prod" # this variable can be adjusted if you tag your AMIs differently, or removed to use the latest AMI
+  subnet_name_filter                = "us-east-*" # if you only want to launch Elasticsearch instances in some subnets, provide a filter to find the subnets. Remove if all subnets are ok
 }
 ```
 
