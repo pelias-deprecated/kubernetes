@@ -149,7 +149,7 @@ All that should be needed to create everything required for elasticsearch is to 
 terraform init
 ```
 
-for initializig Terraform and fetching the module code, and then
+for initializing Terraform and fetching the module code, and then
 
 ```
 terraform apply
