@@ -98,8 +98,34 @@ variable "es_allowed_urls" {
   default     = ""
 }
 
+## snapshot loading settings
 variable "snapshot_s3_bucket" {
   description = "The bucket where ES snapshots can be loaded from S3."
+}
+
+variable "snapshot_base_path" {
+  description = "The path within the snapshot repository where the snapshot to load is found"
+  default = ""
+}
+
+variable "snapshot_name" {
+  description = "The name of the snapshot to load from S3. If blank, no snapshot will be loaded"
+  default = ""
+}
+
+variable "snapshot_replica_count" {
+  description = "The number of replicas to add to the loaded snapshot. Default 1"
+  default = "1"
+}
+
+variable "snapshot_alias_name" {
+  description = "The alias to give to the loaded snapshot. None made if blank"
+  default = ""
+}
+
+variable "snapshot_repository_read_only" {
+  description = "Whether the snapshot repository is read_only. Default true"
+  default = "true"
 }
 
 # General settings
