@@ -21,7 +21,7 @@ spec:
       {{ end }}
       containers:
       - name: schema-create
-        image: pelias/schema
+        image: pelias/schema:{{ .Values.schemaDockerTag | default "latest" }}
         command: ["npm", "run", "create_index"]
         volumeMounts:
           - name: config-volume
