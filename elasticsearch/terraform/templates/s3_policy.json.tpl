@@ -7,7 +7,7 @@
         "s3:ListBucket"
       ],
       "Resource": [
-        "${snapshot_s3_bucket_arn}"
+        "arn:aws:s3:::${snapshot_s3_bucket}"
       ]
     },
     {
@@ -19,7 +19,7 @@
         "s3:PutObjectAcl"
       ],
       "Resource": [
-        "${snapshot_s3_bucket_arn}/*"
+        "arn:aws:s3:::${snapshot_s3_bucket}/*"
       ]
     }
   ]

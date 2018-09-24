@@ -7,14 +7,15 @@ set -e
 
 cat <<'EOF' >/etc/elasticsearch/elasticsearch.yml
 cluster.name: ${es_cluster_name}
-#TODO: set node.name from hostname
+node.name: $${HOSTNAME} # the $${HOSTNAME} var is filled in by Elasticsearch
 
 # our init.d script sets the default to this as well
 path.data: ${elasticsearch_data_dir}
 path.logs: ${elasticsearch_log_dir}
 
 bootstrap.mlockall: true
-network.host: _ec2:privateIpv4_
+network.host: [ '_ec2:privateIpv4_', _local_ ]
+network.publish_host: '_ec2:privateIpv4_'
 discovery.type: ec2
 discovery.zen.minimum_master_nodes: ${minimum_master_nodes}
 discovery.ec2.groups: ${aws_security_group}
