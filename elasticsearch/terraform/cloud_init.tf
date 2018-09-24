@@ -12,6 +12,7 @@ data "template_file" "setup" {
     expected_nodes                    = "${var.elasticsearch_desired_instances}"
     minimum_master_nodes              = "${var.elasticsearch_desired_instances/2 + 1}"
     elasticsearch_heap_memory_percent = "${var.elasticsearch_heap_memory_percent}"
+    elasticsearch_fielddata_limit     = "${var.elasticsearch_fielddata_limit}"
   }
 }
 

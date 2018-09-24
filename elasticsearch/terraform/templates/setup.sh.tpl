@@ -36,6 +36,9 @@ index.search.slowlog.threshold.fetch.warn: 5s
 
 ## index time slowlog settings
 index.indexing.slowlog.threshold.index.info: 10s
+
+## circuit breakers
+indices.breaker.fielddata.limit: ${elasticsearch_fielddata_limit}
 EOF
 
 # heap size

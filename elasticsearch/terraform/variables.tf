@@ -98,6 +98,11 @@ variable "es_allowed_urls" {
   default     = ""
 }
 
+variable "elasticsearch_fielddata_limit" {
+  description = "fielddata circuit breaker limit"
+  default     = "30%"
+}
+
 ## snapshot loading settings
 variable "snapshot_s3_bucket" {
   description = "The bucket where ES snapshots can be loaded from S3."
