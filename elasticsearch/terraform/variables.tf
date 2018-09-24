@@ -98,8 +98,8 @@ variable "es_allowed_urls" {
   default     = ""
 }
 
-variable "snapshot_s3_bucket_arn" {
-  description = "The ARN where ES snapshots can be loaded from S3. This will be used to create an appropriate IAM role"
+variable "snapshot_s3_bucket" {
+  description = "The bucket where ES snapshots can be loaded from S3."
 }
 
 # General settings
