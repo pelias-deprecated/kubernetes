@@ -6,6 +6,8 @@ resource "aws_elb" "elasticsearch_elb" {
   connection_draining       = true
   internal                  = true
 
+  tags = "${var.tags}"
+
   listener {
     instance_port     = 9200
     instance_protocol = "http"

@@ -27,6 +27,11 @@ resource "aws_launch_template" "elasticsearch" {
       volume_type = "gp2"
     }
   }]
+
+  tag_specifications {
+    resource_type = "instance"
+    tags = "${var.tags}"
+  }
 }
 
 resource "aws_autoscaling_group" "elasticsearch" {
@@ -51,6 +56,12 @@ resource "aws_autoscaling_group" "elasticsearch" {
   tag {
     key                 = "team"
     value               = "${var.service_name}"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key   = "env"
+    value = "${var.environment}"
     propagate_at_launch = true
   }
 
