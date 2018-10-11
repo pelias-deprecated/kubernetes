@@ -41,9 +41,12 @@ resource "aws_autoscaling_group" "elasticsearch" {
   desired_capacity     = "${var.elasticsearch_desired_instances}"
   default_cooldown     = 30
   force_delete         = true
+
   launch_template      = {
-    id = "${aws_launch_template.elasticsearch.id}"
+    id      = "${aws_launch_template.elasticsearch.id}"
+    version = "$$Latest"
   }
+
   vpc_zone_identifier  = ["${data.aws_subnet_ids.all_subnets.ids}"]
   load_balancers       = ["${aws_elb.elasticsearch_elb.id}"]
 
