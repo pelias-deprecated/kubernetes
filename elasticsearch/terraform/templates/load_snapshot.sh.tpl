@@ -101,4 +101,11 @@ curl -s -XPUT "$cluster_url/$snapshot_name/_settings" -d "{
     \"number_of_replicas\" : $replica_count
   }
 }"
+
+## 6. make cluster read_only (prevents deletion of indices)
+curl -s -XPUT "$cluster_url/_cluster/settings" -d '{
+  "persistent" : {
+    "cluster.blocks.read_only" : true
+  }
+}'
 echo
