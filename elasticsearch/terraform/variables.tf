@@ -148,3 +148,8 @@ variable "tags" {
   description = "Custom tags to add to all resources"
   default     = {}
 }
+
+variable "elb" {
+  description = "Whether or not to launch an ELB"
+  default     = true
+}

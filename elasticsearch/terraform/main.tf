@@ -48,7 +48,7 @@ resource "aws_autoscaling_group" "elasticsearch" {
   }
 
   vpc_zone_identifier  = ["${data.aws_subnet_ids.all_subnets.ids}"]
-  load_balancers       = ["${aws_elb.elasticsearch_elb.id}"]
+  load_balancers       = ["${aws_elb.elasticsearch_elb.*.id}"]
 
   tag {
     key                 = "Name"
