@@ -7,9 +7,9 @@ sudo apt-get upgrade -y
 
 sudo apt-get install htop dstat -y
 
-echo "elasticsearch soft nofile 128000\n
-elasticsearch hard nofile 128000\n
-root soft nofile 128000\n
+echo "elasticsearch soft nofile 128000
+elasticsearch hard nofile 128000
+root soft nofile 128000
 root hard nofile 128000" | sudo tee --append /etc/security/limits.conf
 
 echo "fs.file-max = 500000" | sudo tee --append /etc/sysctl.conf
