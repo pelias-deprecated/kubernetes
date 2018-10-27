@@ -4,7 +4,7 @@ metadata:
   name: pelias-api
 spec:
   replicas: {{ .Values.apiReplicas | default 1 }}
-  minReadySeconds: 10 #kubernetes operates so fast it can be nice to slow things down a little
+  minReadySeconds: {{ .Values.api.minReadySeconds  | default 10 }}
   strategy:
     rollingUpdate:
       maxSurge: 1
