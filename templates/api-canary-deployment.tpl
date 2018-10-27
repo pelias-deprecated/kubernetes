@@ -1,9 +1,10 @@
+{{- if .Values.api.canaryDockerTag }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: pelias-api
+  name: pelias-api-canary
 spec:
-  replicas: {{ .Values.api.replicas | default 1 }}
+  replicas: {{ .Values.api.canaryReplicas | default 1 }}
   minReadySeconds: {{ .Values.api.minReadySeconds  | default 10 }}
   strategy:
     rollingUpdate:
@@ -12,13 +13,13 @@ spec:
   template:
     metadata:
       labels:
-        app: pelias-api
+        app: {{ if .Values.api.privateCanary }} pelias-api-private-canary {{ else }} pelias-api {{ end }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.tpl") . | sha256sum }}
     spec:
       containers:
         - name: pelias-api
-          image: pelias/api:{{ .Values.api.dockerTag | default "latest" }}
+          image: pelias/api:{{ .Values.api.canaryDockerTag | default "latest" }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
@@ -39,3 +40,4 @@ spec:
             items:
               - key: pelias.json
                 path: pelias.json
+{{- end -}}
