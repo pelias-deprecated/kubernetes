@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-api
 spec:
-  replicas: {{ .Values.apiReplicas | default 1 }}
+  replicas: {{ .Values.api.replicas | default 1 }}
   minReadySeconds: {{ .Values.api.minReadySeconds  | default 10 }}
   strategy:
     rollingUpdate:
@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: pelias-api
-          image: pelias/api:{{ .Values.apiDockerTag | default "latest" }}
+          image: pelias/api:{{ .Values.api.dockerTag | default "latest" }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
