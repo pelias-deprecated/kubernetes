@@ -2,27 +2,31 @@
 
 This repository contains Kubernetes configuration files to create a production ready instance of Pelias.
 
-This configuration is meant to be run on Kubernetes using real hardware or full sized virtual
-machines in the cloud. Technically it could work on a personal computer with
-[minikube](https://github.com/kubernetes/minikube) but it would require a machine with lots of RAM:
-24GB or more.
+We use [Helm](https://helm.sh/) to manage Pelias installation.
 
-**Note:** These are very early stage, and are being rapidly changed and improved. We welcome
-feedback from anyone who has used them.
+This configuration is meant to be run on Kubernetes using real hardware or full sized virtual
+machines in the cloud. It could work on a personal computer with
+[minikube](https://github.com/kubernetes/minikube), but larger installations will likely benefit from additional RAM.
 
 ## Setup
 
 First, set up a Kubernetes cluster however works best for you. A popular choice is to use
 [kops](https://github.com/kubernetes/kops) on AWS. The [Getting Started on AWS Guide](https://github.com/kubernetes/kops/blob/master/docs/aws.md) is a good starting point.
 
+### Helm Installation
+
+Helm must be installed before continuing. See [https://github.com/helm/helm#install](https://github.com/helm/helm#install) for instructions.
+
 ### Sizing the Kubernetes cluster
 
-A working Pelias cluster contains the following services:
-* Pelias API (requires about 256MB of RAM) (**required**)
-* Libpostal Service (requirs about 2GB of RAM) (**required**)
-* Placeholder Service (Requires 512MB of RAM) (**strongly recommended**)
-* Point in Polygon (PIP) Service (Requires 6GB of RAM) (**required for reverse geocoding**)
+A working Pelias cluster contains at least some of the following services:
+* Pelias API (requires about 50MB of RAM)
+* Libpostal Service (requires about 2GB of RAM)
+* Placeholder Service (Requires 256MB of RAM)
+* Point in Polygon (PIP) Service (Requires up to 6GB of RAM for a full planet build) (**required for reverse geocoding**)
 * Interpolation Service (requires ~2GB of RAM)
+
+See the [Pelias Services](https://github.com/pelias/documentation/blob/master/services.md) documentation to determine which services to run.
 
 Some of the following importers will additionally have to be run to initially populate data
 * Who's on First (requires about 1GB of RAM)
@@ -46,6 +50,26 @@ If using kops, it defaults to `t2.small` instances, which are far too small (the
 
 You can edit the instance types using `kops edit ig nodes` before starting your cluster. `m4.large` is a good choice to start.
 
+### Pelias Helm Chart installation
+
+It's recommended to use a `.yaml` file to configure the Pelias chart. See [values.yaml](https://github.com/pelias/kubernetes/blob/master/values.yaml) for a starting point.
+
+The pelias helm chart can be installed as follows:
+
+```
+helm install --name pelias -n pelias ./path/to/pelias/charts -f path/to/pelias-values.yaml
+```
+
+### Running a build
+
+The `build` directory in this repository contains an additional chart for running a Pelias build. It can be run in a similar way to the Pelias services chart:
+
+```
+helm install --name pelias-build -n pelias ./path/to/pelias/build/chart -f path/to/pelias-values.yaml
+```
+
+`values.yaml` can be reused between the two charts, however, the Pelias services chart must be up and running first.
+
 ## Elasticsearch
 
 Elasticsearch is used as the primary datastore for Pelias data. As a powerful database with built in
@@ -57,18 +81,22 @@ setting up a production ready, Pelias compatible Elasticsearch cluster. It uses
 [Terraform](http://terraform.io/) and [Packer](http://packer.io/) to do this. See the directory
 [README](./elasticsearch/README.md) for more details.
 
-# debuging 'init containers'
+## Handy Kubernetes commands
 
-sometimes an 'init container' fails to start, you can view the init logs:
+We find ourselves using these from time to time.
+
+### debugging 'init containers'
+
+Sometimes an 'init container' fails to start, you can view the init logs:
 
 ```bash
 # kubectl logs {{pod_name}} -c {{init_container_name}}
 kubectl logs geonames-import-4vgq3 -c geonames-download
 ```
 
-# opening a bash prompt in a running container
+### opening a bash prompt in a running container
 
-it can be useful to open a shell inside a running container for debugging:
+It can be useful to open a shell inside a running container for debugging:
 
 ```bash
 # kubectl exec -it {{pod_name}} -- {{command}}
