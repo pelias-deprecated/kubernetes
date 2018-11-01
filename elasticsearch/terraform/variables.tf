@@ -143,3 +143,8 @@ variable "environment" {
   description = "Which environment (dev, staging, prod, etc) this group of machines is for"
   default     = "dev"
 }
+
+variable "tags" {
+  description = "Custom tags to add to all resources"
+  default     = {}
+}
