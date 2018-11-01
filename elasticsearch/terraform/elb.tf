@@ -8,6 +8,8 @@ resource "aws_elb" "elasticsearch_elb" {
 
   tags = "${var.tags}"
 
+  count = "${var.elb}"
+
   listener {
     instance_port     = 9200
     instance_protocol = "http"
