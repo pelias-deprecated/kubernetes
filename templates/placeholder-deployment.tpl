@@ -5,6 +5,10 @@ metadata:
 spec:
   replicas: {{ .Values.placeholderReplicas | default 1 }}
   minReadySeconds: 30
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:

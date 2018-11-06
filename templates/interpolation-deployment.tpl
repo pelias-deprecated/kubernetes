@@ -4,6 +4,10 @@ metadata:
   name: pelias-interpolation
 spec:
   replicas: {{ .Values.interpolationReplicas | default 1 }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
