@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pelias-libpostal
-          image: pelias/go-whosonfirst-libpostal:{{ .Values.libpostalDockerTag | default "latest" }}
+          image: pelias/libpostal-service:{{ .Values.libpostalDockerTag | default "latest" }}
           resources:
             limits:
               memory: 3Gi
