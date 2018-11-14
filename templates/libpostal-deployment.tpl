@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pelias-libpostal
-          image: pelias/go-whosonfirst-libpostal:{{ .Values.libpostalDockerTag | default "latest" }}
+          image: pelias/libpostal-service:{{ .Values.libpostalDockerTag | default "latest" }}
           resources:
             limits:
               memory: 3Gi
@@ -23,3 +23,11 @@ spec:
             requests:
               memory: 2Gi
               cpu: 0.1
+          livenessProbe:
+            httpGet:
+              path: /parse?address=readiness
+              port: 4400
+          readinessProbe:
+            httpGet:
+              path: /parse?address=readiness
+              port: 4400
