@@ -7,5 +7,5 @@ spec:
         app: pelias-libpostal
     ports:
         - protocol: TCP
-          port: 8080
+          port: 4400
     type: ClusterIP
