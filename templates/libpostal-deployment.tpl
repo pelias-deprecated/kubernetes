@@ -23,3 +23,11 @@ spec:
             requests:
               memory: 2Gi
               cpu: 0.1
+          livenessProbe:
+            httpGet:
+              path: /parse?address=readiness
+              port: 4400
+          readinessProbe:
+            httpGet:
+              path: /parse?address=readiness
+              port: 4400
