@@ -1,3 +1,4 @@
+{{- if .Values.dashboard.enabled }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -33,3 +34,4 @@ spec:
             requests:
               memory: 0.2Gi
               cpu: 0.25
+{{- end -}}
