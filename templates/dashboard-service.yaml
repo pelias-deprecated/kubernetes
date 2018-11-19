@@ -1,3 +1,4 @@
+{{- if .Values.dashboard.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -9,3 +10,4 @@ spec:
         - protocol: TCP
           port: 3030
     type: ClusterIP
+{{- end -}}

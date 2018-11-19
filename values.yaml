@@ -19,7 +19,9 @@ apiIndexName: "pelias"
 apiAttributionURL: "http://api.yourpelias.com/attribution"
 
 # Whether the dashboard should be set up
-dashboardEnabled: false
+dashboard:
+  enabled: true
+  domain: null # set this to enable an ingress
 
 placeholderHost: "http://pelias-placeholder-service:3000/"
 interpolationHost: "http://pelias-interpolation-service:3000/"
