@@ -16,7 +16,7 @@ spec:
         app: pelias-dashboard
     spec:
       containers:
-        - name: pelias-adashboard
+        - name: pelias-dashboard
           image: pelias/dashboard:{{ .Values.dashboardDockerTag | default "latest" }}
           env:
             - name: AUTH_TOKEN
