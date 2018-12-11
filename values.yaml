@@ -13,6 +13,7 @@ privateAPILoadBalancer: true
 ## API settings
 api:
   autocomplete: {}
+  requests: {}
 
 # the name of the Elasticsearch index to use
 apiIndexName: "pelias"
