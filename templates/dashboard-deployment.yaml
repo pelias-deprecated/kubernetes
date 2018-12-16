@@ -33,5 +33,5 @@ spec:
               cpu: 0.25
             requests:
               memory: 0.2Gi
-              cpu: 0.25
+              cpu: 0.01
 {{- end -}}
