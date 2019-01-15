@@ -25,7 +25,7 @@ fi
 
 ## 0. wait for elasticsearch to become ready
 function elastic_status(){
-  curl --output /dev/null --silent --write-out "%{http_code}" "$cluster_url" || true;
+  curl --output /dev/null --silent --write-out "%%{http_code}" "$cluster_url" || true;
 }
 
 echo "waiting for elasticsearch on $cluster_url"
