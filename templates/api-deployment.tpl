@@ -30,8 +30,8 @@ spec:
               memory: 0.5Gi
               cpu: 1.5
             requests:
-              memory: {{ .Values.api.requests.memory | quote | default "0.25Gi" }}
-              cpu: {{ .Values.api.requests.cpu | quote | default "0.1" }}
+              memory: {{ .Values.api.requests.memory | default "0.25Gi" | quote }}
+              cpu: {{ .Values.api.requests.cpu | default "0.1" | quote }}
       volumes:
         - name: config-volume
           configMap:
