@@ -29,4 +29,6 @@ resource "aws_iam_role_policy" "elasticsearch_s3" {
   name   = "${var.service_name}-${var.environment}-elasticsearch-s3-policy"
   policy = "${data.template_file.s3_policy.rendered}"
   role   = "${aws_iam_role.elasticsearch.id}"
+
+  count = "${length(var.snapshot_s3_bucket) > 0 ? 1 : 0}" # disabled if s3 bucket not set
 }

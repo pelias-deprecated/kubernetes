@@ -106,6 +106,7 @@ variable "elasticsearch_fielddata_limit" {
 ## snapshot loading settings
 variable "snapshot_s3_bucket" {
   description = "The bucket where ES snapshots can be loaded from S3."
+  default = ""
 }
 
 variable "snapshot_base_path" {
