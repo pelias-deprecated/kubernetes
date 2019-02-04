@@ -113,7 +113,7 @@ Create a file, for example `elasticsearch.tf`, with contents like the following:
 
 ```hcl
 module "elasticsearch-prod-a" {
-  source = "github.com/pelias/kubernetes//elasticsearch/terraform?ref=v2.4.0"
+  source = "github.com/pelias/kubernetes//elasticsearch/terraform?ref=v3.1.0" # check Github for the latest tagged releases
 
   aws_vpc_id   = "vpc-1234" # the ID of an existing VPC in which to create the instances
   ssh_key_name = "ssh-key-to-use"
