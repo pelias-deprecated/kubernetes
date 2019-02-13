@@ -37,7 +37,7 @@ Some of the following importers will additionally have to be run to initially po
 
 Finally, the importers require the PIP service to be running
 
-Use the[data sources](https://mapzen.com/documentation/search/data-sources/) documentation to decide
+Use the [data sources](https://mapzen.com/documentation/search/data-sources/) documentation to decide
 which importers to be run.
 
 Importers can be run in any order, in parallel or one at a time.
@@ -57,7 +57,7 @@ It's recommended to use a `.yaml` file to configure the Pelias chart. See [value
 The pelias helm chart can be installed as follows:
 
 ```
-helm install --name pelias -n pelias ./path/to/pelias/charts -f path/to/pelias-values.yaml
+helm install --name pelias --namespace pelias ./path/to/pelias/charts -f path/to/pelias-values.yaml
 ```
 
 ### Running a build
@@ -65,7 +65,7 @@ helm install --name pelias -n pelias ./path/to/pelias/charts -f path/to/pelias-v
 The `build` directory in this repository contains an additional chart for running a Pelias build. It can be run in a similar way to the Pelias services chart:
 
 ```
-helm install --name pelias-build -n pelias ./path/to/pelias/build/chart -f path/to/pelias-values.yaml
+helm install --name pelias-build --namespace pelias ./path/to/pelias/build/chart -f path/to/pelias-values.yaml
 ```
 
 `values.yaml` can be reused between the two charts, however, the Pelias services chart must be up and running first.
