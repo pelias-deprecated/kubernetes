@@ -9,6 +9,8 @@ sudo apt-get install htop dstat -y
 
 echo "elasticsearch soft nofile 128000
 elasticsearch hard nofile 128000
+elasticsearch soft memlock unlimited
+elasticsearch hard memlock unlimited
 root soft nofile 128000
 root hard nofile 128000" | sudo tee --append /etc/security/limits.conf
 
