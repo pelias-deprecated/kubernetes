@@ -88,7 +88,7 @@ sudo service elasticsearch start
 # These settings will be automatically merged when creating new indices.
 # Since elasticsearch v5+ this is now the recommended way to set node-specific settings.
 # https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
-$(elastic_wait) && curl \
+(elastic_wait) && curl \
   -X PUT \
   -H 'Content-Type: application/json' \
   -d '{
