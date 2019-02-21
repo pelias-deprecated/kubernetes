@@ -35,7 +35,7 @@ EOF
 
 # elasticsearch 2.4 specific settings
 # note: we can check if 'bin/plugin' exists, this was renamed after 2.4
-if [ ! -f '/usr/share/elasticsearch/bin/plugin' ]; then
+if [ -f '/usr/share/elasticsearch/bin/plugin' ]; then
   # in older versions of ES 'memory_lock' is called 'mlockall'
   sed -i 's/bootstrap.memory_lock/bootstrap.mlockall/g' /etc/elasticsearch/elasticsearch.yml
 fi
