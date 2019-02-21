@@ -83,14 +83,12 @@ sudo service elasticsearch start
 # Import elastic status/wait scripts
 . /home/ubuntu/elastic_wait.sh
 
-# Wait for elasticsearch service to come up
-elastic_wait
-
+# Wait for elasticsearch service to come up (note elastic_wait exits 0|1); then
 # Put index template
 # These settings will be automatically merged when creating new indices.
 # Since elasticsearch v5+ this is now the recommended way to set node-specific settings.
 # https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
-curl \
+$(elastic_wait) && curl \
   -X PUT \
   -H 'Content-Type: application/json' \
   -d '{
