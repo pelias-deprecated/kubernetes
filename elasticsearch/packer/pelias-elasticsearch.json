@@ -1,6 +1,6 @@
 {
   "variables": {
-    "elasticsearch_version": "2.4.6",
+    "elasticsearch_version": "5.6.12",
     "aws_access_key": "",
     "aws_secret_key": "",
     "subnet_id": ""
@@ -40,6 +40,11 @@
       "type": "file",
       "source": "./files/aws-udev.rules",
       "destination": "/tmp/10-aws.rules"
+    },
+    {
+      "type": "file",
+      "source": "./files/elastic_wait.sh",
+      "destination": "/home/ubuntu/elastic_wait.sh"
     },
     {
       "type": "shell",

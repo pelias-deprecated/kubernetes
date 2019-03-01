@@ -23,16 +23,11 @@ if [[ "$s3_bucket" == "" ]]; then
   exit 0
 fi
 
-## 0. wait for elasticsearch to become ready
-function elastic_status(){
-  curl --output /dev/null --silent --write-out "%%{http_code}" "$cluster_url" || true;
-}
+# Import elastic status/wait scripts
+. /home/ubuntu/elastic_wait.sh
 
-echo "waiting for elasticsearch on $cluster_url"
-until test $(elastic_status) -eq 200; do
-  printf '.'
-  sleep 2
-done
+## 0. wait for elasticsearch to become ready
+(elastic_wait)
 
 # check if this node is the master node
 cluster_url="http://localhost:9200"
