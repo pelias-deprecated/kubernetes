@@ -41,7 +41,7 @@ fi
 
 ## 1. set proper settings
 echo "setting optimal index recovery settings for higher performance on $cluster_url"
-curl -XPUT "$cluster_url/_cluster/settings" -d '{
+curl -s -XPUT --fail "$cluster_url/_cluster/settings" -d '{
   "persistent": {
     "indices.recovery.max_bytes_per_sec": "4000mb",
       "cluster.routing.allocation.node_concurrent_recoveries": 24,
@@ -51,7 +51,7 @@ curl -XPUT "$cluster_url/_cluster/settings" -d '{
 echo
 
 ## 2. create snapshot repository
-curl -s -XPOST "$cluster_url/_snapshot/$es_repo_name" -d "{
+curl -s -XPOST --fail "$cluster_url/_snapshot/$es_repo_name" -d "{
   \"type\": \"s3\",
     \"settings\": {
       \"bucket\": \"$s3_bucket\",
@@ -64,7 +64,7 @@ curl -s -XPOST "$cluster_url/_snapshot/$es_repo_name" -d "{
 echo
 
 ## 3. import snapshot
-curl -s -XPOST "$cluster_url/_snapshot/$es_repo_name/$snapshot_name/_restore" -d "{
+curl -s -XPOST --fail "$cluster_url/_snapshot/$es_repo_name/$snapshot_name/_restore" -d "{
   \"indices\": \"pelias\",
     \"rename_pattern\": \"pelias\",
     \"rename_replacement\": \"$snapshot_name\"
@@ -75,7 +75,7 @@ curl -s -XPOST "$cluster_url/_snapshot/$es_repo_name/$snapshot_name/_restore" -d
 if [[ "$alias_name" != "" ]]; then
   echo "creating $alias_name alias pointing to $snapshot_name on $cluster_url"
 
-  curl -s -XPOST "$cluster_url/_aliases" -d "{
+  curl -s -XPOST --fail "$cluster_url/_aliases" -d "{
     \"actions\": [{
       \"add\": {
         \"index\": \"$snapshot_name\",
@@ -91,14 +91,14 @@ fi
 ## 5. set replica count
 echo "setting replica count to $replica_count on $snapshot_name index in $cluster_url"
 
-curl -s -XPUT "$cluster_url/$snapshot_name/_settings" -d "{
+curl -s -XPUT --fail "$cluster_url/$snapshot_name/_settings" -d "{
   \"index\" : {
     \"number_of_replicas\" : $replica_count
   }
 }"
 
 ## 6. make cluster read_only (prevents deletion of indices)
-curl -s -XPUT "$cluster_url/_cluster/settings" -d '{
+curl -s -XPUT --fail "$cluster_url/_cluster/settings" -d '{
   "persistent" : {
     "cluster.blocks.read_only" : true
   }
