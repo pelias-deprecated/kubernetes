@@ -16,6 +16,7 @@ spec:
         app: {{ if .Values.api.privateCanary }} pelias-api-private-canary {{ else }} pelias-api {{ end }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.tpl") . | sha256sum }}
+        image: pelias/api:{{ .Values.api.dockerTag | default "latest" }}
     spec:
       containers:
         - name: pelias-api
