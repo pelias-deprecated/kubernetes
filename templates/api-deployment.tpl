@@ -14,6 +14,7 @@ spec:
       labels:
         app: pelias-api
       annotations:
+        image: pelias/api:{{ .Values.api.dockerTag | default "latest" }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.tpl") . | sha256sum }}
     spec:
       containers:
