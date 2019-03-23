@@ -40,7 +40,7 @@ spec:
             - name: PLACEHOLDER_DATA
               value: "/data/placeholder/"
             - name: CPUS
-              value: "1"
+              value: "{{ .Values.placeholder.cpus }}"
           resources:
             limits:
               memory: 1Gi
