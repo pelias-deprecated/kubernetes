@@ -87,3 +87,8 @@ pip:
 
 # interpolationEnabled: false
 # interpolationHost: "http://pelias-interpolation-service:3000/"
+
+# Importer settings
+whosonfirst:
+  sqlite: false
+  dataHost: null

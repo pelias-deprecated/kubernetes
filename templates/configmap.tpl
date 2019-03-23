@@ -102,7 +102,7 @@ data:
           "files": ["extract.0sv"]
         },
         "whosonfirst": {
-          "sqlite": {{ .Values.whosonfirst.sqlite | default false }},
+          "sqlite": {{ .Values.whosonfirst.sqlite }},
           {{ if .Values.whosonfirst.dataHost }}
           "dataHost": "{{ .Values.whosonfirst.dataHost}}",
           {{ end }}
