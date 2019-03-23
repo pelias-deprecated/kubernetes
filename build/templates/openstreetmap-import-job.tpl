@@ -14,7 +14,7 @@ spec:
         volumeMounts:
         - name: data-volume
           mountPath: /data
-      - name: openstreetmap-download
+      - name: download
         image: pelias/openstreetmap:{{ .Values.openstreetmapDockerTag | default "latest"}}
         command: ["./bin/download"]
         volumeMounts:

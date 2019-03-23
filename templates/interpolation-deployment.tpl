@@ -15,7 +15,7 @@ spec:
         app: pelias-interpolation
     spec:
       initContainers:
-        - name: interpolation-download
+        - name: download
           image: busybox
           command: [ "sh", "-c",
             "mkdir -p /data/interpolation/ &&\n

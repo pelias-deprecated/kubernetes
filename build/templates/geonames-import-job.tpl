@@ -14,7 +14,7 @@ spec:
           volumeMounts:
           - name: data-volume
             mountPath: /data
-        - name: geonames-download
+        - name: download
           image: pelias/geonames:{{ .Values.geonamesDockerTag | default "latest" }}
           command: ["./bin/download"]
           volumeMounts:

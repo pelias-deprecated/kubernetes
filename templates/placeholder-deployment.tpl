@@ -15,7 +15,7 @@ spec:
         app: pelias-placeholder
     spec:
       initContainers:
-        - name: placeholder-download
+        - name: download
           image: busybox
           command: ["sh", "-c",
             "mkdir -p /data/placeholder/ &&\n

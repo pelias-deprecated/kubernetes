@@ -14,7 +14,7 @@ spec:
         volumeMounts:
         - name: data-volume
           mountPath: /data
-      - name: openaddresses-download
+      - name: download
         image: pelias/openaddresses:{{ .Values.openaddressesDockerTag | default "latest" }}
         command: ["./bin/download"]
         volumeMounts:
