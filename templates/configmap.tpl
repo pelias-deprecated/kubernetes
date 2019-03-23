@@ -102,6 +102,10 @@ data:
           "files": ["extract.0sv"]
         },
         "whosonfirst": {
+          "sqlite": {{ .Values.whosonfirst.sqlite | default false }},
+          {{ if .Values.whosonfirst.dataHost }}
+          "dataHost": "{{ .Values.whosonfirst.dataHost}}",
+          {{ end }}
           "importVenues": false,
           "importPostalcodes": true,
           "datapath": "/data/whosonfirst"
