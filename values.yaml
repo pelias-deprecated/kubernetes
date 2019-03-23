@@ -51,6 +51,8 @@ interpolation:
   replicas: 1
   host: "http://pelias-interpolation-service:3000/"
   dockerTag: "latest"
+  # URL prefix of location where streets.db and address.db will be downloaded
+  downloadPath: " https://s3.amazonaws.com/pelias-data.nextzen.org/interpolation/current"
   retries: 1 # number of time the API will retry requests to interpolation service
   timeout: 5000 # time in ms the API will wait for interpolation service responses
   pvc: {}
