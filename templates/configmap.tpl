@@ -26,10 +26,10 @@ data:
       },
       "api": {
         "autocomplete": {
-          "exclude_address_length": {{ .Values.api.autocomplete.exclude_address_length | default 0 }}
+          "exclude_address_length": {{ .Values.api.autocomplete.exclude_address_length }}
         },
-        "attributionURL": "{{ .Values.apiAttributionURL }}",
-        "indexName": "{{ .Values.apiIndexName }}",
+        "attributionURL": "{{ .Values.apiAttributionURL | .Values.api.attributionURL }}",
+        "indexName": "{{ .Values.apiIndexName | .Values.api.indexName }}",
         "services": {
           {{ if .Values.placeholderEnabled  }}
           "placeholder": {

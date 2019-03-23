@@ -4,20 +4,25 @@ elasticsearch:
   port: 9200
   protocol: "http"
 
-# Whether the API service should be externally accessible
-# Set this to true if you want to, for example on AWS, set up an ELB for the API
-externalAPIService: false
-# whether this ELB should be internet facing or private (default private)
-privateAPILoadBalancer: true
-
 ## API settings
 api:
-  autocomplete: {}
-  requests: {}
-
-# the name of the Elasticsearch index to use
-apiIndexName: "pelias"
-apiAttributionURL: "http://api.yourpelias.com/attribution"
+  replicas: 1
+  canaryReplicas: 0
+  dockerTag: "latest"
+  canaryDockerTag: null # set this value to enable the canary deployment
+  indexName: "pelias"
+  attributionURL: "http://api.yourpelias.com/attribution"
+  # Whether the API service should be externally accessible
+  # Set this to true if you want to, for example on AWS, set up an ELB for the API
+  externalService: false
+  # whether the external service  should be internet facing or private (default private)
+  privateLoadBalancer: true
+  autocomplete:
+    exclude_address_length: 0
+  requests:
+    memory: 0.25Gi
+    cpu: 0.1
+  minReadySeconds: 10
 
 # Whether the dashboard should be set up
 dashboard:
