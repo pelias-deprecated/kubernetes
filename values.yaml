@@ -48,7 +48,11 @@ dashboard:
 
 interpolation:
   enabled: false
+  replicas: 1
   host: "http://pelias-interpolation-service:3000/"
+  dockerTag: "latest"
+  retries: 1 # number of time the API will retry requests to interpolation service
+  timeout: 5000 # time in ms the API will wait for interpolation service responses
   pvc: {}
 #    create: true
 #    name: interpolation-pvc
@@ -59,7 +63,12 @@ interpolation:
 
 pip:
   enabled: true
+  replicas: 1
   host: "http://pelias-pip-service:3102/"
+  dockerTag: "latest"
+  maxUnavailable: 0 # adjusts rolling update settings
+  retries: 1 # number of time the API will retry requests to the pip service
+  timeout: 5000 # time in ms the API will wait for pip service responses
   pvc: {}
 #    create: true
 #    name: pip-pvc

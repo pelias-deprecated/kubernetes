@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: pelias-interpolation
 spec:
-  replicas: {{ .Values.interpolationReplicas | default 1 }}
+  replicas: {{ .Values.interpolation.replicas }}
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -33,7 +33,7 @@ spec:
               cpu: 0.1
       containers:
         - name: pelias-interpolation
-          image: pelias/interpolation:{{ .Values.interpolationDockerTag | default "latest" }}
+          image: pelias/interpolation:{{ .Values.interpolation.dockerTag }}
           volumeMounts:
             - name: data-volume
               mountPath: /data

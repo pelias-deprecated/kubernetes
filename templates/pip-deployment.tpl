@@ -4,12 +4,12 @@ kind: Deployment
 metadata:
   name: pelias-pip
 spec:
-  replicas: {{ .Values.pipReplicas | default 1 }}
+  replicas: {{ .Values.pip.replicas }}
   minReadySeconds: 60
   strategy:
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: {{ .Values.pipMaxUnavailable | default 0 }}
+      maxUnavailable: {{ .Values.pip.maxUnavailable }}
   template:
     metadata:
       labels:
@@ -17,7 +17,7 @@ spec:
     spec:
       initContainers:
         - name: wof-download
-          image: pelias/pip-service:{{ .Values.pipDockerTag | default "latest" }}
+          image: pelias/pip-service:{{ .Values.pip.dockerTag }}
           command: ["npm", "run", "download", "--", "--admin-only"]
           volumeMounts:
             - name: config-volume
@@ -36,7 +36,7 @@ spec:
               cpu: 0.1
       containers:
         - name: pelias-pip
-          image: pelias/pip-service:{{ .Values.pipDockerTag | default "latest" }}
+          image: pelias/pip-service:{{ .Values.pip.dockerTag }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config

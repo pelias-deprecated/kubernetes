@@ -38,18 +38,18 @@ data:
             "timeout": {{ .Values.placeholder.timeout }}
           },
           {{- end }}
-          {{- if .Values.interpolationEnabled | default .Values.interpolation.enabled }}
+          {{- if .Values.interpolation.enabled }}
           "interpolation": {
-            "url": "{{ .Values.interpolationHost | default .Values.interpolation.host }}",
-            "retries": {{ .Values.interpolationRetries | default 1 }},
-            "timeout": {{ .Values.interpolationTimeout | default 5000 }}
+            "url": "{{ .Values.interpolation.host }}",
+            "retries": {{ .Values.interpolation.retries }},
+            "timeout": {{ .Values.interpolation.timeout }}
           },
           {{- end }}
-          {{- if .Values.pipEnabled | default .Values.pip.enabled }}
+          {{- if .Values.pip.enabled }}
           "pip": {
-            "url": "{{ .Values.pipHost | default .Values.pip.host}}",
-            "retries": {{ .Values.pipRetries | default 1 }},
-            "timeout": {{ .Values.pipTimeout | default 5000 }}
+            "url": "{{ .Values.pip.host }}",
+            "retries": {{ .Values.pip.retries }},
+            "timeout": {{ .Values.pip.timeout }}
           },
           {{- end }}
           "libpostal": {
