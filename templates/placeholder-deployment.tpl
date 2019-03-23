@@ -13,6 +13,10 @@ spec:
     metadata:
       labels:
         app: pelias-placeholder
+      annotations:
+{{- if .Values.placeholder.annotations }}
+{{ toYaml .Values.placeholder.annotations | indent 8 }}
+{{- end }}
     spec:
       initContainers:
         - name: download

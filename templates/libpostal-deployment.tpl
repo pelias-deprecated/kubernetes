@@ -12,6 +12,10 @@ spec:
     metadata:
       labels:
         app: pelias-libpostal
+      annotations:
+{{- if .Values.libpostal.annotations }}
+{{ toYaml .Values.libpostal.annotations | indent 8 }}
+{{- end }}
     spec:
       containers:
         - name: pelias-libpostal

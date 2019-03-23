@@ -17,6 +17,9 @@ spec:
         image: pelias/api:{{ .Values.api.dockerTag }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.tpl") . | sha256sum }}
         elasticsearch: {{ .Values.elasticsearch.host }}
+{{- if .Values.api.annotations }}
+{{ toYaml .Values.api.annotations | indent 8 }}
+{{- end }}
     spec:
       containers:
         - name: pelias-api

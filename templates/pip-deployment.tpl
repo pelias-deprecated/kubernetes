@@ -14,6 +14,10 @@ spec:
     metadata:
       labels:
         app: pelias-pip
+      annotations:
+{{- if .Values.pip.annotations }}
+{{ toYaml .Values.pip.annotations | indent 8 }}
+{{- end }}
     spec:
       initContainers:
         - name: download

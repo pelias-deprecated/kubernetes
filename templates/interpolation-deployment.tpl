@@ -13,6 +13,10 @@ spec:
     metadata:
       labels:
         app: pelias-interpolation
+      annotations:
+{{- if .Values.interpolation.annotations }}
+{{ toYaml .Values.interpolation.annotations | indent 8 }}
+{{- end }}
     spec:
       initContainers:
         - name: download
