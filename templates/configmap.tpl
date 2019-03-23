@@ -31,11 +31,11 @@ data:
         "attributionURL": "{{ .Values.apiAttributionURL | .Values.api.attributionURL }}",
         "indexName": "{{ .Values.apiIndexName | .Values.api.indexName }}",
         "services": {
-          {{ if .Values.placeholderEnabled  }}
+          {{ if .Values.placeholder.enabled  }}
           "placeholder": {
-            "url": "{{ .Values.placeholderHost }}",
-            "retries": {{ .Values.placeholderRetries | default 1 }},
-            "timeout": {{ .Values.placeholderTimeout | default 5000 }}
+            "url": "{{ .Values.placeholder.host }}",
+            "retries": {{ .Values.placeholder.retries }},
+            "timeout": {{ .Values.placeholder.timeout }}
           },
           {{- end }}
           {{- if .Values.interpolationEnabled | default .Values.interpolation.enabled }}
