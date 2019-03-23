@@ -45,11 +45,6 @@ libpostal:
   timeout: 5000 # time in ms the API will wait for libpostal responses
   annotations: {}
 
-# Whether the dashboard should be set up
-dashboard:
-  enabled: true
-  domain: null # set this to enable an ingress
-
 interpolation:
   enabled: false
   replicas: 1
@@ -85,6 +80,11 @@ pip:
 #    storage: 10Gi
 #    annotations: {}
 
+dashboard:
+  enabled: true
+  replicas: 1
+  dockerTag: "latest"
+  domain: null # set this to enable an ingress
 
 # Deprecated fields
 # pipEnabled: true

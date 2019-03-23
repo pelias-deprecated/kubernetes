@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: pelias-dashboard
 spec:
-  replicas: {{ .Values.dashboardReplicas | default 1 }}
+  replicas: {{ .Values.dashboard.replicas }}
   minReadySeconds: 30 #kubernetes operates so fast it can be nice to slow things down a little
   strategy:
     rollingUpdate:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: pelias-dashboard
-          image: pelias/dashboard:{{ .Values.dashboardDockerTag | default "latest" }}
+          image: pelias/dashboard:{{ .Values.dashboard.dockerTag }}
           env:
             - name: AUTH_TOKEN
               value: "foo"
