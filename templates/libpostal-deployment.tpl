@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-libpostal
 spec:
-  replicas: {{ .Values.libpostalReplicas | default 1 }}
+  replicas: {{ .Values.libpostal.replicas }}
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pelias-libpostal
-          image: pelias/libpostal-service:{{ .Values.libpostalDockerTag | default "latest" }}
+          image: pelias/libpostal-service:{{ .Values.libpostal.dockerTag }}
           resources:
             limits:
               memory: 3Gi

@@ -53,9 +53,9 @@ data:
           },
           {{- end }}
           "libpostal": {
-            "url": "{{ .Values.libpostalHost }}",
-            "retries": {{ .Values.libpostalRetries | default 1 }},
-            "timeout": {{ .Values.libpostalTimeout | default 5000 }}
+            "url": "{{ .Values.libpostal.host }}",
+            "retries": {{ .Values.libpostal.retries }},
+            "timeout": {{ .Values.libpostal.timeout }}
           }
         }
       },

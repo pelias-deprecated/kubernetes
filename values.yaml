@@ -30,17 +30,21 @@ placeholder:
   host: "http://pelias-placeholder-service:3000/"
   dockerTag: "latest"
   storeURL: "https://s3.amazonaws.com/pelias-data.nextzen.org/placeholder/store.sqlite3.gz"
-  retries: 1 # number of time the API will retry requests
+  retries: 1 # number of time the API will retry requests to placeholder
   timeout: 5000 # time in ms the API will wait for placeholder responses
+
+libpostal:
+  enabled: true
+  replicas: 1
+  host: "http://pelias-libpostal-service:4400/"
+  dockerTag: "latest"
+  retries: 1 # number of time the API will retry requests to libpostal
+  timeout: 5000 # time in ms the API will wait for libpostal responses
 
 # Whether the dashboard should be set up
 dashboard:
   enabled: true
   domain: null # set this to enable an ingress
-
-libpostalHost: "http://pelias-libpostal-service:4400/"
-
-libpostalEnabled: true
 
 interpolation:
   enabled: false
