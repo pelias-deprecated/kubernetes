@@ -11,7 +11,7 @@ spec:
       initContainers:
       - name: schema-drop
         image: pelias/schema:{{ .Values.schemaDockerTag | default "latest" }}
-        command: ["npm", "run", "drop_index", "--", "-f", "||" , "true"]
+        command: ["node", "scripts/drop_index.js", "-f", "||" , "true"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config
@@ -22,7 +22,7 @@ spec:
       containers:
       - name: schema-create
         image: pelias/schema:{{ .Values.schemaDockerTag | default "latest" }}
-        command: ["npm", "run", "create_index"]
+        command: ["./bin/create_index"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config

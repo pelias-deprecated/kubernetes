@@ -18,7 +18,7 @@ spec:
       initContainers:
         - name: wof-download
           image: pelias/pip-service:{{ .Values.pip.dockerTag }}
-          command: ["npm", "run", "download", "--", "--admin-only"]
+          command: ["./bin/download", "--admin-only"]
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config

@@ -16,7 +16,7 @@ spec:
             mountPath: /data
         - name: geonames-download
           image: pelias/geonames:{{ .Values.geonamesDockerTag | default "latest" }}
-          command: ["npm", "run", "download"]
+          command: ["./bin/download"]
           volumeMounts:
           - name: config-volume
             mountPath: /etc/config
@@ -35,7 +35,7 @@ spec:
       containers:
       - name: geonames-import-container
         image: pelias/geonames:{{ .Values.geonamesDockerTag | default "latest" }}
-        command: ["npm", "start"]
+        command: ["./bin/start"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config
