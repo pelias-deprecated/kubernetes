@@ -1,23 +1,28 @@
+{{- if (or (.Values.pipEnabled) (.Values.pip.enabled)) }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: pelias-pip
 spec:
-  replicas: {{ .Values.pipReplicas | default 1 }}
+  replicas: {{ .Values.pip.replicas }}
   minReadySeconds: 60
   strategy:
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: {{ .Values.pipMaxUnavailable | default 0 }}
+      maxUnavailable: {{ .Values.pip.maxUnavailable }}
   template:
     metadata:
       labels:
         app: pelias-pip
+      annotations:
+{{- if .Values.pip.annotations }}
+{{ toYaml .Values.pip.annotations | indent 8 }}
+{{- end }}
     spec:
       initContainers:
-        - name: wof-download
-          image: pelias/pip-service:{{ .Values.pipDockerTag | default "latest" }}
-          command: ["npm", "run", "download", "--", "--admin-only"]
+        - name: download
+          image: pelias/pip-service:{{ .Values.pip.dockerTag }}
+          command: ["./bin/download", "--admin-only"]
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
@@ -35,7 +40,7 @@ spec:
               cpu: 0.1
       containers:
         - name: pelias-pip
-          image: pelias/pip-service:{{ .Values.pipDockerTag | default "latest" }}
+          image: pelias/pip-service:{{ .Values.pip.dockerTag }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
@@ -64,4 +69,10 @@ spec:
               - key: pelias.json
                 path: pelias.json
         - name: data-volume
+          {{- if .Values.pip.pvc.create }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.pip.pvc.name }}
+          {{- else }}
           emptyDir: {}
+          {{- end }}
+{{- end -}}

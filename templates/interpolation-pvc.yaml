@@ -1,0 +1,19 @@
+{{- if .Values.interpolation.pvc.create }}
+{{- if (or (.Values.interpolationEnabled) (.Values.interpolation.enabled))  }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.interpolation.pvc.name }}
+  annotations:
+    {{- range $key, $value := .Values.interpolation.pvc.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  storageClassName: {{ .Values.interpolation.pvc.storageClass }}
+  accessModes:
+    - {{ .Values.interpolation.pvc.accessModes }}
+  resources:
+    requests:
+      storage: {{ .Values.interpolation.pvc.storage }}
+{{- end -}}
+{{- end -}}

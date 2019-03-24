@@ -14,9 +14,9 @@ spec:
         volumeMounts:
         - name: data-volume
           mountPath: /data
-      - name: openaddresses-download
+      - name: download
         image: pelias/openaddresses:{{ .Values.openaddressesDockerTag | default "latest" }}
-        command: ["npm", "run", "download"]
+        command: ["./bin/download"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config
@@ -35,7 +35,7 @@ spec:
       containers:
       - name: openaddresses-import-container
         image: pelias/openaddresses:{{ .Values.openaddressesDockerTag | default "latest" }}
-        command: ["npm", "run", "parallel", "2"]
+        command: ["./bin/start"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config

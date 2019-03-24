@@ -8,9 +8,9 @@ spec:
       name: whosonfirst-import
     spec:
       initContainers:
-      - name: wof-download
+      - name: download
         image: pelias/whosonfirst:{{ .Values.whosonfirstDockerTag | default "latest" }}
-        command: ["npm", "run", "download"]
+        command: ["./bin/download"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config
@@ -29,7 +29,7 @@ spec:
       containers:
       - name: whosonfirst-import-container
         image: pelias/whosonfirst:{{ .Values.whosonfirstDockerTag | default "latest" }}
-        command: ["npm", "start"]
+        command: ["./bin/start"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config

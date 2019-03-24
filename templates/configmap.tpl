@@ -26,36 +26,36 @@ data:
       },
       "api": {
         "autocomplete": {
-          "exclude_address_length": {{ .Values.api.autocomplete.exclude_address_length | default 0 }}
+          "exclude_address_length": {{ .Values.api.autocomplete.exclude_address_length }}
         },
-        "attributionURL": "{{ .Values.apiAttributionURL }}",
-        "indexName": "{{ .Values.apiIndexName }}",
+        "attributionURL": "{{ .Values.apiAttributionURL | .Values.api.attributionURL }}",
+        "indexName": "{{ .Values.apiIndexName | .Values.api.indexName }}",
         "services": {
-         {{ if .Values.placeholderEnabled  }}
+          {{ if .Values.placeholder.enabled  }}
           "placeholder": {
-            "url": "{{ .Values.placeholderHost }}",
-            "retries": {{ .Values.placeholderRetries | default 1 }},
-            "timeout": {{ .Values.placeholderTimeout | default 5000 }}
+            "url": "{{ .Values.placeholder.host }}",
+            "retries": {{ .Values.placeholder.retries }},
+            "timeout": {{ .Values.placeholder.timeout }}
           },
-         {{ end }}
-          {{ if .Values.interpolationEnabled }}
+          {{- end }}
+          {{- if .Values.interpolation.enabled }}
           "interpolation": {
-            "url": "{{ .Values.interpolationHost }}",
-            "retries": {{ .Values.interpolationRetries | default 1 }},
-            "timeout": {{ .Values.interpolationTimeout | default 5000 }}
+            "url": "{{ .Values.interpolation.host }}",
+            "retries": {{ .Values.interpolation.retries }},
+            "timeout": {{ .Values.interpolation.timeout }}
           },
-          {{ end }}
-          {{ if .Values.pipEnabled }}
+          {{- end }}
+          {{- if .Values.pip.enabled }}
           "pip": {
-            "url": "{{ .Values.pipHost }}",
-            "retries": {{ .Values.pipRetries | default 1 }},
-            "timeout": {{ .Values.pipTimeout | default 5000 }}
+            "url": "{{ .Values.pip.host }}",
+            "retries": {{ .Values.pip.retries }},
+            "timeout": {{ .Values.pip.timeout }}
           },
-          {{ end }}
+          {{- end }}
           "libpostal": {
-            "url": "{{ .Values.libpostalHost }}",
-            "retries": {{ .Values.libpostalRetries | default 1 }},
-            "timeout": {{ .Values.libpostalTimeout | default 5000 }}
+            "url": "{{ .Values.libpostal.host }}",
+            "retries": {{ .Values.libpostal.retries }},
+            "timeout": {{ .Values.libpostal.timeout }}
           }
         }
       },
@@ -102,7 +102,7 @@ data:
           "files": ["extract.0sv"]
         },
         "whosonfirst": {
-          "sqlite": {{ .Values.whosonfirst.sqlite | default false }},
+          "sqlite": {{ .Values.whosonfirst.sqlite }},
           {{ if .Values.whosonfirst.dataHost }}
           "dataHost": "{{ .Values.whosonfirst.dataHost}}",
           {{ end }}

@@ -102,3 +102,30 @@ It can be useful to open a shell inside a running container for debugging:
 # kubectl exec -it {{pod_name}} -- {{command}}
 kubectl exec -it pelias-pip-3625698757-dtzmd -- /bin/bash
 ```
+
+# Helm Chart Configuration
+The following table lists common configurable parameters of the chart and
+their default values. See values.yaml for all available options.
+
+|       Parameter                        |           Description                       |                         Default                     |
+|----------------------------------------|---------------------------------------------|-----------------------------------------------------|
+| `elasticsearch.host`                   | Elasticsearch hostname                      | `elasticsearch-service`                                              |
+| `elasticsearch.port`                   | Elasticsearch access port                   | `9200`                                              |
+| `elasticsearch.protocol`               | Elasticsearch access protocol               | `http`                                              |
+| `elasticsearch.auth`                   | Elasticsearch authentication `user:pass`    | `-`                                              |
+| `pip.enabled`                          | Whether to enable pip service               | `true`                                              |
+| `pip.host`                             | Pip service url                             | `http://pelias-pip-service:3102/`                   |
+| `pip.pvc.create`                       | To use a custom PVC                         | `-`                                                 |
+| `pip.pvc.name`                         | Name of the PVC                             | `-`                                                 |
+| `pip.pvc.storageClass`                 | Storage Class to use for PVC	               | `-`                                                 |
+| `pip.pvc.storage`                      | Amount of space to claim for PVC	           | `-`                                                 |
+| `pip.pvc.annotations`                  | Storage Class annotation for PVC	           | `-`                                                 |
+| `pip.pvc.accessModes`                  | Access mode to use for PVC      	           | `-`                                                 |
+| `interpolation.enabled`                | Whether to enable interpolation service     | `false`                                             |
+| `interpolation.host`                   | Pip service url                             | `http://pelias-interpolation-service:3000/`           |
+| `interpolation.pvc.create`             | To use a custom PVC                         | `-`                                                 |
+| `interpolation.pvc.name`               | Name of the PVC                             | `-`                                                 |
+| `interpolation.pvc.storageClass`       | Storage Class to use for PVC	               | `-`                                                 |
+| `interpolation.pvc.storage`            | Amount of space to claim for PVC	           | `-`                                                 |
+| `interpolation.pvc.annotations`        | Storage Class annotation for PVC	           | `-`                                                 |
+| `interpolation.pvc.accessModes`        | Access mode to use for PVC      	           | `-`                                                 |

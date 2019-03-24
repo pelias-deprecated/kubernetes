@@ -1,9 +1,10 @@
+{{- if (or (.Values.interpolationEnabled) (.Values.interpolation.enabled))  }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: pelias-interpolation
 spec:
-  replicas: {{ .Values.interpolationReplicas | default 1 }}
+  replicas: {{ .Values.interpolation.replicas }}
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -12,14 +13,18 @@ spec:
     metadata:
       labels:
         app: pelias-interpolation
+      annotations:
+{{- if .Values.interpolation.annotations }}
+{{ toYaml .Values.interpolation.annotations | indent 8 }}
+{{- end }}
     spec:
       initContainers:
-        - name: interpolation-download
+        - name: download
           image: busybox
-          command: ["sh", "-c",
+          command: [ "sh", "-c",
             "mkdir -p /data/interpolation/ &&\n
-             wget -O- https://s3.amazonaws.com/pelias-data.nextzen.org/interpolation/current/street.db.gz | gunzip > /data/interpolation/street.db &\n
-             wget -O- https://s3.amazonaws.com/pelias-data.nextzen.org/interpolation/current/address.db.gz | gunzip > /data/interpolation/address.db" ]
+             wget -O - {{ .Values.interpolation.downloadPath }}/street.db.gz | gunzip > /data/interpolation/street.db &\n
+             wget -O - {{ .Values.interpolation.downloadPath }}/address.db.gz | gunzip > /data/interpolation/address.db" ]
           volumeMounts:
             - name: data-volume
               mountPath: /data
@@ -32,7 +37,7 @@ spec:
               cpu: 0.1
       containers:
         - name: pelias-interpolation
-          image: pelias/interpolation:{{ .Values.interpolationDockerTag | default "latest" }}
+          image: pelias/interpolation:{{ .Values.interpolation.dockerTag }}
           volumeMounts:
             - name: data-volume
               mountPath: /data
@@ -45,4 +50,10 @@ spec:
               cpu: 0.1
       volumes:
         - name: data-volume
+        {{- if .Values.interpolation.pvc.create }}
+          persistentVolumeClaim:
+          claimName: {{ .Values.interpolation.pvc.name }}
+        {{- else }}
           emptyDir: {}
+        {{- end }}
+{{- end -}}

@@ -14,9 +14,9 @@ spec:
         volumeMounts:
         - name: data-volume
           mountPath: /data
-      - name: openstreetmap-download
+      - name: download
         image: pelias/openstreetmap:{{ .Values.openstreetmapDockerTag | default "latest"}}
-        command: ["npm", "run", "download"]
+        command: ["./bin/download"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config
@@ -35,7 +35,7 @@ spec:
       containers:
       - name: openstreetmap-import-container
         image: pelias/openstreetmap:{{ .Values.openstreetmapDockerTag | default "latest"}}
-        command: ["npm", "start"]
+        command: ["./bin/start"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config

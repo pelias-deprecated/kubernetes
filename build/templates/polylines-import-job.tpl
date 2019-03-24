@@ -8,7 +8,7 @@ spec:
       name: polylines-import-pod
     spec:
       initContainers:
-        - name: polylines-download
+        - name: download
           image: busybox
           command: ["sh", "-c"]
           args: ["mkdir -p /data/polylines && wget -O- {{ .Values.polylinesDownloadURL }} | gunzip > /data/polylines/extract.0sv"]
@@ -18,7 +18,7 @@ spec:
       containers:
       - name: polylines-import-container
         image: pelias/polylines:{{ .Values.polylinesDockerTag | default "latest" }}
-        command: ["npm", "start"]
+        command: ["./bin/start"]
         volumeMounts:
           - name: config-volume
             mountPath: /etc/config

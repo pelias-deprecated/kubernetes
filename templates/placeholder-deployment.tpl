@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pelias-placeholder
 spec:
-  replicas: {{ .Values.placeholderReplicas | default 1 }}
+  replicas: {{ .Values.placeholder.replicas }}
   minReadySeconds: 30
   strategy:
     rollingUpdate:
@@ -13,13 +13,17 @@ spec:
     metadata:
       labels:
         app: pelias-placeholder
+      annotations:
+{{- if .Values.placeholder.annotations }}
+{{ toYaml .Values.placeholder.annotations | indent 8 }}
+{{- end }}
     spec:
       initContainers:
-        - name: placeholder-download
+        - name: download
           image: busybox
           command: ["sh", "-c",
             "mkdir -p /data/placeholder/ &&\n
-             wget -O- {{ .Values.placeholderStoreURL }} | gunzip > /data/placeholder/store.sqlite3" ]
+             wget -O- {{ .Values.placeholder.storeURL }} | gunzip > /data/placeholder/store.sqlite3" ]
           volumeMounts:
             - name: data-volume
               mountPath: /data
@@ -32,7 +36,7 @@ spec:
               cpu: 0.2
       containers:
         - name: pelias-placeholder
-          image: pelias/placeholder:{{ .Values.placeholderDockerTag | default "latest" }}
+          image: pelias/placeholder:{{ .Values.placeholder.dockerTag }}
           volumeMounts:
             - name: data-volume
               mountPath: /data
@@ -40,7 +44,7 @@ spec:
             - name: PLACEHOLDER_DATA
               value: "/data/placeholder/"
             - name: CPUS
-              value: "1"
+              value: "{{ .Values.placeholder.cpus }}"
           resources:
             limits:
               memory: 1Gi
