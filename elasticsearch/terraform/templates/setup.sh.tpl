@@ -90,6 +90,7 @@ sudo service elasticsearch start
 # https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
 (elastic_wait) && curl \
   -X PUT \
+  --fail \
   -H 'Content-Type: application/json' \
   -d '{
     "template": ["pelias*"],
