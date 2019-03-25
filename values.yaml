@@ -17,6 +17,7 @@ api:
   externalService: false
   # whether the external service  should be internet facing or private (default private)
   privateLoadBalancer: true
+  accessLog: "common" # allows configuring access log format. Empty string disables access log
   autocomplete:
     exclude_address_length: 0
   requests:

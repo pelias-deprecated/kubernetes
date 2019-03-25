@@ -25,6 +25,7 @@ data:
         }
       },
       "api": {
+        "accessLog": "{{ .Values.api.accessLog }}",
         "autocomplete": {
           "exclude_address_length": {{ .Values.api.autocomplete.exclude_address_length }}
         },
