@@ -29,8 +29,8 @@ data:
         "autocomplete": {
           "exclude_address_length": {{ .Values.api.autocomplete.exclude_address_length }}
         },
-        "attributionURL": "{{ .Values.apiAttributionURL | .Values.api.attributionURL }}",
-        "indexName": "{{ .Values.apiIndexName | .Values.api.indexName }}",
+        "attributionURL": "{{ .Values.api.attributionURL }}",
+        "indexName": "{{ .Values.api.indexName }}",
         "services": {
           {{ if .Values.placeholder.enabled  }}
           "placeholder": {
