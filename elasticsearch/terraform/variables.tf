@@ -103,6 +103,18 @@ variable "elasticsearch_fielddata_limit" {
   default     = "30%"
 }
 
+# disk based shard allocation filtering settings
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/disk-allocator.html
+variable "elasticsearch_high_disk_watermark" {
+  description = "Elasticsearch high disk watermark setting"
+  default = ""
+}
+
+variable "elasticsearch_low_disk_watermark" {
+  description = "Elasticsearch low disk watermark setting"
+  default = ""
+}
+
 ## snapshot loading settings
 variable "snapshot_s3_bucket" {
   description = "The bucket where ES snapshots can be loaded from S3."
