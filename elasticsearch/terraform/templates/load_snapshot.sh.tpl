@@ -50,6 +50,24 @@ curl -s -XPUT --fail "$cluster_url/_cluster/settings" -d '{
 }'
 echo
 
+if [[ "${high_disk_watermark}" != "" ]]; then
+  echo "setting high disk watermark to ${high_disk_watermark}"
+  curl -s -XPUT --fail "$cluster_url/_cluster/settings" -d "{
+    \"persistent\": {
+      \"cluster.routing.allocation.disk.watermark.high\": \"${high_disk_watermark}\"
+    }
+  }"
+fi
+
+if [[ "${low_disk_watermark}" != "" ]]; then
+  echo "setting low disk watermark to ${low_disk_watermark}"
+  curl -s -XPUT --fail "$cluster_url/_cluster/settings" -d "{
+    \"persistent\": {
+      \"cluster.routing.allocation.disk.watermark.low\": \"${low_disk_watermark}\"
+    }
+  }"
+fi
+
 ## 2. create snapshot repository
 curl -s -XPOST --fail "$cluster_url/_snapshot/$es_repo_name" -d "{
   \"type\": \"s3\",
