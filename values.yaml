@@ -33,8 +33,8 @@ placeholder:
   dockerTag: "latest"
   storeURL: "https://s3.amazonaws.com/pelias-data.nextzen.org/placeholder/store.sqlite3.gz"
   cpus: 1 # how many CPUs to allow using via the npm `cluster2` module
-  retries: 1 # number of time the API will retry requests to placeholder
-  timeout: 5000 # time in ms the API will wait for placeholder responses
+  retries: 0 # number of time the API will retry requests to placeholder
+  timeout: 3000 # time in ms the API will wait for placeholder responses
   annotations: {}
 
 libpostal:
@@ -42,8 +42,8 @@ libpostal:
   replicas: 1
   host: "http://pelias-libpostal-service:4400/"
   dockerTag: "latest"
-  retries: 1 # number of time the API will retry requests to libpostal
-  timeout: 5000 # time in ms the API will wait for libpostal responses
+  retries: 0 # number of time the API will retry requests to libpostal
+  timeout: 3000 # time in ms the API will wait for libpostal responses
   annotations: {}
 
 interpolation:
@@ -53,8 +53,8 @@ interpolation:
   dockerTag: "latest"
   # URL prefix of location where streets.db and address.db will be downloaded
   downloadPath: " https://s3.amazonaws.com/pelias-data.nextzen.org/interpolation/current"
-  retries: 1 # number of time the API will retry requests to interpolation service
-  timeout: 5000 # time in ms the API will wait for interpolation service responses
+  retries: 0 # number of time the API will retry requests to interpolation service
+  timeout: 3000 # time in ms the API will wait for interpolation service responses
   annotations: {}
   pvc: {}
 #    create: true
@@ -70,8 +70,8 @@ pip:
   host: "http://pelias-pip-service:3102/"
   dockerTag: "latest"
   maxUnavailable: 0 # adjusts rolling update settings
-  retries: 1 # number of time the API will retry requests to the pip service
-  timeout: 5000 # time in ms the API will wait for pip service responses
+  retries: 0 # number of time the API will retry requests to the pip service
+  timeout: 3000 # time in ms the API will wait for pip service responses
   annotations: {}
   pvc: {}
 #    create: true
