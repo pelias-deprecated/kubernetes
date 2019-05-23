@@ -56,6 +56,7 @@ sudo sed -i "s/#ES_HEAP_SIZE=.*$/ES_HEAP_SIZE=$${heap_memory}m/" /etc/default/el
 # data volume
 data_volume_name="/dev/sdb"
 sudo mkfs -t ext4 $data_volume_name
+sudo tune2fs -m 0 $data_volume_name
 sudo mkdir -p ${elasticsearch_data_dir}
 sudo mount $data_volume_name ${elasticsearch_data_dir}
 sudo echo "$data_volume_name ${elasticsearch_data_dir} ext4 defaults,nofail 0 2" >> /etc/fstab
@@ -64,6 +65,7 @@ sudo chown -R elasticsearch:elasticsearch ${elasticsearch_data_dir}
 # log volume
 log_volume_name="/dev/sdc"
 sudo mkfs -t ext4 $log_volume_name
+sudo tune2fs -m 0 $log_volume_name
 sudo mkdir -p ${elasticsearch_log_dir}
 sudo mount $log_volume_name ${elasticsearch_log_dir}
 sudo echo "$log_volume_name ${elasticsearch_log_dir} ext4 defaults,nofail 0 2" >> /etc/fstab
