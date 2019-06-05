@@ -10,7 +10,8 @@ spec:
       initContainers:
         - name: setup
           image: busybox
-          command: ["mkdir", "-p", "/data/geonames"]
+          command: ["/bin/sh","-c"]
+          args: ["mkdir -p /data/geonames && chown 1000:1000 /data/geonames"]
           volumeMounts:
           - name: data-volume
             mountPath: /data
