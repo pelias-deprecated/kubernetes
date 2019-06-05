@@ -12,6 +12,9 @@ spec:
         image: busybox
         command: ["/bin/sh","-c"]
         args: ["mkdir -p /data/whosonfirst && chown 1000:1000 /data/whosonfirst"]
+        volumeMounts:
+          - name: data-volume
+            mountPath: /data
       - name: download
         image: pelias/whosonfirst:{{ .Values.whosonfirstDockerTag | default "latest" }}
         command: ["./bin/download"]
@@ -58,4 +61,5 @@ spec:
               - key: pelias.json
                 path: pelias.json
         - name: data-volume
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: pelias-build-pvc
