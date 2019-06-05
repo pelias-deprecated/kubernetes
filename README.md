@@ -41,7 +41,7 @@ Some of the following importers will additionally have to be run to initially po
 
 Finally, the importers require the PIP service to be running
 
-Use the [data sources](https://mapzen.com/documentation/search/data-sources/) documentation to decide
+Use the [data sources](https://github.com/pelias/documentation/blob/master/data-sources.md) documentation to decide
 which importers to be run.
 
 Importers can be run in any order, in parallel or one at a time.
@@ -74,6 +74,12 @@ helm install --name pelias-build --namespace pelias ./path/to/pelias/build/chart
 
 `values.yaml` can be reused between the two charts, however, the Pelias services chart must be up and running first.
 
+Build chart provides templates to build full planet from [data sources](https://github.com/pelias/documentation/blob/master/data-sources.md). Before any of data source job is started make sure that below jobs are completed:
+- schema-create-job  - Creates Pelias index in Elasticsearch (Elasticsearch details are provided by configmap template in Pelias chart)
+- efs-presistent-volume and efs-pvc  - Creates PV/PVC in pelias namespace in k8s. It's used to download data by data source importers before data is loaded into Elasticsearch
+
+To build smaller piece instead of full planet i.e. single country modification of configmap.tpl in Pelias chart is required. For download links and country codes see documentation of each individual [data sources](https://mapzen.com/documentation/search/data-sources/).
+
 ## Elasticsearch
 
 Elasticsearch is used as the primary data store for Pelias.
@@ -88,6 +94,7 @@ Some methods for setting up Elasticsearch:
 * [Elasticsearch operator](https://github.com/upmc-enterprises/elasticsearch-operator) by UPMC Enterprises
 * [Elasticsearch operator](https://github.com/zalando-incubator/es-operator) by Zalando
 * [Elastic Cloud](https://www.elastic.co/cloud/) by Elastic, for those looking for a hosted solution
+* [Amazon Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/): hosted Elasticsearch on AWS (be sure sure to change the port from AWS's default of 443)
 
 ## Handy Kubernetes commands
 
