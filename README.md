@@ -70,11 +70,11 @@ helm install --name pelias-build --namespace pelias ./path/to/pelias/build/chart
 
 `values.yaml` can be reused between the two charts, however, the Pelias services chart must be up and running first.
 
-Build chart provides tamplates to build full planet from [data sources](https://mapzen.com/documentation/search/data-sources/). Before any of data source job is started make sure that below jobs are completed:
+Build chart provides tamplates to build full planet from [data sources](https://mapzen.com/documentation/search/data-sources/). Before any of data source job is started below jobs must be completed:
 - schema-create-job  - Creates Pelias index in Elasticsearch (Elasticsearch details are provided by configmap template in Pelias chart)
-- efs-presistent-volume and efs-pvc  - Creates PV/PVC in pelias namespace in k8s. It's used to download data by data source importers before data is loaded into Elasticsearch
+- efs-presistent-volume and efs-pvc  - Creates PV/PVC in pelias namespace in k8s. It's used to store downloaded data by data source importers before data is loaded into Elasticsearch
 
-To build smaller piece instead of full planet i.e. single country modification of configmap.tpl in Pelias chart is required. For download links and country codes see documentation of each individual [data sources](https://mapzen.com/documentation/search/data-sources/).
+To build a smaller piece instead of full planet i.e. single country modification of configmap.tpl in Pelias chart is required. For download links and country codes see documentation of each individual [data sources](https://mapzen.com/documentation/search/data-sources/).
 
 ## Elasticsearch
 
