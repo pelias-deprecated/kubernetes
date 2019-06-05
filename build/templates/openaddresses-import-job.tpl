@@ -10,7 +10,8 @@ spec:
       initContainers:
       - name: setup
         image: busybox
-        command: ["mkdir", "-p", "/data/openaddresses"]
+        command: ["/bin/sh","-c"]
+        args: ["mkdir -p /data/openaddresses && chown 1000:1000 /data/openaddresses"]
         volumeMounts:
         - name: data-volume
           mountPath: /data

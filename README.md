@@ -70,6 +70,12 @@ helm install --name pelias-build --namespace pelias ./path/to/pelias/build/chart
 
 `values.yaml` can be reused between the two charts, however, the Pelias services chart must be up and running first.
 
+Build chart provides tamplates to build full planet from [data sources](https://mapzen.com/documentation/search/data-sources/). Before any of data source job is started make sure that below jobs are completed:
+- schema-create-job  - Creates Pelias index in Elasticsearch (Elasticsearch details are provided by configmap template in Pelias chart)
+- efs-presistent-volume and efs-pvc  - Creates PV/PVC in pelias namespace in k8s. It's used to download data by data source importers before data is loaded into Elasticsearch
+
+To build smaller piece instead of full planet i.e. single country modification of configmap.tpl in Pelias chart is required. For download links and country codes see documentation of each individual [data sources](https://mapzen.com/documentation/search/data-sources/).
+
 ## Elasticsearch
 
 Elasticsearch is used as the primary datastore for Pelias data. As a powerful database with built in
@@ -80,6 +86,8 @@ hardware. To help with this, the `elasticsearch/` directory in this repository c
 setting up a production ready, Pelias compatible Elasticsearch cluster. It uses
 [Terraform](http://terraform.io/) and [Packer](http://packer.io/) to do this. See the directory
 [README](./elasticsearch/README.md) for more details.
+
+If you decided to lanuch Elasticsearch on AWS via AWS Console instead of provided Terraform/Packer solution you should change default port and protocol in values.yaml as AWS use https and 443 by default. 
 
 ## Handy Kubernetes commands
 
