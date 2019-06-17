@@ -1,4 +1,3 @@
-{{- if (or (.Values.interpolationEnabled) (.Values.interpolation.enabled))  }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -56,4 +55,3 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
-{{- end -}}

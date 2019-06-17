@@ -1,4 +1,3 @@
-{{- if (or (.Values.pipEnabled) (.Values.pip.enabled)) }}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -75,4 +74,3 @@ spec:
           {{- else }}
           emptyDir: {}
           {{- end }}
-{{- end -}}
