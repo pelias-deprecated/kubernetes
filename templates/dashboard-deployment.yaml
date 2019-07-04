@@ -5,7 +5,7 @@ metadata:
   name: pelias-dashboard
 spec:
   replicas: {{ .Values.dashboard.replicas }}
-  minReadySeconds: 30 #kubernetes operates so fast it can be nice to slow things down a little
+  minReadySeconds: 1
   strategy:
     rollingUpdate:
       maxSurge: 1
