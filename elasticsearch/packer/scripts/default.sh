@@ -5,7 +5,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update
 sudo apt-get upgrade -y
 
-sudo apt-get install htop dstat -y
+sudo apt-get install htop dstat jq -y
 
 echo "elasticsearch soft nofile 128000
 elasticsearch hard nofile 128000
