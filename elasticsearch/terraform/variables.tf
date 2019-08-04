@@ -127,7 +127,7 @@ variable "snapshot_base_path" {
 }
 
 variable "snapshot_name" {
-  description = "The name of the snapshot to load from S3. If blank, no snapshot will be loaded"
+  description = "The name of the snapshot to load from S3. If blank, the first snapshot in the repository will be used"
   default = ""
 }
 

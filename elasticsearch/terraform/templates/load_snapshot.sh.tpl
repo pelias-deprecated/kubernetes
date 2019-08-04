@@ -13,11 +13,6 @@ alias_name="${snapshot_alias_name}"
 replica_count="${snapshot_replica_count}"
 
 # check all required variables are set
-if [[ "$snapshot_name" == "" ]]; then
-  echo "snapshot_name not set, no snapshot will be loaded"
-  exit 0
-fi
-
 if [[ "$s3_bucket" == "" ]]; then
   echo "s3_bucket not set, no snapshot will be loaded"
   exit 0
@@ -82,6 +77,13 @@ curl -s -XPOST --fail "$cluster_url/_snapshot/$es_repo_name" -d "{
 echo
 
 ## 3. import snapshot
+
+## autodetect snapshot name if not specified
+if [[ "$snapshot_name" == "" ]]; then
+	snapshot_name=$(curl -s -XGET --fail "$cluster_url/_snapshot/$es_repo_name/_all" | jq -r .snapshots[0].snapshot)
+	echo "autodetected snapshot name is $snapshot_name"
+fi
+
 curl -s -XPOST --fail "$cluster_url/_snapshot/$es_repo_name/$snapshot_name/_restore" -d "{
   \"indices\": \"pelias\",
     \"rename_pattern\": \"pelias\",
