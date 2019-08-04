@@ -54,7 +54,15 @@ sudo sed -i 's/#\?MAX_LOCKED_MEMORY=.*/MAX_LOCKED_MEMORY=unlimited/' /etc/init.d
 sudo sed -i "s/#ES_HEAP_SIZE=.*$/ES_HEAP_SIZE=$${heap_memory}m/" /etc/default/elasticsearch
 
 # data volume
-data_volume_name="/dev/sdb"
+data_volume_name="/dev/sdb" # default to an EBS volume mapped to /dev/sdb
+
+# check for local NVMe disks and use them if found
+potential_nvme_disk="$(ls /dev/disk/by-id/nvme-Amazon_EC2_NVMe_Instance_Storage* | head -1)"
+if [[ "$potential_nvme_disk" != "" ]]; then
+  echo "using local NVMe disk at $potential_nvme_disk"
+  data_volume_name=$potential_nvme_disk
+fi
+
 sudo mkfs -t ext4 $data_volume_name
 sudo tune2fs -m 0 $data_volume_name
 sudo mkdir -p ${elasticsearch_data_dir}
