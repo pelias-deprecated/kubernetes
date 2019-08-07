@@ -113,7 +113,7 @@ Create a file, for example `elasticsearch.tf`, with contents like the following:
 
 ```hcl
 module "elasticsearch-prod-a" {
-  source = "github.com/pelias/kubernetes//elasticsearch/terraform?ref=v3.1.0" # check Github for the latest tagged releases
+  source = "github.com/pelias/kubernetes//elasticsearch/terraform?ref=v4.4.0" # check Github for the latest tagged releases
 
   aws_vpc_id   = "vpc-1234" # the ID of an existing VPC in which to create the instances
   ssh_key_name = "ssh-key-to-use"
@@ -130,9 +130,9 @@ module "elasticsearch-prod-a" {
   subnet_name_filter                = "us-east-*" # if you only want to launch Elasticsearch instances in some subnets, provide a filter to find the subnets. Remove if all subnets are ok
 
   # the following section is all optional, and if configured, will load an existing snapshot from S3 on startup
-  snapshot_s3_bucket                = "pelias-elasticsearch.nextzen.org"
-  snapshot_name                     = "name-of-your-snapshot"  # required to load snapshot
+  snapshot_s3_bucket                = "name-of-your-s3-bucket" # required to load snapshot
   snapshot_base_path                = "path/to/your/snapshot"  # required to load snapshot
+  snapshot_name                     = "name-of-your-snapshot"  # optional, will load first snapshot if omitted
   snapshot_alias_name               = "pelias"                 # if you'd like an alias created, use this variable
   snapshot_replica_count            = 1                        # 1 is the default, modify as desired
 }
