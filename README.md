@@ -72,14 +72,18 @@ helm install --name pelias-build --namespace pelias ./path/to/pelias/build/chart
 
 ## Elasticsearch
 
-Elasticsearch is used as the primary datastore for Pelias data. As a powerful database with built in
-scalability and replication abilities, it is not currently well suited for running in Kubernetes.
+Elasticsearch is used as the primary data store for Pelias.
 
-Instead, it's preferable to create "regular" instances in your cloud provider or on your own
-hardware. To help with this, the `elasticsearch/` directory in this repository contains tools for
-setting up a production ready, Pelias compatible Elasticsearch cluster. It uses
-[Terraform](http://terraform.io/) and [Packer](http://packer.io/) to do this. See the directory
-[README](./elasticsearch/README.md) for more details.
+Because Elasticsearch is commplex and it is a performance critical piece of a Pelias installation, it is not included in this Helm chart.
+
+Instead, we recommend Pelias users decide for themselves how to instal Elasticsearch and then configure their Peliast services in Kubernetes to connect to Elasticsearch.
+
+Some methods for setting up Elasticsearch:
+
+* [Pelias Elasticsearch Terraform scripts](https://github.com/pelias/terraform-elasticsearch). **Recommended on AWS** and tested with this project
+* [Elasticsearch operator](https://github.com/upmc-enterprises/elasticsearch-operator) by UPMC Enterprises
+* [Elasticsearch operator](https://github.com/zalando-incubator/es-operator) by Zalando
+* [Elastic Cloud](https://www.elastic.co/cloud/) by Elastic, for those looking for a hosted solution
 
 ## Handy Kubernetes commands
 
