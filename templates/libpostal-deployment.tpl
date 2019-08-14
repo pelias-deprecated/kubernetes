@@ -4,10 +4,11 @@ metadata:
   name: pelias-libpostal
 spec:
   replicas: {{ .Values.libpostal.replicas }}
+  minReadySeconds: {{ .Values.libpostal.minReadySeconds }}
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+      maxSurge: {{ .Values.libpostal.maxSurge }}
+      maxUnavailable: {{ .Values.libpostal.maxUnavailable }}
   template:
     metadata:
       labels:

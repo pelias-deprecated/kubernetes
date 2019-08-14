@@ -4,10 +4,11 @@ metadata:
   name: pelias-interpolation
 spec:
   replicas: {{ .Values.interpolation.replicas }}
+  minReadySeconds: {{ .Values.interpolation.minReadySeconds }}
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+      maxSurge: {{ .Values.interpolation.maxSurge }}
+      maxUnavailable: {{ .Values.interpolation.maxUnavailable }}
   template:
     metadata:
       labels:

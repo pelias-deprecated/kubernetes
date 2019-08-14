@@ -4,11 +4,11 @@ metadata:
   name: pelias-placeholder
 spec:
   replicas: {{ .Values.placeholder.replicas }}
-  minReadySeconds: 30
+  minReadySeconds: {{ .Values.placeholder.minReadySeconds }}
   strategy:
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+      maxSurge: {{ .Values.placeholder.maxSurge }}
+      maxUnavailable: {{ .Values.placeholder.maxUnavailable }}
   template:
     metadata:
       labels:
