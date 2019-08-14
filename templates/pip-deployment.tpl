@@ -4,10 +4,10 @@ metadata:
   name: pelias-pip
 spec:
   replicas: {{ .Values.pip.replicas }}
-  minReadySeconds: 60
+  minReadySeconds: {{ .Values.pip.minReadySeconds }}
   strategy:
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: {{ .Values.pip.maxSurge }}
       maxUnavailable: {{ .Values.pip.maxUnavailable }}
   template:
     metadata:
@@ -59,7 +59,7 @@ spec:
             httpGet:
               path: /12/12
               port: 3102
-            initialDelaySeconds: 120 #PIP service takes a long time to start up
+            initialDelaySeconds: {{ .Values.pip.initialDelaySeconds }}
       volumes:
         - name: config-volume
           configMap:
