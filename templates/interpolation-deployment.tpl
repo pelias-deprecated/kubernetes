@@ -52,7 +52,7 @@ spec:
         - name: data-volume
         {{- if .Values.interpolation.pvc.create }}
           persistentVolumeClaim:
-          claimName: {{ .Values.interpolation.pvc.name }}
+            claimName: {{ .Values.interpolation.pvc.name }}
         {{- else }}
           emptyDir: {}
         {{- end }}
