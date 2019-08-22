@@ -39,6 +39,13 @@ placeholder:
   retries: 1 # number of time the API will retry requests to placeholder
   timeout: 5000 # time in ms the API will wait for placeholder responses
   annotations: {}
+  pvc: {}
+#    create: true
+#    name: placeholder-pvc
+#    storageClass: aws-efs
+#    accessModes: ReadWriteMany
+#    storage: 10Gi
+#    annotations: {}
 
 libpostal:
   enabled: true
