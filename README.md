@@ -8,6 +8,10 @@ This configuration is meant to be run on Kubernetes using real hardware or full 
 machines in the cloud. It could work on a personal computer with
 [minikube](https://github.com/kubernetes/minikube), but larger installations will likely benefit from additional RAM.
 
+**Announcement:** This project previously took advantage of full planet data
+for the [Placeholder](https://github.com/pelias/placeholder) and [Interpolation](https://github.com/pelias/interpolation/) services hosted by
+[Nextzen](https://www.nextzen.org/). Unfortunately this hosting is no longer available. By default, this project will now download data for the [Portland Metro](https://github.com/pelias/docker/tree/master/projects/portland-metro) area.
+
 ## Setup
 
 First, set up a Kubernetes cluster however works best for you. A popular choice is to use
