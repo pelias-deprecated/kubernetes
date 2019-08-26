@@ -54,9 +54,8 @@ spec:
               cpu: 0.1
       volumes:
         - name: data-volume
-        {{- if .Values.placeholder.pvc.create }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.placeholder.pvc.name }}
-        {{- else }}
           emptyDir: {}
-        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+      {{- end }}

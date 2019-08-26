@@ -114,3 +114,5 @@ dashboard:
 whosonfirst:
   sqlite: false
   dataHost: null
+
+nodeSelector: {}
