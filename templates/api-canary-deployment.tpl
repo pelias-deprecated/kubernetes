@@ -42,8 +42,6 @@ spec:
             items:
               - key: pelias.json
                 path: pelias.json
-      {{- with .Values.api.nodeSelector }}
       nodeSelector:
-{{ toYaml . | indent 8 }}
-      {{- end }}
+{{ toYaml .Values.api.nodeSelector | indent 8 }}
 {{- end -}}
