@@ -36,7 +36,7 @@ spec:
             httpGet:
               path: /parse?address=readiness
               port: 4400
-      {{- with .Values.nodeSelector }}
+      {{- with .Values.libpostal.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
       {{- end }}
