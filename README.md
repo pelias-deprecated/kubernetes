@@ -120,8 +120,7 @@ their default values. See values.yaml for all available options.
 | `elasticsearch.host`                   | Elasticsearch hostname                      | `elasticsearch-service`                                              |
 | `elasticsearch.port`                   | Elasticsearch access port                   | `9200`                                              |
 | `elasticsearch.protocol`               | Elasticsearch access protocol               | `http`                                              |
-| `elasticsearch.auth`                   | Elasticsearch authentication `user:pass`    | `-`                                                 |
-| `nodeSelector`                         | Configurable K8s nodeSelector for all pods  | `-`                                                 |
+| `elasticsearch.auth`                   | Elasticsearch authentication `user:pass`    | `-`                                              |
 | `pip.enabled`                          | Whether to enable pip service               | `true`                                              |
 | `pip.host`                             | Pip service url                             | `http://pelias-pip-service:3102/`                   |
 | `pip.pvc.create`                       | To use a custom PVC                         | `-`                                                 |
