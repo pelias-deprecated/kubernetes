@@ -25,6 +25,7 @@ api:
     cpu: 0.1
   minReadySeconds: 10
   annotations: {}
+  nodeSelector: {}
 
 placeholder:
   enabled: true
@@ -39,6 +40,7 @@ placeholder:
   retries: 1 # number of time the API will retry requests to placeholder
   timeout: 5000 # time in ms the API will wait for placeholder responses
   annotations: {}
+  nodeSelector: {}
   pvc: {}
 #    create: true
 #    name: placeholder-pvc
@@ -55,6 +57,7 @@ libpostal:
   retries: 1 # number of time the API will retry requests to libpostal
   timeout: 5000 # time in ms the API will wait for libpostal responses
   annotations: {}
+  nodeSelector: {}
 
 interpolation:
   enabled: false
@@ -69,6 +72,7 @@ interpolation:
   retries: 1 # number of time the API will retry requests to interpolation service
   timeout: 5000 # time in ms the API will wait for interpolation service responses
   annotations: {}
+  nodeSelector: {}
   pvc: {}
 #    create: true
 #    name: interpolation-pvc
@@ -89,6 +93,7 @@ pip:
   timeout: 5000 # time in ms the API will wait for pip service responses
   initialDelaySeconds: 300 # pip service takes a long time to start up
   annotations: {}
+  nodeSelector: {}
   pvc: {}
 #    create: true
 #    name: pip-pvc
@@ -102,6 +107,7 @@ dashboard:
   replicas: 1
   dockerTag: "latest"
   domain: null # set this to enable an ingress
+  nodeSelector: {}
 
 # Deprecated fields
 # pipEnabled: true

@@ -74,3 +74,5 @@ spec:
           {{- else }}
           emptyDir: {}
           {{- end }}
+      nodeSelector:
+{{ toYaml .Values.pip.nodeSelector | indent 8 }}

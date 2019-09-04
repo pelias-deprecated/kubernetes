@@ -59,4 +59,6 @@ spec:
             claimName: {{ .Values.placeholder.pvc.name }}
         {{- else }}
           emptyDir: {}
-        {{- end }}
+	{{- end }}
+      nodeSelector:
+{{ toYaml .Values.placeholder.nodeSelector | indent 8 }}

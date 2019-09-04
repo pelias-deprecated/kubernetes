@@ -56,3 +56,5 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+      nodeSelector:
+{{ toYaml .Values.interpolation.nodeSelector | indent 8 }}
