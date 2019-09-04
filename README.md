@@ -27,7 +27,7 @@ A working Pelias cluster contains at least some of the following services:
 * Pelias API (requires about 50MB of RAM)
 * Libpostal Service (requires about 2GB of RAM)
 * Placeholder Service (Requires 256MB of RAM)
-* Point in Polygon (PIP) Service (Requires up to 6GB of RAM for a full planet build) (**required for reverse geocoding**)
+* Point in Polygon (PIP) Service (Requires up to 6GB of RAM)
 * Interpolation Service (requires ~2GB of RAM)
 
 See the [Pelias Services](https://github.com/pelias/documentation/blob/master/services.md) documentation to determine which services to run.
@@ -56,7 +56,7 @@ You can edit the instance types using `kops edit ig nodes` before starting your 
 
 ### Pelias Helm Chart installation
 
-It's recommended to use a `.yaml` file to configure the Pelias chart. See [values.yaml](https://github.com/pelias/kubernetes/blob/master/values.yaml) for a starting point.
+It's recommended to use a separate `.yaml` file to configure the Pelias chart. See [values.yaml](https://github.com/pelias/kubernetes/blob/master/values.yaml) for a starting point.
 
 The pelias helm chart can be installed as follows:
 
@@ -84,9 +84,9 @@ To build smaller piece instead of full planet i.e. single country modification o
 
 Elasticsearch is used as the primary data store for Pelias.
 
-Because Elasticsearch is commplex and it is a performance critical piece of a Pelias installation, it is not included in this Helm chart.
+Because Elasticsearch is complex and it is a performance critical piece of a Pelias installation, it is not included in this Helm chart.
 
-Instead, we recommend Pelias users decide for themselves how to instal Elasticsearch and then configure their Peliast services in Kubernetes to connect to Elasticsearch.
+Instead, we recommend Pelias users decide for themselves how to instal Elasticsearch and then configure their Pelias services in Kubernetes to connect to Elasticsearch.
 
 Some methods for setting up Elasticsearch:
 
