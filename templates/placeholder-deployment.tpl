@@ -32,7 +32,7 @@ spec:
               memory: 1Gi
               cpu: 1.1
             requests:
-              memory: 512Mi
+              memory: 100Mi
               cpu: 0.2
       containers:
         - name: pelias-placeholder
@@ -50,8 +50,8 @@ spec:
               memory: 1Gi
               cpu: 2
             requests:
-              memory: 512Mi
-              cpu: 0.1
+              memory: {{ .Values.placeholder.requests.memory | quote }}
+              cpu: {{ .Values.placeholder.requests.cpu | quote }}
       volumes:
         - name: data-volume
         {{- if .Values.placeholder.pvc.create }}
