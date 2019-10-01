@@ -39,6 +39,9 @@ placeholder:
   cpus: 1 # how many CPUs to allow using via the npm `cluster2` module
   retries: 1 # number of time the API will retry requests to placeholder
   timeout: 5000 # time in ms the API will wait for placeholder responses
+  requests:
+    memory: 512Mi
+    cpu: 0.1
   annotations: {}
   nodeSelector: {}
   pvc: {}
