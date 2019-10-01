@@ -32,7 +32,7 @@ spec:
               memory: 1Gi
               cpu: 1.1
             requests:
-              memory: 512Mi
+              memory: 100Mi
               cpu: 0.2
       containers:
         - name: pelias-placeholder
