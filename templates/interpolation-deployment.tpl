@@ -14,6 +14,7 @@ spec:
       labels:
         app: pelias-interpolation
       annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.tpl") . | sha256sum }}
 {{- if .Values.interpolation.annotations }}
 {{ toYaml .Values.interpolation.annotations | indent 8 }}
 {{- end }}
@@ -41,6 +42,11 @@ spec:
           volumeMounts:
             - name: data-volume
               mountPath: /data
+            - name: config-volume
+              mountPath: /etc/config
+          env:
+            - name: PELIAS_CONFIG
+              value: "/etc/config/pelias.json"
           resources:
             limits:
               memory: 3Gi
@@ -56,5 +62,11 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
+        - name: config-volume
+          configMap:
+            name: pelias-json-configmap
+            items:
+              - key: pelias.json
+                path: pelias.json
       nodeSelector:
 {{ toYaml .Values.interpolation.nodeSelector | indent 8 }}
