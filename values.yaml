@@ -112,6 +112,19 @@ dashboard:
   domain: null # set this to enable an ingress
   nodeSelector: {}
 
+healthlogger:
+  replicas: 0
+  dockerTag: "latest"
+  maxSurge: 1
+  maxUnavailable: 0
+  minReadySeconds: 1
+  requests:
+    memory: 100Mi
+    cpu: 0.1
+  annotations: {}
+  nodeSelector: {}
+  watch_interval: 60
+
 # Deprecated fields
 # pipEnabled: true
 # pipHost: "http://pelias-pip-service:3102/"
