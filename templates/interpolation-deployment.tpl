@@ -14,7 +14,6 @@ spec:
       labels:
         app: pelias-interpolation
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.tpl") . | sha256sum }}
 {{- if .Values.interpolation.annotations }}
 {{ toYaml .Values.interpolation.annotations | indent 8 }}
 {{- end }}
