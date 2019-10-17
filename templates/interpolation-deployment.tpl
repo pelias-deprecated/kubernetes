@@ -52,8 +52,8 @@ spec:
               memory: 3Gi
               cpu: 2
             requests:
-              memory: 2Gi
-              cpu: 0.1
+              memory: {{ .Values.interpolation.requests.memory | quote }}
+              cpu: {{ .Values.interpolation.requests.cpu | quote }}
       volumes:
         - name: data-volume
         {{- if .Values.interpolation.pvc.create }}

@@ -53,8 +53,8 @@ spec:
               memory: 10Gi
               cpu: 3
             requests:
-              memory: 5Gi
-              cpu: 0.1
+              memory: {{ .Values.pip.requests.memory | quote }}
+              cpu: {{ .Values.pip.requests.cpu | quote }}
           readinessProbe:
             httpGet:
               path: /12/12
