@@ -39,9 +39,14 @@ placeholder:
   cpus: 1 # how many CPUs to allow using via the npm `cluster2` module
   retries: 1 # number of time the API will retry requests to placeholder
   timeout: 5000 # time in ms the API will wait for placeholder responses
+  limits:
+    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
+    ephemeral_storage: 5Gi
   requests:
     memory: 512Mi
     cpu: 0.1
+    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
+    ephemeral_storage: 5Gi
   annotations: {}
   nodeSelector: {}
   pvc: {}
