@@ -31,11 +31,11 @@ spec:
             limits:
               memory: 1Gi
               cpu: 1.1
-              ephemeral-storage: {{ .Values.interpolation.limits.ephemeral_storage }}
+              ephemeral-storage: {{ .Values.placeholder.limits.ephemeral_storage }}
             requests:
               memory: 100Mi
               cpu: 0.2
-              ephemeral-storage: {{ .Values.interpolation.requests.ephemeral_storage }}
+              ephemeral-storage: {{ .Values.placeholder.requests.ephemeral_storage }}
       containers:
         - name: pelias-placeholder
           image: pelias/placeholder:{{ .Values.placeholder.dockerTag }}
@@ -51,11 +51,11 @@ spec:
             limits:
               memory: 1Gi
               cpu: 2
-              ephemeral-storage: {{ .Values.interpolation.limits.ephemeral_storage }}
+              ephemeral-storage: {{ .Values.placeholder.limits.ephemeral_storage }}
             requests:
               memory: {{ .Values.placeholder.requests.memory | quote }}
               cpu: {{ .Values.placeholder.requests.cpu | quote }}
-              ephemeral-storage: {{ .Values.interpolation.requests.ephemeral_storage }}
+              ephemeral-storage: {{ .Values.placeholder.requests.ephemeral_storage }}
       volumes:
         - name: data-volume
         {{- if .Values.placeholder.pvc.create }}
