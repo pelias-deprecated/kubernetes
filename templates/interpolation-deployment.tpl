@@ -20,7 +20,7 @@ spec:
     spec:
       initContainers:
         - name: download
-          image: busybox
+          image: pelias/interpolation:{{ .Values.interpolation.dockerTag }}
           command: [ "sh", "-c",
             "mkdir -p /data/interpolation/ &&\n
              wget -O - {{ .Values.interpolation.downloadPath }}/street.db.gz | gunzip > /data/interpolation/street.db &\n

@@ -20,7 +20,7 @@ spec:
     spec:
       initContainers:
         - name: download
-          image: busybox
+          image: pelias/placeholder:{{ .Values.placeholder.dockerTag }}
           command: ["sh", "-c",
             "mkdir -p /data/placeholder/ &&\n
              wget -O- {{ .Values.placeholder.storeURL }} | gunzip > /data/placeholder/store.sqlite3" ]
