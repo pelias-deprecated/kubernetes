@@ -15,9 +15,9 @@ spec:
       labels:
         app: {{ if .Values.api.privateCanary }} pelias-api-private-canary {{ else }} pelias-api {{ end }}
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.tpl") . | sha256sum }}
+        checksum/config: {{ include (print $.Template.BasePath "/canary-configmap.json.tpl") . | sha256sum }}
         image: pelias/api:{{ .Values.api.canaryDockerTag }}
-        elasticsearch: {{ .Values.elasticsearch.host }}
+        elasticsearch: {{ .Values.canary.elasticsearch.host | default .Values.elasticsearch.host }}
     spec:
       containers:
         - name: pelias-api
@@ -38,7 +38,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: pelias-json-configmap
+            name: pelias-json-canary-configmap
             items:
               - key: pelias.json
                 path: pelias.json
