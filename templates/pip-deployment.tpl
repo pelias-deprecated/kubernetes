@@ -52,8 +52,8 @@ spec:
               value: "/etc/config/pelias.json"
           resources:
             limits:
-              memory: 10Gi
-              cpu: 3
+              memory: {{ .Values.pip.limits.memory }}
+              cpu: {{ .Values.pip.limits.cpu }}
               ephemeral-storage: {{ .Values.pip.limits.ephemeral_storage }}
             requests:
               memory: {{ .Values.pip.requests.memory | quote }}

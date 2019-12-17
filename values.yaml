@@ -109,6 +109,8 @@ pip:
   timeout: 5000 # time in ms the API will wait for pip service responses
   initialDelaySeconds: 300 # pip service takes a long time to start up
   limits:
+    memory: 10Gi
+    cpu: 3
     # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
     ephemeral_storage: 35Gi
   requests:
