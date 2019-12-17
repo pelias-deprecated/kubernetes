@@ -108,9 +108,14 @@ pip:
   retries: 1 # number of time the API will retry requests to the pip service
   timeout: 5000 # time in ms the API will wait for pip service responses
   initialDelaySeconds: 300 # pip service takes a long time to start up
+  limits:
+    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
+    ephemeral_storage: 35Gi
   requests:
     memory: 5Gi
     cpu: 0.1
+    # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
+    ephemeral_storage: 35Gi
   annotations: {}
   nodeSelector: {}
   pvc: {}

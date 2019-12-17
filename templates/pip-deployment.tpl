@@ -34,9 +34,11 @@ spec:
             limits:
               memory: 3Gi
               cpu: 4
+              ephemeral-storage: {{ .Values.pip.limits.ephemeral_storage }}
             requests:
               memory: 1Gi
               cpu: 0.1
+              ephemeral-storage: {{ .Values.pip.requests.ephemeral_storage }}
       containers:
         - name: pelias-pip
           image: pelias/pip-service:{{ .Values.pip.dockerTag }}
@@ -52,9 +54,11 @@ spec:
             limits:
               memory: 10Gi
               cpu: 3
+              ephemeral-storage: {{ .Values.pip.limits.ephemeral_storage }}
             requests:
               memory: {{ .Values.pip.requests.memory | quote }}
               cpu: {{ .Values.pip.requests.cpu | quote }}
+              ephemeral-storage: {{ .Values.pip.requests.ephemeral_storage }}
           readinessProbe:
             httpGet:
               path: /12/12
