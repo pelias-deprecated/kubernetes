@@ -39,6 +39,9 @@ placeholder:
   cpus: 1 # how many CPUs to allow using via the npm `cluster2` module
   retries: 1 # number of time the API will retry requests to placeholder
   timeout: 5000 # time in ms the API will wait for placeholder responses
+  downloadCommand: >
+      mkdir -p /data/placeholder/ &&
+      wget -O- "$DOWNLOAD_URL" | gunzip > /data/placeholder/store.sqlite3
   limits:
     # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
     ephemeral_storage: 5Gi
@@ -79,6 +82,10 @@ interpolation:
   downloadPath: " https://s3.amazonaws.com/pelias-data.nextzen.org/portland-metro/interpolation"
   retries: 1 # number of time the API will retry requests to interpolation service
   timeout: 5000 # time in ms the API will wait for interpolation service responses
+  downloadCommand: >
+    mkdir -p /data/interpolation/ &&
+    wget -O - $DOWNLOAD_PATH/street.db.gz | gunzip > /data/interpolation/street.db &
+    wget -O - $DOWNLOAD_PATH/address.db.gz | gunzip > /data/interpolation/address.db
   limits:
     # cannot use a hyphen to match the k8s param due to https://github.com/helm/helm/issues/2192
     ephemeral_storage: 5Gi
@@ -108,6 +115,7 @@ pip:
   retries: 1 # number of time the API will retry requests to the pip service
   timeout: 5000 # time in ms the API will wait for pip service responses
   initialDelaySeconds: 300 # pip service takes a long time to start up
+  downloadCommand: "./bin/download --admin-only"
   limits:
     memory: 10Gi
     cpu: 3

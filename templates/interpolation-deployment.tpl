@@ -21,10 +21,10 @@ spec:
       initContainers:
         - name: download
           image: pelias/interpolation:{{ .Values.interpolation.dockerTag }}
-          command: [ "sh", "-c",
-            "mkdir -p /data/interpolation/ &&\n
-             wget -O - {{ .Values.interpolation.downloadPath }}/street.db.gz | gunzip > /data/interpolation/street.db &\n
-             wget -O - {{ .Values.interpolation.downloadPath }}/address.db.gz | gunzip > /data/interpolation/address.db" ]
+          env:
+            - name: DOWNLOAD_PATH
+              value: {{ .Values.interpolation.downloadPath | quote }}
+          command: ["sh", "-c", {{ .Values.interpolation.downloadCommand | quote }} ]
           volumeMounts:
             - name: data-volume
               mountPath: /data

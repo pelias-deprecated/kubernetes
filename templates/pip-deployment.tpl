@@ -21,7 +21,7 @@ spec:
       initContainers:
         - name: download
           image: pelias/pip-service:{{ .Values.pip.dockerTag }}
-          command: ["./bin/download", "--admin-only"]
+          command: ["sh", "-c", {{ .Values.pip.downloadCommand | quote }} ]
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
