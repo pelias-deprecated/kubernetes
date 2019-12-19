@@ -4,6 +4,10 @@ elasticsearch:
   port: 9200
   protocol: "http"
 
+canary:
+  elasticsearch:
+    host: null
+
 ## API settings
 api:
   replicas: 1
