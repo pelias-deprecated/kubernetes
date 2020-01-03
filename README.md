@@ -2,7 +2,7 @@
 
 This repository contains Kubernetes configuration files to create a production ready instance of Pelias.
 
-We use [Helm](https://helm.sh/) to manage Pelias installation.
+We use [Helm](https://helm.sh/) to manage everything.
 
 This configuration is meant to be run on Kubernetes using real hardware or full sized virtual
 machines in the cloud. It could work on a personal computer with
@@ -32,59 +32,25 @@ A working Pelias cluster contains at least some of the following services:
 
 See the [Pelias Services](https://github.com/pelias/documentation/blob/master/services.md) documentation to determine which services to run.
 
-Some of the following importers will additionally have to be run to initially populate data
-* Who's on First (requires about 1GB of RAM)
-* OpenStreetMap (requires between 0.25GB and 6GB of RAM depending on import size)
-* OpenAddresses (requires 1GB of RAM)
-* Geonames (requires ~0.5GB of RAM)
-* Polylines (requires 1GB of RAM)
-
-Finally, the importers require the PIP service to be running
-
-Use the [data sources](https://github.com/pelias/documentation/blob/master/data-sources.md) documentation to decide
-which importers to be run.
-
-Importers can be run in any order, in parallel or one at a time.
-
-This means around 10GB of RAM is required to bring up all the services, and up to another 15GB of RAM is needed to
-run all the importers at once. 2 instances with 8GB of RAM each is a good starting point just for
-the services.
-
 If using kops, it defaults to `t2.small` instances, which are far too small (they only have 2GB of ram).
 
-You can edit the instance types using `kops edit ig nodes` before starting your cluster. `m4.large` is a good choice to start.
+You can edit the instance types using `kops edit ig nodes` before starting your cluster. `m5.large` is a good choice to start.
 
 ### Pelias Helm Chart installation
 
-It's recommended to use a separate `.yaml` file to configure the Pelias chart. See [values.yaml](https://github.com/pelias/kubernetes/blob/master/values.yaml) for a starting point.
+It's recommended to use a separate `.yaml` file to configure the Pelias chart. See [values.yaml](https://github.com/pelias/kubernetes/blob/master/values.yaml) for a list of what can be configured, then we recommend you create a _new, empty_ yaml file and modify only the values you need to change.
 
 The pelias helm chart can be installed as follows:
 
 ```
-helm install --name pelias --namespace pelias ./path/to/pelias/charts -f path/to/pelias-values.yaml
+helm install --name pelias --namespace pelias ./path/to/pelias/chart -f path/to/pelias-values.yaml
 ```
-
-### Running a build
-
-The `build` directory in this repository contains an additional chart for running a Pelias build. It can be run in a similar way to the Pelias services chart:
-
-```
-helm install --name pelias-build --namespace pelias ./path/to/pelias/build/chart -f path/to/pelias-values.yaml
-```
-
-`values.yaml` can be reused between the two charts, however, the Pelias services chart must be up and running first.
-
-Build chart provides templates to build full planet from [data sources](https://github.com/pelias/documentation/blob/master/data-sources.md). Before any of data source job is started make sure that below jobs are completed:
-- schema-create-job  - Creates Pelias index in Elasticsearch (Elasticsearch details are provided by configmap template in Pelias chart)
-- efs-presistent-volume and efs-pvc  - Creates PV/PVC in pelias namespace in k8s. It's used to download data by data source importers before data is loaded into Elasticsearch
-
-To build smaller piece instead of full planet i.e. single country modification of configmap.tpl in Pelias chart is required. For download links and country codes see documentation of each individual [data sources](https://mapzen.com/documentation/search/data-sources/).
 
 ## Elasticsearch
 
 Elasticsearch is used as the primary data store for Pelias.
 
-Because Elasticsearch is complex and it is a performance critical piece of a Pelias installation, it is not included in this Helm chart.
+Because Elasticsearch is a complex and performance critical piece of a Pelias installation, it is not included in this Helm chart.
 
 Instead, we recommend Pelias users decide for themselves how to instal Elasticsearch and then configure their Pelias services in Kubernetes to connect to Elasticsearch.
 
@@ -95,6 +61,12 @@ Some methods for setting up Elasticsearch:
 * [Elasticsearch operator](https://github.com/zalando-incubator/es-operator) by Zalando
 * [Elastic Cloud](https://www.elastic.co/cloud/) by Elastic, for those looking for a hosted solution
 * [Amazon Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/): hosted Elasticsearch on AWS (be sure sure to change the port from AWS's default of 443)
+
+## Running a build
+
+In addition to the primary Helm chart in this repo, which is used for running the Pelias services, the `build` directory contains an _experimental_ Helm chart for running a build on Kubernetes.
+
+However, you probably shouldn't use it, as it hasn't been maintained in some time. Instead, use the [Pelias Docker setup](http://github.com/pelias/docker/) to run a build, and save the Elasticsearch index and other data in locations where your primary Pelias cluster can use it.
 
 ## Handy Kubernetes commands
 
