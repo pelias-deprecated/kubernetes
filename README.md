@@ -19,7 +19,9 @@ First, set up a Kubernetes cluster however works best for you. A popular choice 
 
 ### Helm Installation
 
-Helm must be installed before continuing. See [https://github.com/helm/helm#install](https://github.com/helm/helm#install) for instructions.
+Helm 2 must be installed before continuing. **Helm 3 is not yet supported**.
+
+See [https://github.com/helm/helm#install](https://github.com/helm/helm#install) for instructions.
 
 ### Sizing the Kubernetes cluster
 
