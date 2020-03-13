@@ -69,6 +69,9 @@ libpostal:
   replicas: 1
   host: "http://pelias-libpostal-service:4400/"
   dockerTag: "latest"
+  maxSurge: 1
+  maxUnavailable: 0
+  minReadySeconds: 5
   retries: 1 # number of time the API will retry requests to libpostal
   timeout: 5000 # time in ms the API will wait for libpostal responses
   annotations: {}
