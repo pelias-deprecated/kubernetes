@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: {{ .Values.pip.replicas }}
   minReadySeconds: {{ .Values.pip.minReadySeconds }}
+  selector:
+    matchLabels:
+      app: pelias-pip
   strategy:
     rollingUpdate:
       maxSurge: {{ .Values.pip.maxSurge }}

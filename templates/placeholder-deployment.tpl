@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: {{ .Values.placeholder.replicas }}
   minReadySeconds: {{ .Values.placeholder.minReadySeconds }}
+  selector:
+    matchLabels:
+      app: pelias-placeholder
   strategy:
     rollingUpdate:
       maxSurge: {{ .Values.placeholder.maxSurge }}
