@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: {{ .Values.api.replicas }}
   minReadySeconds: {{ .Values.api.minReadySeconds  }}
+  selector:
+    matchLabels:
+      app: pelias-api
   strategy:
     rollingUpdate:
       maxSurge: 1

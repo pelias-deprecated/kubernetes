@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: {{ .Values.libpostal.replicas }}
   minReadySeconds: {{ .Values.libpostal.minReadySeconds }}
+  selector:
+    matchLabels:
+      app: pelias-libpostal
   strategy:
     rollingUpdate:
       maxSurge: {{ .Values.libpostal.maxSurge }}
