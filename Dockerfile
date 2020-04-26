@@ -7,12 +7,12 @@ ENV DEBIAN_FRONTEND 'noninteractive'
 # update apt, install core apt dependencies and delete the apt-cache
 # note: this is done in one command in order to keep down the size of intermediate containers
 RUN apt-get update && \
-    apt-get install -y locales iputils-ping curl wget git-core htop python-pip vim unzip && \
+    apt-get install -y locales iputils-ping curl wget git-core htop python3-pip vim unzip && \
     rm -rf /var/lib/apt/lists/*
 
 
 # install AWS CLI
-RUN pip install awscli
+RUN pip3 install awscli
 
 # everything should be installed under the root user's home directory
 WORKDIR /root
