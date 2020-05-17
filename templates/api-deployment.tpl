@@ -16,6 +16,7 @@ spec:
     metadata:
       labels:
         app: pelias-api
+        app-group: pelias-api
       annotations:
         image: pelias/api:{{ .Values.api.dockerTag }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.tpl") . | sha256sum }}

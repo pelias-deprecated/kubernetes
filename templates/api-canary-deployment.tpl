@@ -8,7 +8,7 @@ spec:
   minReadySeconds: {{ .Values.api.minReadySeconds }}
   selector:
     matchLabels:
-      app: pelias-api
+      app: pelias-api-canary
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -16,7 +16,8 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ if .Values.api.privateCanary }} pelias-api-private-canary {{ else }} pelias-api {{ end }}
+        app: pelias-api-canary
+        app-group: {{ if .Values.api.privateCanary }} pelias-api-private-canary {{ else }} pelias-api {{ end }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/canary-configmap.json.tpl") . | sha256sum }}
         image: pelias/api:{{ .Values.api.canaryDockerTag }}
