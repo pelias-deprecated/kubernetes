@@ -6,6 +6,9 @@ metadata:
 spec:
   replicas: {{ .Values.dashboard.replicas }}
   minReadySeconds: 1
+  selector:
+    matchLabels:
+      app: pelias-dashboard
   strategy:
     rollingUpdate:
       maxSurge: 1

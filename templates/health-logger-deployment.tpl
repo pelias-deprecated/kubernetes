@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: {{ .Values.healthlogger.replicas }}
   minReadySeconds: {{ .Values.healthlogger.minReadySeconds  }}
+  selector:
+    matchLabels:
+      app: pelias-healthlogger
   strategy:
     rollingUpdate:
       maxSurge: {{ .Values.healthlogger.maxSurge }}

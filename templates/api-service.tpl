@@ -6,7 +6,7 @@ metadata:
       {{ if .Values.api.privateLoadBalancer }}service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0{{ end }}
 spec:
     selector:
-        app: pelias-api
+        app-group: pelias-api
     ports:
         - protocol: TCP
           port: 3100
