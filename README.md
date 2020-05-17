@@ -15,7 +15,7 @@ for the [Placeholder](https://github.com/pelias/placeholder) and [Interpolation]
 ## Setup
 
 First, set up a Kubernetes cluster however works best for you. A popular choice is to use
-[kops](https://github.com/kubernetes/kops) on AWS. The [Getting Started on AWS Guide](https://github.com/kubernetes/kops/blob/master/docs/aws.md) is a good starting point.
+[kops](https://github.com/kubernetes/kops) on AWS. The [Getting Started on AWS Guide](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md) is a good starting point.
 
 ### Helm Installation
 
