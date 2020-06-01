@@ -24,6 +24,8 @@ api:
   accessLog: "common" # allows configuring access log format. Empty string disables access log
   autocomplete:
     exclude_address_length: 0
+  targets:
+    auto_discover: null # use default value
   requests:
     memory: 0.25Gi
     cpu: 0.1
