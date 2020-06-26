@@ -35,6 +35,7 @@ data:
         "targets": {
           "auto_discover": {{ .Values.api.targets.auto_discover }}
         },
+        "exposeInternalDebugTools": {{ .Values.api.exposeInternalDebugTools }},
         {{- end }}
         "services": {
           {{ if .Values.placeholder.enabled  }}

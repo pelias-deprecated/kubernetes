@@ -26,6 +26,7 @@ api:
     exclude_address_length: 0
   targets:
     auto_discover: null # use default value
+  exposeInternalDebugTools: false
   requests:
     memory: 0.25Gi
     cpu: 0.1
