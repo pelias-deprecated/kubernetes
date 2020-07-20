@@ -22,8 +22,6 @@ spec:
         - name: pelias-dashboard
           image: pelias/dashboard:{{ .Values.dashboard.dockerTag }}
           env:
-            - name: AUTH_TOKEN
-              value: "foo"
             - name: ES_ENDPOINT
               {{- if .Values.elasticsearch.auth }}
               value: {{ .Values.elasticsearch.protocol }}://{{ .Values.elasticsearch.auth }}@{{ .Values.elasticsearch.host }}:{{ .Values.elasticsearch.port }}/
