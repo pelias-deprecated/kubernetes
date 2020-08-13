@@ -113,7 +113,6 @@ data:
           {{ if .Values.whosonfirst.dataHost }}
           "dataHost": "{{ .Values.whosonfirst.dataHost}}",
           {{ end }}
-          "importVenues": false,
           "importPostalcodes": true,
           "datapath": "/data/whosonfirst"
         }
