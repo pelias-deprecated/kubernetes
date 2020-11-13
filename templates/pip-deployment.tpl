@@ -1,3 +1,4 @@
+{{- if (or (.Values.pipEnabled) (.Values.pip.enabled)) }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -83,3 +84,4 @@ spec:
           {{- end }}
       nodeSelector:
 {{ toYaml .Values.pip.nodeSelector | indent 8 }}
+{{- end -}}
